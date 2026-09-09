@@ -1,0 +1,783 @@
+[
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170969",
+  "title": "2027 | Americas | New York City Area | Executive Office, Firmwide Strategy | New Analyst",
+  "url": "https://higher.gs.com/roles/170969",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-26",
+  "snippet": "Executive Office Division · Analyst",
+  "level": "Analyst",
+  "division": "Executive Office Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "172649",
+  "title": "2027 | APEJ | Hong Kong | Risk, Market Risk | New Analyst",
+  "url": "https://higher.gs.com/roles/172649",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-08-21",
+  "snippet": "Risk Division · Analyst",
+  "level": "Analyst",
+  "division": "Risk Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "182119",
+  "title": "2027 | APEJ | Hong Kong | FICC and Equities (Sales and Trading) Quantitative Strats | New Analyst",
+  "url": "https://higher.gs.com/roles/182119",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-08-18",
+  "snippet": "Engineering Division · Analyst",
+  "level": "Analyst",
+  "division": "Engineering Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171569",
+  "title": "2027 | Americas | New York City Area | Engineering | New Analyst",
+  "url": "https://higher.gs.com/roles/171569",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-16",
+  "snippet": "Engineering Division · Analyst",
+  "level": "Analyst",
+  "division": "Engineering Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171482",
+  "title": "2027 | Americas | New York City Area | Wealth Management, Private Wealth Management | New Associate",
+  "url": "https://higher.gs.com/roles/171482",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-16",
+  "snippet": "Asset & Wealth Management · Associate",
+  "level": "Associate",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171489",
+  "title": "2027 | Americas | San Francisco | Wealth Management, Private Wealth Management | New Associate",
+  "url": "https://higher.gs.com/roles/171489",
+  "locations": [
+   "San Francisco, CA, United States"
+  ],
+  "postedAt": "2026-08-16",
+  "snippet": "Asset & Wealth Management · Associate",
+  "level": "Associate",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171504",
+  "title": "2027 | Americas | Boston | Wealth Management, Private Wealth Management | New Associate",
+  "url": "https://higher.gs.com/roles/171504",
+  "locations": [
+   "Boston, MA, United States"
+  ],
+  "postedAt": "2026-08-16",
+  "snippet": "Asset & Wealth Management · Associate",
+  "level": "Associate",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171506",
+  "title": "2027 | Americas | Chicago | Wealth Management, Private Wealth Management | New Associate",
+  "url": "https://higher.gs.com/roles/171506",
+  "locations": [
+   "Chicago, IL, United States"
+  ],
+  "postedAt": "2026-08-16",
+  "snippet": "Asset & Wealth Management · Associate",
+  "level": "Associate",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "154501",
+  "title": "2027 | APEJ | Singapore | Operations | New Analyst",
+  "url": "https://higher.gs.com/roles/154501",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2025-12-11",
+  "snippet": "Operations Division · Analyst",
+  "level": "Analyst",
+  "division": "Operations Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "178068",
+  "title": "2027 | APEJ | Singapore | FICC and Equities (Sales and Trading) Quantitative Strats | New Associate",
+  "url": "https://higher.gs.com/roles/178068",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-02",
+  "snippet": "Engineering Division · Associate",
+  "level": "Associate",
+  "division": "Engineering Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "178067",
+  "title": "2027 | APEJ | Singapore | Engineering | New Analyst",
+  "url": "https://higher.gs.com/roles/178067",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-02",
+  "snippet": "Engineering Division · Analyst",
+  "level": "Analyst",
+  "division": "Engineering Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "169898",
+  "title": "2027 | APEJ | Singapore | FICC and Equities, Sales and Trading | New Analyst",
+  "url": "https://higher.gs.com/roles/169898",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171432",
+  "title": "2027 | APEJ | Hong Kong | Wealth Management, Wealth Solutions | New Analyst",
+  "url": "https://higher.gs.com/roles/171432",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170767",
+  "title": "2027 | APEJ | Hong Kong | Internal Audit, Business Audit | New Analyst",
+  "url": "https://higher.gs.com/roles/170767",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Internal Audit · Analyst",
+  "level": "Analyst",
+  "division": "Internal Audit",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170778",
+  "title": "2027 | APEJ | Hong Kong | Investment Banking, Classic | New Analyst",
+  "url": "https://higher.gs.com/roles/170778",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170763",
+  "title": "2027 | APEJ | Singapore | Compliance | New Analyst",
+  "url": "https://higher.gs.com/roles/170763",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Compliance Division · Analyst",
+  "level": "Analyst",
+  "division": "Compliance Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170760",
+  "title": "2027 | APEJ | Hong Kong | Compliance | New Analyst",
+  "url": "https://higher.gs.com/roles/170760",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Compliance Division · Analyst",
+  "level": "Analyst",
+  "division": "Compliance Division",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "169897",
+  "title": "2027 | APEJ | Hong Kong | FICC and Equities, Sales and Trading | New Analyst",
+  "url": "https://higher.gs.com/roles/169897",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171430",
+  "title": "2027 | APEJ | Hong Kong | Wealth Management, Private Wealth Management | New Analyst",
+  "url": "https://higher.gs.com/roles/171430",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171830",
+  "title": "2027 | APEJ | Singapore | Asset Management, Client Solutions | New Analyst",
+  "url": "https://higher.gs.com/roles/171830",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170768",
+  "title": "2027 | APEJ | Singapore | Internal Audit, Business Audit | New Analyst",
+  "url": "https://higher.gs.com/roles/170768",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Internal Audit · Analyst",
+  "level": "Analyst",
+  "division": "Internal Audit",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "170769",
+  "title": "2027 | APEJ | Singapore | Internal Audit, Technology Audit | New Analyst",
+  "url": "https://higher.gs.com/roles/170769",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Internal Audit · Analyst",
+  "level": "Analyst",
+  "division": "Internal Audit",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171434",
+  "title": "2027 | APEJ | Singapore | Wealth Management, Private Wealth Management | New Analyst",
+  "url": "https://higher.gs.com/roles/171434",
+  "locations": [
+   "Singapore"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171433",
+  "title": "2027 | APEJ | Hong Kong | Wealth Management, Private Wealth Management | WMP Analyst",
+  "url": "https://higher.gs.com/roles/171433",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-01",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": "campus"
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "183545",
+  "title": "Corporate Treasury, Project Management, New York, Analyst",
+  "url": "https://higher.gs.com/roles/183545",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-09-08",
+  "snippet": "Corporate Treasury · Analyst",
+  "level": "Analyst",
+  "division": "Corporate Treasury",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "183769",
+  "title": "Compliance, Compliance Testing Group and Communication Compliance Surveillance, Analyst, Beijing",
+  "url": "https://higher.gs.com/roles/183769",
+  "locations": [
+   "Beijing, Beijing, China"
+  ],
+  "postedAt": "2026-09-04",
+  "snippet": "Compliance Division · Analyst",
+  "level": "Analyst",
+  "division": "Compliance Division",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "183382",
+  "title": "Corporate Treasury, Operations - Settlements, Analyst/Associate, Beijing",
+  "url": "https://higher.gs.com/roles/183382",
+  "locations": [
+   "Beijing, Beijing, China"
+  ],
+  "postedAt": "2026-09-03",
+  "snippet": "Corporate Treasury · Analyst",
+  "level": "Analyst",
+  "division": "Corporate Treasury",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "181923",
+  "title": "Global Banking & Markets Public, Equities Management, Analyst - New York",
+  "url": "https://higher.gs.com/roles/181923",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-14",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "182190",
+  "title": "Asset & Wealth Management, Quantitative Investment Strategies, Client Portfolio Management, Analyst - New York",
+  "url": "https://higher.gs.com/roles/182190",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-09-01",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "183029",
+  "title": "Global Banking & Markets, Supervisory Risk & Controls, New York-Analyst",
+  "url": "https://higher.gs.com/roles/183029",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-29",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "179580",
+  "title": "Global Banking & Markets, Investment Banking, Technology, Media and Telecom (TMT), Analyst/Associate, Beijing",
+  "url": "https://higher.gs.com/roles/179580",
+  "locations": [
+   "Beijing, Beijing, China"
+  ],
+  "postedAt": "2026-08-21",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "174590",
+  "title": "Asset & Wealth Management, Private Equity Investing, Analyst, Hong Kong/Beijing",
+  "url": "https://higher.gs.com/roles/174590",
+  "locations": [
+   "Hong Kong, Hong Kong",
+   "Beijing, China"
+  ],
+  "postedAt": "2026-05-28",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "176580",
+  "title": "Corporate Treasury, Liquidity Execution, Analyst, Hong Kong",
+  "url": "https://higher.gs.com/roles/176580",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-06-12",
+  "snippet": "Corporate Treasury · Analyst",
+  "level": "Analyst",
+  "division": "Corporate Treasury",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "179406",
+  "title": "Global Banking & Markets, Operations – China Local Markets, Analyst/ Associate, Shenzhen",
+  "url": "https://higher.gs.com/roles/179406",
+  "locations": [
+   "Shenzhen, Guangdong, China"
+  ],
+  "postedAt": "2026-07-22",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "180917",
+  "title": "Risk-Divisional Governance-New York-Analyst",
+  "url": "https://higher.gs.com/roles/180917",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-04",
+  "snippet": "Risk Division · Analyst",
+  "level": "Analyst",
+  "division": "Risk Division",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "165423",
+  "title": "Global Banking & Markets - Public - Natural Gas Trading - Analyst – New York",
+  "url": "https://higher.gs.com/roles/165423",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-07-29",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "179986",
+  "title": "Compliance-Global Banking & Markets Public Compliance - FICC-New York-Analyst",
+  "url": "https://higher.gs.com/roles/179986",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-17",
+  "snippet": "Compliance Division · Analyst",
+  "level": "Analyst",
+  "division": "Compliance Division",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "179267",
+  "title": "Asset & Wealth Management, Private Wealth Management, Financial Analyst, Hong Kong",
+  "url": "https://higher.gs.com/roles/179267",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-27",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "171300",
+  "title": "Global Banking & Markets, Futures Sales Trading, Analyst, Shenzhen",
+  "url": "https://higher.gs.com/roles/171300",
+  "locations": [
+   "Shenzhen, Guangdong, China"
+  ],
+  "postedAt": "2026-08-14",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "181803",
+  "title": "Compliance-GBM Public- Equities-New York-Analyst",
+  "url": "https://higher.gs.com/roles/181803",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-08-18",
+  "snippet": "Compliance Division · Analyst",
+  "level": "Analyst",
+  "division": "Compliance Division",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "160666",
+  "title": "Asset & Wealth Management, External Investing Group (XIG) - Private Alternatives Investment, Analyst, Hong Kong/Beijing",
+  "url": "https://higher.gs.com/roles/160666",
+  "locations": [
+   "Hong Kong"
+  ],
+  "postedAt": "2026-05-28",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "181030",
+  "title": "Controllers, Asset & Wealth Management Product Controllers, Analyst/Associate, Hong Kong",
+  "url": "https://higher.gs.com/roles/181030",
+  "locations": [
+   "Hong Kong"
+  ],
+  "postedAt": "2026-08-04",
+  "snippet": "Controllers · Associate",
+  "level": "Associate",
+  "division": "Controllers",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "179463",
+  "title": "Global Banking & Markets, Equities Flow Vol Strats, Analyst/Associate, Hong Kong",
+  "url": "https://higher.gs.com/roles/179463",
+  "locations": [
+   "Hong Kong"
+  ],
+  "postedAt": "2026-07-16",
+  "snippet": "Global Banking & Markets · Associate",
+  "level": "Associate",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "176984",
+  "title": "Asset & Wealth Management, Wealth Investment Solutions (WIS), Digital Product Manager, Analyst - New York",
+  "url": "https://higher.gs.com/roles/176984",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-06-29",
+  "snippet": "Asset & Wealth Management · Analyst",
+  "level": "Analyst",
+  "division": "Asset & Wealth Management",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "177973",
+  "title": "Controllers, Regulatory Policy, New York, Analyst",
+  "url": "https://higher.gs.com/roles/177973",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "postedAt": "2026-06-30",
+  "snippet": "Controllers · Analyst",
+  "level": "Analyst",
+  "division": "Controllers",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "151533",
+  "title": "Risk, Operational Risk, Analyst, Hong Kong",
+  "url": "https://higher.gs.com/roles/151533",
+  "locations": [
+   "Hong Kong"
+  ],
+  "postedAt": "2026-03-24",
+  "snippet": "Risk Division · Associate",
+  "level": "Associate",
+  "division": "Risk Division",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "160094",
+  "title": "Global Banking & Markets, Equities Funding Strategist, Analyst/ Associate, Hong Kong",
+  "url": "https://higher.gs.com/roles/160094",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-07-21",
+  "snippet": "Global Banking & Markets · Associate",
+  "level": "Associate",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "178911",
+  "title": "Global Banking and Markets, SPG Trading, Analyst/Associate, Hong Kong",
+  "url": "https://higher.gs.com/roles/178911",
+  "locations": [
+   "Hong Kong, Hong Kong"
+  ],
+  "postedAt": "2026-08-11",
+  "snippet": "Global Banking & Markets · Associate",
+  "level": "Associate",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "173944",
+  "title": "Global Banking & Markets, Investment Banking, China Advisory, Analyst / Associate, Beijing",
+  "url": "https://higher.gs.com/roles/173944",
+  "locations": [
+   "Beijing, Beijing, China"
+  ],
+  "postedAt": "2026-07-29",
+  "snippet": "Global Banking & Markets · Associate",
+  "level": "Associate",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "154124",
+  "title": "Private Wealth Management, Interest Rate Strategist, Analyst/Associate, London",
+  "url": "https://higher.gs.com/roles/154124",
+  "locations": [
+   "London, Greater London, England, United Kingdom"
+  ],
+  "postedAt": "2026-06-29",
+  "snippet": "Asset & Wealth Management · Associate",
+  "level": "Associate",
+  "division": "Asset & Wealth Management",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "183757",
+  "title": "Global Banking & Markets, Investment Banking, Classic, Technology, Media, and Telecommunications, London, Analyst",
+  "url": "https://higher.gs.com/roles/183757",
+  "locations": [
+   "London, Greater London, England, United Kingdom"
+  ],
+  "postedAt": "2026-09-07",
+  "snippet": "Global Banking & Markets · Analyst",
+  "level": "Analyst",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ },
+ {
+  "companyKey": "goldman",
+  "company": "Goldman Sachs",
+  "id": "180474",
+  "title": "Global Banking & Markets, Investment Banking, Financial Institutions Group (FIG), Analyst/Associate, Singapore",
+  "url": "https://higher.gs.com/roles/180474",
+  "locations": [
+   "Singapore, Singapore, Singapore"
+  ],
+  "postedAt": "2026-07-31",
+  "snippet": "Global Banking & Markets · Associate",
+  "level": "Associate",
+  "division": "Global Banking & Markets",
+  "hint": ""
+ }
+]

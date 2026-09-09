@@ -1,0 +1,383 @@
+<title>2027 求职雷达</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    --paper: #F6F8F6;
+    --card: #FFFFFF;
+    --ink: #17211D;
+    --ink-2: #4A5B54;
+    --ink-3: #7B8A83;
+    --line: #DCE4DF;
+    --accent: #0B6B4F;
+    --accent-soft: #E3F0EA;
+    --open: #0B6B4F;
+    --open-bg: #E3F0EA;
+    --warn: #9A6A0B;
+    --warn-bg: #F5ECD7;
+    --watch: #3D5A80;
+    --watch-bg: #E4EBF3;
+    --closed: #9C4038;
+    --closed-bg: #F3E3E1;
+    --shadow: 0 1px 3px rgba(23,33,29,.07);
+  }
+  :root:not([data-theme="light"]) { }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141917;
+      --card: #1C2320;
+      --ink: #E8EDEA;
+      --ink-2: #A9B8B0;
+      --ink-3: #77857E;
+      --line: #2E3934;
+      --accent: #55B893;
+      --accent-soft: #1E3229;
+      --open: #55B893;
+      --open-bg: #1E3229;
+      --warn: #D4A94E;
+      --warn-bg: #33290F;
+      --watch: #8FB0D6;
+      --watch-bg: #1E2A38;
+      --closed: #D08A82;
+      --closed-bg: #372220;
+      --shadow: 0 1px 3px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141917;
+    --card: #1C2320;
+    --ink: #E8EDEA;
+    --ink-2: #A9B8B0;
+    --ink-3: #77857E;
+    --line: #2E3934;
+    --accent: #55B893;
+    --accent-soft: #1E3229;
+    --open: #55B893;
+    --open-bg: #1E3229;
+    --warn: #D4A94E;
+    --warn-bg: #33290F;
+    --watch: #8FB0D6;
+    --watch-bg: #1E2A38;
+    --closed: #D08A82;
+    --closed-bg: #372220;
+    --shadow: 0 1px 3px rgba(0,0,0,.35);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    padding: 40px 20px 72px;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  /* ---------- header ---------- */
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 20px; margin-bottom: 26px; }
+  .kicker { font-size: 12.5px; letter-spacing: .18em; color: var(--accent); font-weight: 700; text-transform: uppercase; }
+  h1 { font-family: "Noto Serif SC", serif; font-size: clamp(30px, 5vw, 42px); font-weight: 700; letter-spacing: .04em; margin-top: 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); margin-top: 8px; max-width: 46em; }
+  .asof { margin-top: 12px; font-size: 12.5px; color: var(--ink-3); }
+  .asof b { color: var(--warn); font-weight: 600; }
+
+  /* ---------- deadline rail ---------- */
+  .rail-wrap { overflow-x: auto; margin: 0 0 34px; }
+  .rail { display: flex; gap: 10px; min-width: max-content; padding: 4px 2px; }
+  .tick {
+    background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--accent);
+    border-radius: 6px; padding: 10px 14px; box-shadow: var(--shadow); min-width: 150px;
+  }
+  .tick .d { font-size: 15px; font-weight: 600; color: var(--ink); }
+  .tick .what { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; line-height: 1.5; }
+  .tick.rolling { border-top-color: var(--watch); }
+
+  /* ---------- sections ---------- */
+  section { margin-bottom: 40px; }
+  h2 { font-family: "Noto Serif SC", serif; font-size: 22px; font-weight: 700; letter-spacing: .06em; display: flex; align-items: baseline; gap: 12px; }
+  h2 .tag { font-family: "Noto Sans SC", sans-serif; font-size: 12px; font-weight: 500; letter-spacing: .05em; color: var(--ink-3); }
+  .rule { height: 1px; background: var(--line); margin: 10px 0 18px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+
+  .role {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 16px 18px 14px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .role-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .firm { font-size: 12.5px; font-weight: 700; letter-spacing: .08em; color: var(--accent); text-transform: uppercase; }
+  .pill { font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+  .pill.open { background: var(--open-bg); color: var(--open); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .pill.watch { background: var(--watch-bg); color: var(--watch); }
+  .pill.closed { background: var(--closed-bg); color: var(--closed); }
+  .role h3 { font-size: 16.5px; font-weight: 700; line-height: 1.4; text-wrap: balance; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12px; background: var(--accent-soft); color: var(--ink-2); border-radius: 4px; padding: 1px 8px; }
+  .ddl { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .ddl.hot { color: var(--closed); }
+  .fit { font-size: 13.5px; color: var(--ink-2); border-left: 3px solid var(--line); padding-left: 10px; }
+  .role a { color: var(--accent); font-weight: 600; font-size: 13.5px; text-decoration: none; margin-top: auto; }
+  .role a:hover, .role a:focus-visible { text-decoration: underline; outline: none; }
+  .src { font-size: 11.5px; color: var(--ink-3); }
+
+  /* ---------- strategy ---------- */
+  .note { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; box-shadow: var(--shadow); }
+  .note h3 { font-size: 15.5px; font-weight: 700; margin: 14px 0 4px; }
+  .note h3:first-child { margin-top: 0; }
+  .note p { color: var(--ink-2); font-size: 14px; max-width: 62em; }
+  .note b { color: var(--ink); }
+
+  footer { margin-top: 40px; font-size: 12.5px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 14px; max-width: 62em; }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="kicker">Caesar · 2027 届 · 金融 × AI</div>
+  <h1>2027 求职雷达</h1>
+  <p class="sub">高盛 / J.P. Morgan / Morgan Stanley / Barclays / 麦肯锡 + 中国券商与 AI 上市公司，六城（香港 · 多伦多 · 纽约 · 芝加哥 · 深圳 · 北京），目标 2027 年春/秋入职。按"现在就投 → 核实后投 → 盯开放 → 已关下轮"排序。</p>
+  <p class="asof">信息核实于 <b>2026-08-30</b>，全部来自官方招聘页或近期一手信息；投递前请以官网为准。标注"估计"的日期基于往届节奏推算。</p>
+</header>
+
+<div class="rail-wrap"><div class="rail">
+  <div class="tick"><div class="d mono">09-27</div><div class="what">MS 香港 Industrial Placement 截止（23:55 HKT）</div></div>
+  <div class="tick"><div class="d mono">09-30</div><div class="what">腾讯校招首批截止 · JPM 香港 Markets 暑期截止</div></div>
+  <div class="tick"><div class="d mono">10-04</div><div class="what">高盛 APAC 全职+暑期截止 · 阿里校招截止</div></div>
+  <div class="tick"><div class="d mono">10 月中下旬</div><div class="what">中金/中信建投往届网申截止区间（估计）</div></div>
+  <div class="tick"><div class="d mono">10-30</div><div class="what">地平线机器人网申截止</div></div>
+  <div class="tick rolling"><div class="d">滚动录取</div><div class="what">GS 美洲全职 · JPM 纽约 Markets 全职 · Barclays 港 S&amp;T——早投早审</div></div>
+</div></div>
+
+<!-- ================= ① ================= -->
+<section>
+  <h2>① 现在就投<span class="tag">毕业窗口已核实匹配（你：2026.12–2027 中毕业）· 按推荐顺序</span></h2>
+  <div class="rule"></div>
+  <div class="grid">
+
+    <div class="role">
+      <div class="role-top"><span class="firm">Goldman Sachs</span><span class="pill open">开放中</span></div>
+      <h3>1 · New Analyst Program 2027 · APAC（全职）</h3>
+      <div class="meta"><span class="chip">香港</span><span class="chip">北京</span><span class="chip">深圳</span><span class="chip">2027 年入职</span></div>
+      <div class="ddl hot">截止 2026-10-04</div>
+      <p class="fit">首推。IBD / Global Markets / 研究 / Strats 均可选；你的中英双语 + 中金投行经历在 APAC 是硬通货，北京深圳岗即高盛（中国）证券。</p>
+      <a href="https://www.goldmansachs.com/careers/students/programs-and-internships/asia-pacific/new-analyst" target="_blank" rel="noopener">官方申请入口 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">J.P. Morgan</span><span class="pill open">开放中 · 滚动</span></div>
+      <h3>2 · CIB Markets Full-Time Analyst 2027（含 Research 方向）</h3>
+      <div class="meta"><span class="chip">纽约</span><span class="chip">2027 年入职</span></div>
+      <div class="ddl">滚动招聘（7 月已开）· 尽快投</div>
+      <p class="fit">要求毕业于 2026.12–2027.6 —— 与你完全重合。Markets + Research 吃分析能力，你的 AI 工作流经历是差异化卖点。</p>
+      <a href="https://careers.jpmorgan.com/us/en/students/programs" target="_blank" rel="noopener">JPM 学生项目入口（搜 2027 Markets Full-Time）→</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">Goldman Sachs</span><span class="pill open">开放中 · 滚动</span></div>
+      <h3>3 · New Analyst Program 2027 · Americas（全职）</h3>
+      <div class="meta"><span class="chip">纽约</span><span class="chip">芝加哥</span><span class="chip">2027 夏入职</span></div>
+      <div class="ddl">未设截止 · 滚动审核，越早越好</div>
+      <p class="fit">明确面向 2026.12–2027.7 毕业生；全部门可选（含 Strats——适合你的金融+AI 组合），芝加哥 IBD 也从这里进。</p>
+      <a href="https://www.goldmansachs.com/careers/students/programs-and-internships/americas/new-analyst-program" target="_blank" rel="noopener">官方申请入口 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">Barclays</span><span class="pill open">开放中 · 滚动</span></div>
+      <h3>4 · Sales, Trading &amp; Structuring Graduate Programme 2027</h3>
+      <div class="meta"><span class="chip">香港</span><span class="chip">2027 年入职</span></div>
+      <div class="ddl">8 月 17 日刚发布 · 滚动</div>
+      <p class="fit">明写要求 2026.12–2027.6 毕业、GPA ≈3.2 —— 门槛友好且窗口精准命中；S&amp;T 起步学习曲线陡，适合"利于学习"的诉求。</p>
+      <a href="https://search.jobs.barclays/job/hong-kong/sales-trading-and-structuring-graduate-programme-2027-hong-kong/13015/99338960032" target="_blank" rel="noopener">官方职位页 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">Goldman Sachs</span><span class="pill open">开放中 · 滚动</span></div>
+      <h3>5 · Off-Cycle Internship · APAC（研究 GIR / 投行 IBD）</h3>
+      <div class="meta"><span class="chip">香港</span><span class="chip">北京</span><span class="chip">深圳</span><span class="chip">3–12 个月 · 2026 底/2027 春可入</span></div>
+      <div class="ddl">滚动开放（明确接受应届/毕业生）</div>
+      <p class="fit">你"2027 春季"选项的最佳落点：先进场做 3–12 个月，表现好转正是 APAC 常规路径；GIR 研究岗与你的数据分析背景高度对口。</p>
+      <a href="https://www.goldmansachs.com/careers/students/programs-and-internships/asia-pacific/off-cycle-internship-program" target="_blank" rel="noopener">项目页（在 higher.gs.com 搜在招岗）→</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">腾讯 Tencent</span><span class="pill open">开放中</span></div>
+      <h3>6 · 2027 校园招聘（AI 产品 / 战略 / 产品经理等）</h3>
+      <div class="meta"><span class="chip">深圳</span><span class="chip">北京</span><span class="chip">香港</span><span class="chip">2027 夏秋入职</span></div>
+      <div class="ddl hot">首批约 2026-09-30 截止 · 分批进行</div>
+      <p class="fit">面向 2026.1–2027.12 毕业；新增 AI 产品经理类岗位与你的 agentic AI 项目直接对话，深圳+香港都有岗。</p>
+      <a href="https://join.qq.com/" target="_blank" rel="noopener">join.qq.com →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">阿里巴巴 Alibaba</span><span class="pill open">开放中</span></div>
+      <h3>7 · 2027 届全球校招（产品 / 商业分析 / 商务拓展）</h3>
+      <div class="meta"><span class="chip">北京为主</span><span class="chip">2027 年入职</span></div>
+      <div class="ddl hot">截止 2026-10-04</div>
+      <p class="fit">面向 2026.11–2027.10 毕业；AI 电商与金融科技条线多，商业分析岗吃你的咨询+建模复合背景。</p>
+      <a href="https://talent.alibaba.com/" target="_blank" rel="noopener">talent.alibaba.com →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">百度 Baidu</span><span class="pill open">开放中 · 全年投递</span></div>
+      <h3>8 · 2027 届校招（74 类职位，AI 岗占九成）</h3>
+      <div class="meta"><span class="chip">北京</span><span class="chip">深圳</span><span class="chip">2027 年入职</span></div>
+      <div class="ddl">无统一截止 · 11 月起发 offer</div>
+      <p class="fit">产品/政企/综合方向对非技术背景开放；想深耕 AI 行业侧，这是覆盖面最大的入口。</p>
+      <a href="https://talent.baidu.com/jobs/list" target="_blank" rel="noopener">talent.baidu.com →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">科大讯飞 / 地平线</span><span class="pill open">开放中</span></div>
+      <h3>9 · 2027 届秋招（产品 / 营销 / 业务拓展类）</h3>
+      <div class="meta"><span class="chip">深圳</span><span class="chip">北京</span></div>
+      <div class="ddl">讯飞未列截止 · 地平线 2026-10-30 截止</div>
+      <p class="fit">备选梯队：讯飞"飞凡计划"接受 2025.6–2027.8 毕业；地平线业务拓展类岗位少但含金量高（智驾 AI 上市公司）。</p>
+      <a href="https://iflytek.zhiye.com/" target="_blank" rel="noopener">讯飞入口 →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ② ================= -->
+<section>
+  <h2>② 开放中，先核实资格再投<span class="tag">多为 2027 暑期实习——通常要求 2027.9–2028 年中毕业（即"届时仍在读"）</span></h2>
+  <div class="rule"></div>
+  <div class="grid">
+
+    <div class="role">
+      <div class="role-top"><span class="firm">Morgan Stanley</span><span class="pill warn">开放 · 资格存疑</span></div>
+      <h3>Industrial Placement 2027 · Asia（6 个月 off-cycle，2027.1–7）</h3>
+      <div class="meta"><span class="chip">香港</span><span class="chip">IBD / GCM / FID / IED</span></div>
+      <div class="ddl hot">最终轮截止 2026-09-27 23:55 HKT</div>
+      <p class="fit">时段（2027 年 1–7 月）与你"春季"设想完美吻合，但 IED 岗写明要 2027.9–2028.6 毕业的在读生。投 IBD/GCM 前先向校招邮箱确认你的毕业窗口是否可行——若可行，这是 MS 最现实的进门路径。</p>
+      <a href="https://morganstanley.tal.net/candidate/jobboard/vacancy/1/adv/" target="_blank" rel="noopener">MS 校招职位板 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">J.P. Morgan</span><span class="pill warn">开放 · 需 2028 毕业窗口</span></div>
+      <h3>Markets Summer Analyst 2027 · 香港</h3>
+      <div class="meta"><span class="chip">香港</span><span class="chip">2027 夏实习</span></div>
+      <div class="ddl hot">截止 2026-09-30</div>
+      <p class="fit">仅当你确定 2027 秋入学第二个硕士（毕业顺延至 2028），暑期实习通道才对你重新打开；届时这类岗位是 2028 全职 offer 的主渠道。</p>
+      <a href="https://careers.jpmorgan.com/us/en/students/programs" target="_blank" rel="noopener">JPM 入口 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">GS / MS / Barclays</span><span class="pill warn">开放 · 面向硕士在读</span></div>
+      <h3>量化与 Strats 类暑期 2027（Master's/Associate 级）</h3>
+      <div class="meta"><span class="chip">纽约</span><span class="chip">香港</span></div>
+      <div class="ddl">GS APAC 10-04 截 · MS 香港 09-27 截 · Barclays NY 滚动</div>
+      <p class="fit">GS 2027 暑期（APAC 明确收硕士生）、MS IED 量化金融（HK）、MS Strats &amp; AlphaWise（NY）、Barclays 量化 Associate（NY）——都契合金融+AI 画像，但同样默认你 2027 夏仍在读。读二硕路线下值得列入 2027 春的申请清单（2028 暑期届时同步开）。</p>
+      <a href="https://search.jobs.barclays/search-jobs?k=2027" target="_blank" rel="noopener">Barclays 检索 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">Barclays</span><span class="pill warn">开放 · 资格未标明</span></div>
+      <h3>Banking Analyst Summer Internship 2027 · 多伦多</h3>
+      <div class="meta"><span class="chip">多伦多</span><span class="chip">2027 夏实习</span></div>
+      <div class="ddl">8 月刚发布 · 滚动</div>
+      <p class="fit">多伦多唯一在招的投行暑期岗；页面未写毕业窗口，值得直接问清——若接受 2027 届，这就是留加选项里的优先级第一。</p>
+      <a href="https://search.jobs.barclays/search-jobs?k=2027" target="_blank" rel="noopener">检索"2027" →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ③ ================= -->
+<section>
+  <h2>③ 盯紧：预计 9 月开闸<span class="tag">中国券商 2027 届秋招 · 每周查一次官网/公众号</span></h2>
+  <div class="rule"></div>
+  <div class="grid">
+
+    <div class="role">
+      <div class="role-top"><span class="firm">中金公司 CICC</span><span class="pill watch">未开 · 估计 9 月中启动</span></div>
+      <h3>2027 届秋季校园招聘（回流首选）</h3>
+      <div class="meta"><span class="chip">北京</span><span class="chip">深圳</span><span class="chip">香港</span></div>
+      <div class="ddl">往届：9-12 开网申 → 10-28 截止（仅约 6 周窗口）</div>
+      <p class="fit">你有中金投行部实习履历，回流是全场胜率最高的一张牌。订阅公众号"中金Career"，开闸当天就投。</p>
+      <a href="https://cicc.zhiye.com/" target="_blank" rel="noopener">cicc.zhiye.com →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">中信建投证券</span><span class="pill watch">疑似已启动 · 待核实</span></div>
+      <h3>2027 届秋招（投行部 / 研究所）</h3>
+      <div class="meta"><span class="chip">北京</span></div>
+      <div class="ddl">第三方称 8 月已全面启动；往届 10 月上旬公告、10 月底截止</div>
+      <p class="fit">官方北森系统页面需手动打开确认。本周就去 csc108.zhiye.com 查一次，若已开放优先投投行部。</p>
+      <a href="https://csc108.zhiye.com/campus/jobs" target="_blank" rel="noopener">csc108.zhiye.com/campus/jobs →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">国信证券</span><span class="pill watch">未开 · 估计 9 月启动</span></div>
+      <h3>2027 届秋招（总部深圳）</h3>
+      <div class="meta"><span class="chip">深圳</span></div>
+      <div class="ddl">27 届暑期实习已于 5 月截止；秋招公告未出（估计 9 月）</div>
+      <p class="fit">深圳总部与你的城市偏好吻合；投行类+金融科技类都值得报，金融科技岗能直接用上你的 AI 项目。</p>
+      <a href="https://guosen.zhiye.com/" target="_blank" rel="noopener">guosen.zhiye.com →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">MS 中国 / JPM APAC</span><span class="pill watch">未放出 · 持续监控</span></div>
+      <h3>MSSC 2027 届校招 · JPM 亚太全职 2027</h3>
+      <div class="meta"><span class="chip">北京</span><span class="chip">香港</span></div>
+      <div class="ddl">MS 中国仅挂 2026 暑期周期；JPM 亚太 FT 以实习转正为主，秋季偶有直招</div>
+      <p class="fit">10–11 月复查一轮；JPM 另有中国区 6 个月兼职实习计划（滚动，表现好可转正），作为后备路径。</p>
+      <a href="https://www.jpmorganchase.com/careers/explore-opportunities/programs/china-apprenticeship" target="_blank" rel="noopener">JPM China 项目页 →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ④ ================= -->
+<section>
+  <h2>④ 本轮已关，记下一轮<span class="tag">含麦肯锡——刚刚错过，下轮时间明确写进日历</span></h2>
+  <div class="rule"></div>
+  <div class="grid">
+
+    <div class="role">
+      <div class="role-top"><span class="firm">McKinsey</span><span class="pill closed">已截止</span></div>
+      <h3>Business Analyst 全职 · 北美（多伦多/纽约/芝加哥）</h3>
+      <div class="meta"><span class="chip">2027 年入职批次</span></div>
+      <div class="ddl">2026-08-11 已截止（7-01 开放）</div>
+      <p class="fit">下一轮估计 2027 年 6–8 月开放、对应 2028 年入职——若你 2027 秋入学二硕，那一轮正好在读期间申请，MSc 背景走 BA 线，时间线完全咬合。设个 2027-06-01 的提醒。</p>
+      <a href="https://www.mckinsey.com/careers/search-jobs/jobs/businessanalyst-15136" target="_blank" rel="noopener">职位页（英国 10-12、台北 10-15 仍开，不在你城市单）→</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">McKinsey</span><span class="pill closed">已截止</span></div>
+      <h3>Business Analyst · 大中华（北京/深圳/香港）</h3>
+      <div class="meta"><span class="chip">2027 届</span></div>
+      <div class="ddl">2026-08-23 刚截止（7-17 官宣，单轮）</div>
+      <p class="fit">错过约一周，本届无补录轮的公开信息。同上：把希望放到 2027 年中的下一届周期；期间可积累 casing 和咨询实习履历。</p>
+      <a href="https://www.mckinsey.com/careers/businessanalyst" target="_blank" rel="noopener">官方 BA 页 →</a>
+    </div>
+
+    <div class="role">
+      <div class="role-top"><span class="firm">MS / JPM / Barclays</span><span class="pill closed">已截止</span></div>
+      <h3>美国 &amp; 多伦多 2027 暑期分析师（IBD 等）</h3>
+      <div class="meta"><span class="chip">纽约</span><span class="chip">芝加哥</span><span class="chip">多伦多</span></div>
+      <div class="ddl">MS 2-15 截 · JPM 美国 7 月截 · Barclays 美国已关</div>
+      <p class="fit">2028 暑期周期（读二硕时你恰好是"在读硕士"）预计 2026 年 12 月–2027 年 2 月陆续开放：Barclays 约 12 月、MS 约 1 月、JPM 约 2 月——这是二硕路线下的主战役，届时提前把 HireVue 练好。</p>
+      <a href="https://www.extern.com/post/jpmorgan-internship-guide" target="_blank" rel="noopener">周期参考（第三方跟踪）→</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= 策略 ================= -->
+<section>
+  <h2>策略笔记</h2>
+  <div class="rule"></div>
+  <div class="note">
+    <h3>你的身份决定主战场</h3>
+    <p>你是 2027 届（2026.12–2027 中毕业），所以<b>全职分析师项目 + off-cycle 实习是主赛道</b>；2027 暑期实习基本都要求 2027.9 之后毕业的在读生，只有在"2027 秋再读一个硕士"的前提下才重新对你开放。两条线并不冲突：现在把 ① 里的全职机会全投掉，同时推进申研——若明年拿到 offer 入学，2026 年 12 月起再打 2028 暑期实习这场仗。</p>
+    <h3>两周内的动作清单</h3>
+    <p>本周：GS APAC 全职 + JPM 纽约 Markets 全职 + Barclays 港 S&amp;T（三个都在收，滚动/10-04 截）；顺手向 MS 香港校招确认 Industrial Placement 资格（9-27 截）。下周：腾讯首批（9-30）、阿里（10-04）、GS 美洲全职；同时开始每周一查中金/建投/国信官网——中金往届窗口只有六周，错过即等春招补录，而券商核心岗春招基本不补。</p>
+    <h3>学习价值排序（个人判断）</h3>
+    <p>就"利于学习"而言：<b>GS/JPM 全职分析师培训体系 &gt; 券商总部投行部 &gt; S&amp;T 交易台 &gt; AI 大厂产品/战略岗</b>。若首要目标是三年后的选择权，优先顺序建议：GS APAC → JPM NY Markets → 中金回流 → Barclays 港 S&amp;T → GS off-cycle（春季进场）→ 腾讯/阿里 AI 岗。麦肯锡本轮已关，把它整体挪到 2027 年年中的日历上。</p>
+  </div>
+</section>
+
+<footer>数据截至 2026-08-30，由官方招聘页与近期一手信息核实汇总；"估计"字样均为按往届节奏的推算。招聘窗口变动频繁，投递前以各官网为准。链接均指向官方或注明的来源页。</footer>
+</div>

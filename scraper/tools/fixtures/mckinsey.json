@@ -1,0 +1,110 @@
+[
+ {
+  "id": "mckinsey:98254",
+  "companyKey": "mckinsey",
+  "company": "McKinsey & Company",
+  "title": "Capabilities & Insights Analytics Analyst - Healthcare",
+  "url": "https://www.mckinsey.com/careers/search-jobs/jobs/capabilitiesinsightsanalyticsanalyst-healthcare-98254",
+  "locations": [
+   "Riyadh, Saudi Arabia"
+  ],
+  "location": "Riyadh, Saudi Arabia",
+  "postedAt": "2025-06-03",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "As a Healthcare Analytics Analyst, you will be part of consulting teams working with clients",
+  "division": "Analytics",
+  "level": "Mid-Senior level"
+ },
+ {
+  "id": "mckinsey:15136",
+  "companyKey": "mckinsey",
+  "company": "McKinsey & Company",
+  "title": "Business Analyst",
+  "url": "https://www.mckinsey.com/careers/search-jobs/jobs/businessanalyst-15136",
+  "locations": [
+   "Hong Kong, China",
+   "Shenzhen, China",
+   "Beijing, China",
+   "Shanghai, China"
+  ],
+  "location": "Hong Kong, China · Shenzhen, China · Beijing, China · Shanghai, China",
+  "postedAt": "2026-08-15",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "You will join one of our offices around the world for 2 years as a Business Analyst.",
+  "division": "Consulting",
+  "level": "Entry level"
+ },
+ {
+  "id": "mckinsey:15137",
+  "companyKey": "mckinsey",
+  "company": "McKinsey & Company",
+  "title": "Junior Associate - Tech & AI (AI focus)",
+  "url": "https://www.mckinsey.com/careers/search-jobs/jobs/juniorassociate-techai-15137",
+  "locations": [
+   "Hong Kong, China",
+   "Singapore, Singapore"
+  ],
+  "location": "Hong Kong, China · Singapore, Singapore",
+  "postedAt": "2026-08-30",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "Advanced degree holders join client teams focused on AI transformations.",
+  "division": "Consulting",
+  "level": "Entry level"
+ },
+ {
+  "id": "mckinsey:15140",
+  "companyKey": "mckinsey",
+  "company": "McKinsey & Company",
+  "title": "Business Analyst - Private Capital",
+  "url": "https://www.mckinsey.com/careers/search-jobs/jobs/businessanalyst-privatecapital-15140",
+  "locations": [
+   "New York, United States",
+   "Chicago, United States",
+   "Toronto, Canada"
+  ],
+  "location": "New York, United States · Chicago, United States · Toronto, Canada",
+  "postedAt": "2026-09-01",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "Serve private equity and institutional investor clients.",
+  "division": "Private Capital",
+  "level": "Entry level"
+ },
+ {
+  "id": "mckinsey:15150",
+  "companyKey": "mckinsey",
+  "company": "McKinsey & Company",
+  "title": "Knowledge Analyst - Metals & Mining",
+  "url": "https://www.mckinsey.com/careers/search-jobs/jobs/knowledgeanalyst-metalsmining-15150",
+  "locations": [
+   "Shanghai, China"
+  ],
+  "location": "Shanghai, China",
+  "postedAt": "2026-07-10",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "Research and analysis for the Metals & Mining practice.",
+  "division": "Knowledge",
+  "level": "Associate"
+ },
+ {
+  "id": "mckinsey:15160",
+  "companyKey": "mckinsey",
+  "company": "McKinsey & Company",
+  "title": "Associate Partner - Financial Services",
+  "url": "https://www.mckinsey.com/careers/search-jobs/jobs/associatepartner-fs-15160",
+  "locations": [
+   "New York, United States"
+  ],
+  "location": "New York, United States",
+  "postedAt": "2026-06-10",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "Lead client engagements in banking.",
+  "division": "Consulting",
+  "level": "Director"
+ }
+]

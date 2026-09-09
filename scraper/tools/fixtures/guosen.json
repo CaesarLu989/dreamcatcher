@@ -1,0 +1,87 @@
+[
+ {
+  "id": "guosen:a1",
+  "companyKey": "guosen",
+  "company": "国信证券 Guosen Securities",
+  "title": "投行业务岗（深圳）-2027校园招聘(J14033)",
+  "url": "https://guosen.zhiye.com/campus/detail?jobAdId=a1",
+  "locations": [
+   "深圳市"
+  ],
+  "location": "深圳市",
+  "postedAt": "2026-09-08",
+  "closesAt": "2026-12-31",
+  "type": "graduate",
+  "snippet": "投资银行事业部 · 校园招聘",
+  "division": "投资银行事业部",
+  "requirements": "2027届硕士及以上"
+ },
+ {
+  "id": "guosen:a2",
+  "companyKey": "guosen",
+  "company": "国信证券 Guosen Securities",
+  "title": "产业研究助理分析师-2027校园招聘(J14037)",
+  "url": "https://guosen.zhiye.com/campus/detail?jobAdId=a2",
+  "locations": [
+   "北京市",
+   "上海市",
+   "深圳市"
+  ],
+  "location": "北京市 · 上海市 · 深圳市",
+  "postedAt": "2026-09-08",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": "研究所 · 校园招聘",
+  "division": "研究所"
+ },
+ {
+  "id": "guosen:a3",
+  "companyKey": "guosen",
+  "company": "国信证券 Guosen Securities",
+  "title": "AI算法工程师-2027校园招聘(J14045)",
+  "url": "https://guosen.zhiye.com/campus/detail?jobAdId=a3",
+  "locations": [
+   "深圳市"
+  ],
+  "location": "深圳市",
+  "postedAt": "2026-09-08",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": "信息技术总部 · 校园招聘",
+  "division": "信息技术总部"
+ },
+ {
+  "id": "guosen:a4",
+  "companyKey": "guosen",
+  "company": "国信证券 Guosen Securities",
+  "title": "理财顾问-2027校园招聘(J13404)",
+  "url": "https://guosen.zhiye.com/campus/detail?jobAdId=a4",
+  "locations": [
+   "江苏省"
+  ],
+  "location": "江苏省",
+  "postedAt": "2026-09-09",
+  "closesAt": "2027-09-30",
+  "type": "graduate",
+  "snippet": "江苏分公司 · 校园招聘",
+  "division": "江苏分公司"
+ },
+ {
+  "id": "guosen:a5",
+  "companyKey": "guosen",
+  "company": "国信证券 Guosen Securities",
+  "title": "机构销售助理-2027校园招聘(J14039)",
+  "url": "https://guosen.zhiye.com/campus/detail?jobAdId=a5",
+  "locations": [
+   "北京市",
+   "上海市",
+   "深圳市"
+  ],
+  "location": "北京市 · 上海市 · 深圳市",
+  "postedAt": "2026-09-08",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": "机构业务部 · 校园招聘",
+  "division": "机构业务部"
+ }
+]

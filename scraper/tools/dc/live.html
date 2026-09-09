@@ -1,0 +1,28 @@
+<!-- ===== ⚡ LIVE RADAR — section ===== -->
+<section id="radar-live">
+  <div class="rl-head">
+    <div class="radar" aria-hidden="true"></div>
+    <h2>⚡ 实时雷达<span class="tag">每 3 小时自动抓官网 · 只看全职 · 规则筛选零 tokens · AI 只评新岗位</span></h2>
+  </div>
+  <div class="rule"></div>
+  <div class="rl-status" id="rl-status">加载中…</div>
+  <div class="rl-sources" id="rl-sources" hidden></div>
+  <div class="rl-heat" id="rl-heat"></div>
+  <div class="rl-meta" id="rl-meta"></div>
+  <div class="rl-legend"><span class="h0">极高 90+</span><span class="h1">高 78–89</span><span class="h2">中高 66–77</span><span class="h3">中 52–65</span><span class="h4">偏低 38–51</span><span class="h5">低 &lt;38</span><span style="margin-left:auto">点击色块筛选 · 分数 = 级别 + 届别 + 城市 + 方向 + 优先公司</span></div>
+  <div class="rl-controls">
+    <div class="rl-chips" id="rl-companies"></div>
+    <span class="rl-sep"></span>
+    <div class="rl-chips" id="rl-cities"></div>
+    <span class="rl-sep"></span>
+    <div class="rl-chips" id="rl-types"></div>
+    <input class="rl-q" id="rl-q" type="search" placeholder="搜索岗位 / 部门…">
+    <label class="rl-toggle"><input type="checkbox" id="rl-onlynew"> 只看新增</label>
+    <label class="rl-toggle"><input type="checkbox" id="rl-onlyapplied"> 只看已投</label>
+    <label class="rl-toggle"><input type="checkbox" id="rl-showhidden"> 显示已忽略</label>
+    <label class="rl-toggle" title="标记已投后从主列表收起，点“已投递”或“只看已投”随时查看"><input type="checkbox" id="rl-hideapplied"> 已投自动收起</label>
+  </div>
+  <div class="grid" id="rl-list"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>
+  <div class="rl-more" id="rl-more" hidden><button class="rl-morebtn" id="rl-morebtn"></button></div>
+  <div class="rl-foot" id="rl-foot"></div>
+</section>

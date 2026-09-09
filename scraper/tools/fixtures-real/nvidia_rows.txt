@@ -1,0 +1,4 @@
+V|Senior-PDM-Business-Analyst_JR2018844|PDM Business Analyst|China, Shenzhen|2026-08-01|/job/China-Shenzhen/Senior-PDM-Business-Analyst_JR2018844
+V|Physical-Design--VLSI---New-College-Grad-2027_JR2024940|Physical Design, VLSI - New College Grad 2027|China, Shanghai|2026-09-02|/job/China-Shanghai/Physical-Design--VLSI---New-College-Grad-2027_JR2024940
+V|Research-Scientist--Fundamental-Generative-AI---New-College-Grad-2026_JR2012698|Research Scientist, Fundamental Generative AI - New College Grad 2026|US, CA, Santa Clara|2026-07-15|/job/US-CA-Santa-Clara/Research-Scientist--Fundamental-Generative-AI---New-College-Grad-2026_JR2012698
+V|Stock-Plan-Administrator_JR2013496|Stock Plan Administrator|US, CA, Santa Clara|2026-07-20|/job/US-CA-Santa-Clara/Stock-Plan-Administrator_JR2013496

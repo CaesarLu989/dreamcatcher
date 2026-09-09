@@ -1,0 +1,52 @@
+C|170969|2027 | Americas | New York City Area | Executive Office, Firmwide Strategy | New Analyst|New York, NY, United States|2026-08-26|Analyst|Executive Office Division
+C|172649|2027 | APEJ | Hong Kong | Risk, Market Risk | New Analyst|Hong Kong, Hong Kong|2026-08-21|Analyst|Risk Division
+C|182119|2027 | APEJ | Hong Kong | FICC and Equities (Sales and Trading) Quantitative Strats | New Analyst|Hong Kong, Hong Kong|2026-08-18|Analyst|Engineering Division
+C|171569|2027 | Americas | New York City Area | Engineering | New Analyst|New York, NY, United States|2026-08-16|Analyst|Engineering Division
+C|171482|2027 | Americas | New York City Area | Wealth Management, Private Wealth Management | New Associate|New York, NY, United States|2026-08-16|Associate|Asset & Wealth Management
+C|171489|2027 | Americas | San Francisco | Wealth Management, Private Wealth Management | New Associate|San Francisco, CA, United States|2026-08-16|Associate|Asset & Wealth Management
+C|171504|2027 | Americas | Boston | Wealth Management, Private Wealth Management | New Associate|Boston, MA, United States|2026-08-16|Associate|Asset & Wealth Management
+C|171506|2027 | Americas | Chicago | Wealth Management, Private Wealth Management | New Associate|Chicago, IL, United States|2026-08-16|Associate|Asset & Wealth Management
+C|154501|2027 | APEJ | Singapore | Operations | New Analyst|Singapore|2025-12-11|Analyst|Operations Division
+C|178068|2027 | APEJ | Singapore | FICC and Equities (Sales and Trading) Quantitative Strats | New Associate|Singapore|2026-07-02|Associate|Engineering Division
+C|178067|2027 | APEJ | Singapore | Engineering | New Analyst|Singapore|2026-07-02|Analyst|Engineering Division
+C|169898|2027 | APEJ | Singapore | FICC and Equities, Sales and Trading | New Analyst|Singapore|2026-07-01|Analyst|Global Banking & Markets
+C|171432|2027 | APEJ | Hong Kong | Wealth Management, Wealth Solutions | New Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Asset & Wealth Management
+C|170767|2027 | APEJ | Hong Kong | Internal Audit, Business Audit | New Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Internal Audit
+C|170778|2027 | APEJ | Hong Kong | Investment Banking, Classic | New Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Global Banking & Markets
+C|170763|2027 | APEJ | Singapore | Compliance | New Analyst|Singapore|2026-07-01|Analyst|Compliance Division
+C|170760|2027 | APEJ | Hong Kong | Compliance | New Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Compliance Division
+C|169897|2027 | APEJ | Hong Kong | FICC and Equities, Sales and Trading | New Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Global Banking & Markets
+C|171430|2027 | APEJ | Hong Kong | Wealth Management, Private Wealth Management | New Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Asset & Wealth Management
+C|171830|2027 | APEJ | Singapore | Asset Management, Client Solutions | New Analyst|Singapore|2026-07-01|Analyst|Asset & Wealth Management
+C|170768|2027 | APEJ | Singapore | Internal Audit, Business Audit | New Analyst|Singapore|2026-07-01|Analyst|Internal Audit
+C|170769|2027 | APEJ | Singapore | Internal Audit, Technology Audit | New Analyst|Singapore|2026-07-01|Analyst|Internal Audit
+C|171434|2027 | APEJ | Singapore | Wealth Management, Private Wealth Management | New Analyst|Singapore|2026-07-01|Analyst|Asset & Wealth Management
+C|171433|2027 | APEJ | Hong Kong | Wealth Management, Private Wealth Management | WMP Analyst|Hong Kong, Hong Kong|2026-07-01|Analyst|Asset & Wealth Management
+P|183545|Corporate Treasury, Project Management, New York, Analyst|New York, NY, United States|2026-09-08|Analyst|Corporate Treasury
+P|183769|Compliance, Compliance Testing Group and Communication Compliance Surveillance, Analyst, Beijing|Beijing, Beijing, China|2026-09-04|Analyst|Compliance Division
+P|183382|Corporate Treasury, Operations - Settlements, Analyst/Associate, Beijing|Beijing, Beijing, China|2026-09-03|Analyst|Corporate Treasury
+P|181923|Global Banking & Markets Public, Equities Management, Analyst - New York|New York, NY, United States|2026-08-14|Analyst|Global Banking & Markets
+P|182190|Asset & Wealth Management, Quantitative Investment Strategies, Client Portfolio Management, Analyst - New York|New York, NY, United States|2026-09-01|Analyst|Asset & Wealth Management
+P|183029|Global Banking & Markets, Supervisory Risk & Controls, New York-Analyst|New York, NY, United States|2026-08-29|Analyst|Global Banking & Markets
+P|179580|Global Banking & Markets, Investment Banking, Technology, Media and Telecom (TMT), Analyst/Associate, Beijing|Beijing, Beijing, China|2026-08-21|Analyst|Global Banking & Markets
+P|174590|Asset & Wealth Management, Private Equity Investing, Analyst, Hong Kong/Beijing|Hong Kong, Hong Kong/Beijing, China|2026-05-28|Analyst|Asset & Wealth Management
+P|176580|Corporate Treasury, Liquidity Execution, Analyst, Hong Kong|Hong Kong, Hong Kong|2026-06-12|Analyst|Corporate Treasury
+P|179406|Global Banking & Markets, Operations – China Local Markets, Analyst/ Associate, Shenzhen|Shenzhen, Guangdong, China|2026-07-22|Analyst|Global Banking & Markets
+P|180917|Risk-Divisional Governance-New York-Analyst|New York, NY, United States|2026-08-04|Analyst|Risk Division
+P|165423|Global Banking & Markets - Public - Natural Gas Trading - Analyst – New York|New York, NY, United States|2026-07-29|Analyst|Global Banking & Markets
+P|179986|Compliance-Global Banking & Markets Public Compliance - FICC-New York-Analyst|New York, NY, United States|2026-08-17|Analyst|Compliance Division
+P|179267|Asset & Wealth Management, Private Wealth Management, Financial Analyst, Hong Kong|Hong Kong, Hong Kong|2026-07-27|Analyst|Asset & Wealth Management
+P|171300|Global Banking & Markets, Futures Sales Trading, Analyst, Shenzhen|Shenzhen, Guangdong, China|2026-08-14|Analyst|Global Banking & Markets
+P|181803|Compliance-GBM Public- Equities-New York-Analyst|New York, NY, United States|2026-08-18|Analyst|Compliance Division
+P|160666|Asset & Wealth Management, External Investing Group (XIG) - Private Alternatives Investment, Analyst, Hong Kong/Beijing|Hong Kong|2026-05-28|Analyst|Asset & Wealth Management
+P|181030|Controllers, Asset & Wealth Management Product Controllers, Analyst/Associate, Hong Kong|Hong Kong|2026-08-04|Associate|Controllers
+P|179463|Global Banking & Markets, Equities Flow Vol Strats, Analyst/Associate, Hong Kong|Hong Kong|2026-07-16|Associate|Global Banking & Markets
+P|176984|Asset & Wealth Management, Wealth Investment Solutions (WIS), Digital Product Manager, Analyst - New York|New York, NY, United States|2026-06-29|Analyst|Asset & Wealth Management
+P|177973|Controllers, Regulatory Policy, New York, Analyst|New York, NY, United States|2026-06-30|Analyst|Controllers
+P|151533|Risk, Operational Risk, Analyst, Hong Kong|Hong Kong|2026-03-24|Associate|Risk Division
+P|160094|Global Banking & Markets, Equities Funding Strategist, Analyst/ Associate, Hong Kong|Hong Kong, Hong Kong|2026-07-21|Associate|Global Banking & Markets
+P|178911|Global Banking and Markets, SPG Trading, Analyst/Associate, Hong Kong|Hong Kong, Hong Kong|2026-08-11|Associate|Global Banking & Markets
+P|173944|Global Banking & Markets, Investment Banking, China Advisory, Analyst / Associate, Beijing|Beijing, Beijing, China|2026-07-29|Associate|Global Banking & Markets
+P|154124|Private Wealth Management, Interest Rate Strategist, Analyst/Associate, London|London, Greater London, England, United Kingdom|2026-06-29|Associate|Asset & Wealth Management
+P|183757|Global Banking & Markets, Investment Banking, Classic, Technology, Media, and Telecommunications, London, Analyst|London, Greater London, England, United Kingdom|2026-09-07|Analyst|Global Banking & Markets
+P|180474|Global Banking & Markets, Investment Banking, Financial Institutions Group (FIG), Analyst/Associate, Singapore|Singapore, Singapore, Singapore|2026-07-31|Associate|Global Banking & Markets

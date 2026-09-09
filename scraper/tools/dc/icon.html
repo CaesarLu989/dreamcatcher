@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>DreamCatcher app icon</title>
+<style>
+  /* 1024×1024 macOS app icon: Apple's Big Sur grid = 824×824 squircle centred on a 1024 canvas (transparent margin). */
+  html, body { margin: 0; background: transparent; width: 1024px; height: 1024px; overflow: hidden; }
+  .icon { position: absolute; left: 100px; top: 100px; width: 824px; height: 824px; }
+  .icon svg.bg { position: absolute; inset: 0; width: 824px; height: 824px; }
+  .logo { position: absolute; left: 0; top: -54px; width: 824px; height: 824px; display: flex; align-items: center; justify-content: center; }
+  .logo .dc-logo { width: 540px; height: auto; filter: drop-shadow(0 18px 40px rgba(0,0,0,.45)); }
+  /* the logo's CSS (copied from theme.css, dark-mode colours) — animations disabled for a canonical still frame */
+  .dc-logo { overflow: visible; --dc-web: #C4D1FF; --dc-string: #D2DCFF; }
+  .dc-logo .dc-hoop { fill: none; stroke-width: 4.6; stroke-linecap: round; }
+  .dc-logo .dc-wrap { fill: none; stroke: #FFF4D0; stroke-width: 1.2; stroke-dasharray: .012 .02; opacity: .55; }
+  .dc-logo .dc-spoke { fill: none; stroke: var(--dc-string); stroke-width: 1; opacity: .75; }
+  .dc-logo .dc-web { fill: none; stroke: var(--dc-web); stroke-width: 1.15; opacity: .9; }
+  .dc-logo .dc-eye { fill: #FFF1C2; opacity: .9; }
+  .dc-logo .dc-star { fill: #FFF6D6; opacity: .95; }
+  .dc-logo .dc-string { fill: none; stroke: var(--dc-string); stroke-width: 1.2; }
+  .dc-logo .dc-bead { fill: #E9C46A; }
+  .dc-logo .dc-plume { stroke: #8FA7FF; stroke-width: .8; }
+  .dc-logo .dc-vein { fill: none; stroke: #6D8CFF; stroke-width: .9; opacity: .8; }
+  .dc-logo .dc-barbs { fill: none; stroke: #6D8CFF; stroke-width: .6; opacity: .55; }
+  .dc-logo * { animation: none !important; }
+  .dc-logo .dc-f1 { transform: rotate(-6deg); } .dc-logo .dc-f3 { transform: rotate(6deg); }
+  .dc-logo .dc-feather { transform-box: fill-box; transform-origin: 50% 0%; }
+</style></head>
+<body>
+<div class="icon">
+  <svg class="bg" viewBox="0 0 824 824" aria-hidden="true">
+    <defs>
+      <!-- macOS continuous-corner squircle (superellipse approximation) -->
+      <clipPath id="sq"><rect id="sqp" x="0" y="0" width="824" height="824" rx="186" ry="186"/></clipPath>
+      <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1C46C8"/><stop offset=".45" stop-color="#002FA7"/><stop offset="1" stop-color="#060B24"/>
+      </linearGradient>
+      <radialGradient id="moonglow" cx=".56" cy=".40" r=".55">
+        <stop offset="0" stop-color="#F5D67A" stop-opacity=".55"/><stop offset=".45" stop-color="#F5D67A" stop-opacity=".12"/><stop offset="1" stop-color="#F5D67A" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient>
+    </defs>
+    <g clip-path="url(#sq)">
+      <rect width="824" height="824" fill="url(#night)"/>
+      <rect width="824" height="824" fill="url(#moonglow)"/>
+      <!-- aurora band -->
+      <ellipse cx="220" cy="700" rx="420" ry="150" fill="#6D8CFF" opacity=".14"/>
+      <ellipse cx="640" cy="120" rx="300" ry="120" fill="#8FA7FF" opacity=".10"/>
+      <!-- stars -->
+      <g fill="#FFFFFF">
+        <circle cx="120" cy="150" r="3" opacity=".85"/><circle cx="210" cy="90" r="2" opacity=".6"/><circle cx="700" cy="640" r="3" opacity=".8"/>
+        <circle cx="640" cy="720" r="2" opacity=".55"/><circle cx="90" cy="420" r="2" opacity=".5"/><circle cx="760" cy="260" r="2.4" opacity=".7"/>
+        <circle cx="300" cy="740" r="2" opacity=".5"/><circle cx="520" cy="80" r="2.2" opacity=".6"/><circle cx="160" cy="600" r="1.6" opacity=".45"/>
+        <circle cx="740" cy="470" r="1.8" opacity=".5"/><circle cx="60" cy="300" r="1.5" opacity=".4"/><circle cx="600" cy="40" r="1.5" opacity=".4"/>
+        <circle cx="380" cy="40" r="1.8" opacity=".5"/><circle cx="800" cy="600" r="1.5" opacity=".4"/><circle cx="240" cy="270" r="1.4" opacity=".4"/>
+      </g>
+      <rect width="824" height="824" fill="url(#rim)"/>
+    </g>
+    <use href="#sqp" fill="none" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="3"/>
+  </svg>
+  <div class="logo" id="logo"></div>
+</div>
+<script src="logo.js"></script>
+<script>document.getElementById("logo").innerHTML = dcLogo(540, "ic", { animate: false });</script>
+</body></html>

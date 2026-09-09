@@ -1,0 +1,77 @@
+[
+ {
+  "id": "barclays:100066899104",
+  "companyKey": "barclays",
+  "company": "Barclays",
+  "title": "Banking Graduate Programme 2027 Frankfurt",
+  "url": "https://search.jobs.barclays/job/frankfurt-am-main/banking-graduate-programme-2027-frankfurt/13015/100066899104",
+  "locations": [
+   "Frankfurt am Main, Germany"
+  ],
+  "location": "Frankfurt am Main, Germany",
+  "postedAt": "2026-09-01",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": ""
+ },
+ {
+  "id": "barclays:100066899105",
+  "companyKey": "barclays",
+  "company": "Barclays",
+  "title": "Banking Graduate Programme 2027 London",
+  "url": "https://search.jobs.barclays/job/london/banking-graduate-programme-2027-london/13015/100066899105",
+  "locations": [
+   "London, United Kingdom"
+  ],
+  "location": "London, United Kingdom",
+  "postedAt": "2026-08-28",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": ""
+ },
+ {
+  "id": "barclays:100066899110",
+  "companyKey": "barclays",
+  "company": "Barclays",
+  "title": "2027 Technology Developer Graduate Program Whippany",
+  "url": "https://search.jobs.barclays/job/whippany/2027-technology-developer-graduate-program-whippany/13015/100066899110",
+  "locations": [
+   "Whippany, United States"
+  ],
+  "location": "Whippany, United States",
+  "postedAt": "2026-09-03",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": ""
+ },
+ {
+  "id": "barclays:100066899120",
+  "companyKey": "barclays",
+  "company": "Barclays",
+  "title": "2027 Markets Analyst Graduate Program New York",
+  "url": "https://search.jobs.barclays/job/new-york/2027-markets-analyst-graduate-program-new-york/13015/100066899120",
+  "locations": [
+   "New York, United States"
+  ],
+  "location": "New York, United States",
+  "postedAt": "2026-09-05",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": ""
+ },
+ {
+  "id": "barclays:100066899130",
+  "companyKey": "barclays",
+  "company": "Barclays",
+  "title": "Investment Banking Graduate Programme 2028 Tokyo",
+  "url": "https://search.jobs.barclays/job/tokyo/investment-banking-graduate-programme-2028-tokyo/13015/100066899130",
+  "locations": [
+   "Tokyo, Japan"
+  ],
+  "location": "Tokyo, Japan",
+  "postedAt": "2026-09-03",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": ""
+ }
+]

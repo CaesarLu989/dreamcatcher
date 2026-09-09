@@ -1,0 +1,23 @@
+K|15178|Associate|Beijing/Boston/Chicago/Hong Kong SAR/London/Shanghai/New York City/Toronto/+105 more|2023-05-26|Associate|associate-15178
+K|15136|Business Analyst|Beijing/Boston/Chicago/Hong Kong SAR/London/Montreal/New York City/Toronto/Shenzhen/+100 more|2026-08-15||businessanalyst-15136
+K|20159|Junior Associate|Beijing/Hong Kong SAR/London/Shanghai/Singapore City/Shenzhen/+44 more|2021-02-08|Entry level|juniorassociate-20159
+K|106945|Associate - Automotive|Beijing/Shanghai/Shenzhen|2026-03-12|Not Applicable|associate-automotive-106945
+K|100846|Associate - Procurement|Boston/Chicago/New York City/+9 more|2026-04-08|Associate|associate-procurement-100846
+K|100701|Associate - Service Operations|Boston/Chicago/New York City/+9 more|2026-05-21|Associate|associate-serviceoperations-100701
+K|109741|Business Analyst - Automotive|Beijing/Shanghai/Shenzhen|2026-06-22|Entry level|businessanalyst-automotive-109741
+K|102115|Business Analyst - Manufacturing & Supply Chain|Boston/Chicago/New York City/+9 more|2025-09-29|Not Applicable|businessanalyst-manufacturingsupplychain-102115
+K|104428|Business Analyst - McKinsey Transformation|Boston/Chicago/New York City/+6 more|2026-07-20|Not Applicable|businessanalyst-mckinseytransformation-104428
+K|103025|Business Analyst - Operations|Boston/Chicago/New York City/+9 more|2025-10-29|Not Applicable|businessanalyst-operations-103025
+K|111052|Capabilities & Insights Analyst - Healthcare Private Equity|Boston|2026-08-07|Entry level|capabilitiesinsightsanalyst-healthcareprivateequity-111052
+K|110903|Communications Specialist - Reach and Engagement|Montreal/Toronto|2026-07-30|Associate|communicationsspecialist-reachandengagement-110903
+K|65221|Consulting Analyst|Singapore City|||consultinganalyst-65221
+K|108745|Cybersecurity Analyst|Shanghai|2026-05-15|Entry level|cybersecurityanalyst-108745
+K|109284|Data Science Analyst - Growth, Marketing & Sales|Boston/Chicago/New York City/San Francisco/+6 more|2026-06-04|Entry level|datascienceanalyst-growthmarketingsales-109284
+K|107956|Junior Associate - Automotive|Beijing/Shanghai/Shenzhen|2025-11-14|Not Applicable|juniorassociate-automotive-107956
+K|104408|Junior Associate - Tech & AI (AI focus)|Beijing/Hong Kong SAR/Shanghai/Shenzhen|2026-03-06|Associate|juniorassociate-techaiaifocus-104408
+K|111994|Junior Consultant - McKinsey Lanyue|Beijing/Shanghai/Shenzhen|2025-11-14|Entry level|juniorconsultant-mckinseylanyue-111994
+K|108329|Knowledge Analyst - Marketing & Sales|Shanghai|2026-04-27|Associate|knowledgeanalyst-marketingsales-108329
+K|103948|Knowledge Analyst - Metals & Mining|Shanghai|2025-11-14|Entry level|knowledgeanalyst-metalsmining-103948
+K|110927|Operations Research Specialist - QuantumBlack Labs|Boston/New York City|||operationsresearchspecialist-quantumblacklabs-110927
+K|108987|Research Science Analyst - Strategy and Corporate Finance - McKinsey Value Intelligence Platform|Boston/Chicago|2026-05-22|Entry level|researchscienceanalyst-strategyandcorporatefinance-mckinseyvalueintelligenceplatform-108987
+K|108666|Specialist - Robotics and Physical AI|Boston/Chicago/New York City/San Francisco/+19 more|2026-05-18|Associate|specialist-roboticsandphysicalai-108666

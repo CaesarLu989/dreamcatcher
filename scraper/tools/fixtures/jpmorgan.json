@@ -1,0 +1,140 @@
+[
+ {
+  "id": "jpmorgan:210773378",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2027 Internal Audit Analyst Program - Full Time Analyst Opportunity",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773378",
+  "locations": [
+   "Plano, TX, United States",
+   "Columbus, OH, United States",
+   "Wilmington, DE, United States"
+  ],
+  "location": "Plano, TX, United States · Columbus, OH, United States · Wilmington, DE, United States",
+  "postedAt": "2026-09-08",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": "We are looking for talented individuals to work alongside our Internal Audit professionals",
+  "level": "Analysts",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210782439",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2026 Commercial & Investment Bank - Global Investment Banking Program - Inside the Industry Case Challenge - Hong Kong",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782439",
+  "locations": [
+   "Hong Kong"
+  ],
+  "location": "Hong Kong",
+  "postedAt": "2026-09-08",
+  "closesAt": null,
+  "type": "event",
+  "snippet": "One-day program for students to collaborate and work on a case study and to present to our panel of judges in teams.",
+  "level": "Analysts",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210774321",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2027 Chase Digital Development Programme – Full-time Analyst",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210774321",
+  "locations": [
+   "LONDON, LONDON, United Kingdom"
+  ],
+  "location": "LONDON, LONDON, United Kingdom",
+  "postedAt": "2026-08-20",
+  "closesAt": "2026-10-15",
+  "type": "graduate",
+  "snippet": "Join our Digital Development Programme and help build the future of Chase UK.",
+  "level": "Analysts",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210778001",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2027 Commercial & Investment Bank - Global Investment Banking - Summer Analyst Program - Hong Kong",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778001",
+  "locations": [
+   "Hong Kong"
+  ],
+  "location": "Hong Kong",
+  "postedAt": "2026-09-06",
+  "closesAt": "2026-11-01",
+  "type": "internship",
+  "snippet": "Summer Analyst Program for penultimate-year students.",
+  "level": "Analysts",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210778002",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2027 Commercial & Investment Bank - Markets - Summer Analyst Program - New York",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778002",
+  "locations": [
+   "New York, NY, United States"
+  ],
+  "location": "New York, NY, United States",
+  "postedAt": "2026-09-04",
+  "closesAt": null,
+  "type": "internship",
+  "snippet": "Sales, trading and research summer analyst program.",
+  "level": "Analysts",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210778003",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2027 Corporate Analyst Development Program - Full-time Analyst - Toronto",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778003",
+  "locations": [
+   "Toronto, ON, Canada"
+  ],
+  "location": "Toronto, ON, Canada",
+  "postedAt": "2026-09-01",
+  "closesAt": null,
+  "type": "graduate",
+  "snippet": "Rotational program across finance, strategy and operations.",
+  "level": "Analysts",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210778635",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "Vice President Product Manager - Engineering Enablement Corporate Technology",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778635",
+  "locations": [
+   "Plano, TX, United States"
+  ],
+  "location": "Plano, TX, United States",
+  "postedAt": "2026-09-08",
+  "closesAt": null,
+  "type": "experienced",
+  "snippet": "Be a leader committed to understanding customer needs",
+  "level": "Product Management",
+  "division": null
+ },
+ {
+  "id": "jpmorgan:210778004",
+  "companyKey": "jpmorgan",
+  "company": "J.P. Morgan",
+  "title": "2027 Commercial & Investment Banking - Sales - Off-cycle Internship - London",
+  "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778004",
+  "locations": [
+   "LONDON, LONDON, United Kingdom"
+  ],
+  "location": "LONDON, LONDON, United Kingdom",
+  "postedAt": "2026-09-07",
+  "closesAt": null,
+  "type": "internship",
+  "snippet": "Off-cycle internship in Markets sales.",
+  "level": "Seasonal Employee",
+  "division": null
+ }
+]

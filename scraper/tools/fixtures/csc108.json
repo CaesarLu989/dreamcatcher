@@ -1,0 +1,96 @@
+[
+ {
+  "id": "csc108:7c4525ea-5fe5-486a-a7c9-1eb319905ffb",
+  "companyKey": "csc108",
+  "company": "中信建投 CSC Financial",
+  "title": "（2027届校招）投资银行股权业务线助理",
+  "url": "https://csc108.zhiye.com/campus/detail?jobAdId=7c4525ea-5fe5-486a-a7c9-1eb319905ffb",
+  "locations": [
+   "北京市",
+   "上海市",
+   "广州市",
+   "深圳市",
+   "成都市",
+   "杭州市",
+   "南京市",
+   "西安市",
+   "厦门市"
+  ],
+  "location": "北京市 · 上海市 · 广州市 · 深圳市 · 成都市 · 杭州市 · 南京市 · 西安市 · 厦门市",
+  "postedAt": "2026-08-31",
+  "closesAt": "2026-10-12",
+  "type": "graduate",
+  "snippet": "投资银行业务管理委员会 · 校园招聘",
+  "division": "投资银行业务管理委员会",
+  "requirements": "2026年1月至2027年7月期间毕业的境内外高等院校硕士研究生及以上学历应届毕业生"
+ },
+ {
+  "id": "csc108:cec9bc95-0ca3-4f39-8d01-f023a4439c15",
+  "companyKey": "csc108",
+  "company": "中信建投 CSC Financial",
+  "title": "（2027届校招）并购业务助理",
+  "url": "https://csc108.zhiye.com/campus/detail?jobAdId=cec9bc95-0ca3-4f39-8d01-f023a4439c15",
+  "locations": [
+   "深圳市"
+  ],
+  "location": "深圳市",
+  "postedAt": "2026-08-31",
+  "closesAt": "2026-10-12",
+  "type": "graduate",
+  "snippet": "投资银行业务管理委员会 · 校园招聘",
+  "division": "投资银行业务管理委员会"
+ },
+ {
+  "id": "csc108:c3",
+  "companyKey": "csc108",
+  "company": "中信建投 CSC Financial",
+  "title": "（2027届校招）研究发展业务助理",
+  "url": "https://csc108.zhiye.com/campus/detail?jobAdId=c3",
+  "locations": [
+   "北京市",
+   "上海市",
+   "广州市",
+   "深圳市"
+  ],
+  "location": "北京市 · 上海市 · 广州市 · 深圳市",
+  "postedAt": "2026-08-31",
+  "closesAt": "2026-10-12",
+  "type": "graduate",
+  "snippet": "研究发展部 · 校园招聘",
+  "division": "研究发展部"
+ },
+ {
+  "id": "csc108:c4",
+  "companyKey": "csc108",
+  "company": "中信建投 CSC Financial",
+  "title": "（2027届校招）衍生品交易业务助理",
+  "url": "https://csc108.zhiye.com/campus/detail?jobAdId=c4",
+  "locations": [
+   "北京市"
+  ],
+  "location": "北京市",
+  "postedAt": "2026-08-31",
+  "closesAt": "2026-10-12",
+  "type": "graduate",
+  "snippet": "衍生品交易部 · 校园招聘",
+  "division": "衍生品交易部"
+ },
+ {
+  "id": "csc108:c5",
+  "companyKey": "csc108",
+  "company": "中信建投 CSC Financial",
+  "title": "（2027届校招）金融科技岗（大模型、数据、算法开发及安全方向）",
+  "url": "https://csc108.zhiye.com/campus/detail?jobAdId=c5",
+  "locations": [
+   "北京市",
+   "上海市",
+   "深圳市"
+  ],
+  "location": "北京市 · 上海市 · 深圳市",
+  "postedAt": "2026-08-31",
+  "closesAt": "2026-10-12",
+  "type": "graduate",
+  "snippet": "信息技术部 · 校园招聘",
+  "division": "信息技术部"
+ }
+]
