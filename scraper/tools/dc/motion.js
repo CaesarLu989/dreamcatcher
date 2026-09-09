@@ -95,7 +95,7 @@
   /* ---------- 5. header logo: hover intensifies, click replays the boot ---------- */
   var brand = document.getElementById("dc-brand-logo");
   if (brand) {
-    brand.style.cursor = "pointer"; brand.title = "重放开机动画";
+    brand.style.cursor = "pointer";
     brand.addEventListener("click", function () {
       if (document.getElementById("dc-boot") || !window.dcBootPlay) return;
       window.scrollTo({ top: 0, behavior: "instant" });   // so the logo can fly back onto the header
@@ -106,7 +106,6 @@
   /* ---------- 6. "上次抓取" relative-time ticker ---------- */
   setInterval(function () {
     var b = document.querySelector("#rl-status b"); if (!b || !window.__dcGeneratedAt) return;
-    var m = Math.round((Date.now() - new Date(window.__dcGeneratedAt).getTime()) / 60000);
-    b.textContent = m < 1 ? "刚刚" : m < 60 ? m + " 分钟前" : Math.round(m / 60) < 48 ? Math.round(m / 60) + " 小时前" : Math.round(m / 1440) + " 天前";
+    if (window.dcAgo) b.textContent = window.dcAgo(window.__dcGeneratedAt);
   }, 30000);
 })();

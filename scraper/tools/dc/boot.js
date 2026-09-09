@@ -14,7 +14,7 @@
     boot.className = mode === "short" ? "short" : "";
     boot.innerHTML = '<div class="bg"></div><div class="aurora"><i></i><i></i></div><div class="stars"></div><div class="meteors"></div>' +
       '<div class="veil"></div><div class="halo"></div><div class="fireflies"></div><div class="logo"></div>' +
-      '<div class="word"><div class="w"></div><div class="line"></div><div class="t">梦捕手 · 2027 求职雷达</div></div>' +
+      '<div class="word"><div class="w"></div><div class="line"></div><div class="t">' + (window.dcT ? window.dcT("boot.tagline") : "梦捕手 · 2027 求职雷达") + '</div></div>' +
       '<button class="skip" type="button">跳过 SKIP</button>';
     // star field: 110 stars, each with its own twinkle phase; a few bigger ones glow
     var stars = boot.querySelector(".stars"), frag = document.createDocumentFragment();

@@ -142,7 +142,7 @@ export function job({ companyKey, company, id, title, url, locations = [], poste
 export function guessType(title = "", hint = "") {
   const t = `${title} ${hint}`.toLowerCase();
   if (/(case challenge|insight|inside the industry|women who lead|event|workshop|open day|networking|spring week|discovery day|early insights|history month|conference)/.test(t)) return "event";
-  if (/(summer analyst|summer associate|\bintern\b|\binternship\b|\binterns\b|industrial placement|off-cycle|off cycle|co-op|\bplacement\b|winter cohort|seasonal|长期实习|实习)/.test(t)) return "internship";
+  if (/(summer analyst|summer associate|\bsummer\b|\bété\b|\bintern\b|\binternship\b|\binterns\b|industrial placement|off-cycle|off cycle|co-op|\bplacement\b|winter cohort|seasonal|长期实习|实习|暑期|暑假|寒假)/.test(t)) return "internship";
   if (/(graduate|new analyst|full[- ]time analyst|analyst program|analyst programme|development program|development programme|校招|校园招聘|应届|管培|new associate|rotational)/.test(t)) return "graduate";
   if (/^\d{4}\b/.test(title.trim()) || /\b20(26|27|28)\b/.test(t)) return "campus";
   return "experienced";

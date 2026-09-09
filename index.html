@@ -315,6 +315,15 @@ section.in h2::after { width: 100%; }
 .brand:hover .dc-logo { transform: scale(1.06) rotate(-3deg); }
 @media (prefers-reduced-motion: reduce) { #dc-sky, #dc-aurora, .rl-sweep { display: none !important; } section h2::after { width: 100%; transition: none; } }
 
+/* ---------- language switch (top-right) ---------- */
+#dc-lang { position: fixed; top: 14px; right: 16px; z-index: 900; display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 82%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--shadow); }
+#dc-lang button { appearance: none; border: 0; background: transparent; color: var(--ink-2); font: 600 12px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .08em; padding: 7px 12px; border-radius: 999px; cursor: pointer; transition: background .25s ease, color .25s ease, transform .25s ease; }
+#dc-lang button:hover { color: var(--ink); }
+#dc-lang button.on { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,47,167,.35); }
+body.dc-booting #dc-lang { opacity: 0; pointer-events: none; }
+#dc-lang { transition: opacity .6s ease .3s; }
+@media (max-width: 560px) { #dc-lang { top: 10px; right: 10px; } #dc-lang button { padding: 6px 10px; font-size: 11px; } }
+
 /* ---------- ⚡ live radar section ---------- */
 #radar-live .rl-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 #radar-live .radar { position: relative; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--accent); background: radial-gradient(circle, transparent 0 30%, var(--line) 30% 31%, transparent 31% 62%, var(--line) 62% 63%, transparent 63%); overflow: hidden; flex: 0 0 auto; }
@@ -405,7 +414,7 @@ section.in h2::after { width: 100%; }
 <div class="wrap">
 <header>
   <div class="kicker">Caesar · 2027 届 · 金融 × AI</div>
-  <div class="brand"><div id="dc-brand-logo" aria-hidden="true"></div><div><h1>DreamCatcher</h1><div class="sub-title">2027 求职雷达<small>梦捕手 · Job Radar</small></div></div></div>
+  <div class="brand"><div id="dc-brand-logo" aria-hidden="true" title="重放开机动画"></div><div><h1>DreamCatcher</h1><div class="sub-title">2027 求职雷达<small>梦捕手 · Job Radar</small></div></div></div>
   <p class="sub">高盛 / J.P. Morgan / Morgan Stanley / Barclays / 麦肯锡 + 中国券商与 AI 上市公司，六城（香港 · 多伦多 · 纽约 · 芝加哥 · 深圳 · 北京），目标 2027 年春/秋入职。按"现在就投 → 核实后投 → 盯开放 → 已关下轮"排序。</p>
   <p class="asof">信息核实于 <b>2026-08-30</b>，全部来自官方招聘页或近期一手信息；投递前请以官网为准。标注"估计"的日期基于往届节奏推算。</p>
 </header>
@@ -759,6 +768,108 @@ function dcLogo(size, idp, opts) {
 
 </script>
 <script>
+window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class of 2027 · Finance × AI", "2027 求职雷达": "2027 Job Radar", "梦捕手 · Job Radar": "Dream Catcher · Job Radar", "梦捕手 · 2027 求职雷达": "Dream Catcher · 2027 Job Radar", "重放开机动画": "Replay the opening", "DreamCatcher · 2027 求职雷达": "DreamCatcher · 2027 Job Radar", "高盛 / J.P. Morgan / Morgan Stanley / Barclays / 麦肯锡 + 中国券商与 AI 上市公司，六城（香港 · 多伦多 · 纽约 · 芝加哥 · 深圳 · 北京），目标 2027 年春/秋入职。按\"现在就投 → 核实后投 → 盯开放 → 已关下轮\"排序。": "Goldman Sachs / J.P. Morgan / Morgan Stanley / Barclays / McKinsey + Chinese securities firms and listed AI companies, six cities (Hong Kong · Toronto · New York · Chicago · Shenzhen · Beijing), targeting a spring/fall 2027 start. Ordered as “apply now → verify then apply → watch for opening → closed, next round”.", "信息核实于": "Verified on", "，全部来自官方招聘页或近期一手信息；投递前请以官网为准。标注\"估计\"的日期基于往届节奏推算。": ", all from official careers pages or recent first-hand information; check the official site before applying. Dates marked “est.” are projected from previous cycles.", "MS 香港 Industrial Placement 截止（23:55 HKT）": "MS Hong Kong Industrial Placement closes (23:55 HKT)", "腾讯校招首批截止 · JPM 香港 Markets 暑期截止": "Tencent campus round 1 closes · JPM Hong Kong Markets summer closes", "高盛 APAC 全职+暑期截止 · 阿里校招截止": "Goldman APAC full-time + summer close · Alibaba campus closes", "10 月中下旬": "Mid–late Oct", "中金/中信建投往届网申截止区间（估计）": "CICC / CSC Financial past-cycle application deadlines (est.)", "地平线机器人网申截止": "Horizon Robotics application closes", "滚动录取": "Rolling", "GS 美洲全职 · JPM 纽约 Markets 全职 · Barclays 港 S&T——早投早审": "GS Americas full-time · JPM New York Markets full-time · Barclays HK S&T — apply early, reviewed early", "① 现在就投": "① Apply now", "毕业窗口已核实匹配（你：2026.12–2027 中毕业）· 按推荐顺序": "Graduation window verified (you: Dec 2026 – mid 2027) · in recommended order", "开放中": "Open", "1 · New Analyst Program 2027 · APAC（全职）": "1 · New Analyst Program 2027 · APAC (full-time)", "香港": "Hong Kong", "北京": "Beijing", "深圳": "Shenzhen", "2027 年入职": "2027 start", "截止 2026-10-04": "Closes 2026-10-04", "首推。IBD / Global Markets / 研究 / Strats 均可选；你的中英双语 + 中金投行经历在 APAC 是硬通货，北京深圳岗即高盛（中国）证券。": "Top pick. IBD / Global Markets / Research / Strats are all open; your Chinese–English bilingualism + CICC investment-banking experience are hard currency in APAC, and the Beijing/Shenzhen roles are Goldman Sachs (China) Securities.", "官方申请入口 →": "Official application →", "开放中 · 滚动": "Open · rolling", "2 · CIB Markets Full-Time Analyst 2027（含 Research 方向）": "2 · CIB Markets Full-Time Analyst 2027 (incl. Research track)", "纽约": "New York", "滚动招聘（7 月已开）· 尽快投": "Rolling (open since July) · apply ASAP", "要求毕业于 2026.12–2027.6 —— 与你完全重合。Markets + Research 吃分析能力，你的 AI 工作流经历是差异化卖点。": "Requires graduation between Dec 2026 and Jun 2027 — an exact match. Markets + Research reward analytical skill, and your AI-workflow experience is the differentiator.", "JPM 学生项目入口（搜 2027 Markets Full-Time）→": "JPM student programs (search “2027 Markets Full-Time”) →", "3 · New Analyst Program 2027 · Americas（全职）": "3 · New Analyst Program 2027 · Americas (full-time)", "芝加哥": "Chicago", "2027 夏入职": "Summer 2027 start", "未设截止 · 滚动审核，越早越好": "No deadline · rolling review, the earlier the better", "明确面向 2026.12–2027.7 毕业生；全部门可选（含 Strats——适合你的金融+AI 组合），芝加哥 IBD 也从这里进。": "Explicitly for Dec 2026 – Jul 2027 graduates; every division is open (incl. Strats — a fit for your finance + AI combination), and Chicago IBD is entered from here too.", "4 · Sales, Trading & Structuring Graduate Programme 2027": "4 · Sales, Trading & Structuring Graduate Programme 2027", "8 月 17 日刚发布 · 滚动": "Just posted Aug 17 · rolling", "明写要求 2026.12–2027.6 毕业、GPA ≈3.2 —— 门槛友好且窗口精准命中；S&T 起步学习曲线陡，适合\"利于学习\"的诉求。": "Explicitly requires Dec 2026 – Jun 2027 graduation and a GPA of about 3.2 — a friendly bar and an exact window hit; S&T has a steep learning curve early on, which suits the “good for learning” goal.", "官方职位页 →": "Official posting →", "5 · Off-Cycle Internship · APAC（研究 GIR / 投行 IBD）": "5 · Off-Cycle Internship · APAC (Research GIR / IBD)", "3–12 个月 · 2026 底/2027 春可入": "3–12 months · start late 2026 / spring 2027", "滚动开放（明确接受应届/毕业生）": "Rolling (explicitly accepts new graduates)", "你\"2027 春季\"选项的最佳落点：先进场做 3–12 个月，表现好转正是 APAC 常规路径；GIR 研究岗与你的数据分析背景高度对口。": "The best landing spot for your “spring 2027” option: get in for 3–12 months first — conversion on good performance is the standard APAC path; the GIR research roles map closely to your data-analysis background.", "项目页（在 higher.gs.com 搜在招岗）→": "Program page (search open roles on higher.gs.com) →", "腾讯 Tencent": "Tencent", "6 · 2027 校园招聘（AI 产品 / 战略 / 产品经理等）": "6 · 2027 campus recruiting (AI product / strategy / product manager etc.)", "2027 夏秋入职": "Summer/fall 2027 start", "首批约 2026-09-30 截止 · 分批进行": "Round 1 closes around 2026-09-30 · in batches", "面向 2026.1–2027.12 毕业；新增 AI 产品经理类岗位与你的 agentic AI 项目直接对话，深圳+香港都有岗。": "For Jan 2026 – Dec 2027 graduates; the new AI product-manager roles speak directly to your agentic-AI projects, with openings in both Shenzhen and Hong Kong.", "阿里巴巴 Alibaba": "Alibaba", "7 · 2027 届全球校招（产品 / 商业分析 / 商务拓展）": "7 · Class-of-2027 global campus recruiting (product / business analysis / business development)", "北京为主": "Mainly Beijing", "面向 2026.11–2027.10 毕业；AI 电商与金融科技条线多，商业分析岗吃你的咨询+建模复合背景。": "For Nov 2026 – Oct 2027 graduates; many AI e-commerce and fintech lines, and the business-analysis roles reward your consulting + modelling background.", "百度 Baidu": "Baidu", "开放中 · 全年投递": "Open · applications all year", "8 · 2027 届校招（74 类职位，AI 岗占九成）": "8 · Class-of-2027 campus recruiting (74 job families, 90% AI roles)", "无统一截止 · 11 月起发 offer": "No single deadline · offers from November", "产品/政企/综合方向对非技术背景开放；想深耕 AI 行业侧，这是覆盖面最大的入口。": "Product / enterprise / general tracks are open to non-technical backgrounds; for going deep on the AI industry side, this is the broadest entry point.", "科大讯飞 / 地平线": "iFlytek / Horizon Robotics", "9 · 2027 届秋招（产品 / 营销 / 业务拓展类）": "9 · Class-of-2027 fall recruiting (product / marketing / business development)", "讯飞未列截止 · 地平线 2026-10-30 截止": "iFlytek lists no deadline · Horizon closes 2026-10-30", "备选梯队：讯飞\"飞凡计划\"接受 2025.6–2027.8 毕业；地平线业务拓展类岗位少但含金量高（智驾 AI 上市公司）。": "Backup tier: iFlytek's “Feifan Program” accepts Jun 2025 – Aug 2027 graduates; Horizon has few business-development roles but they carry weight (a listed autonomous-driving AI company).", "讯飞入口 →": "iFlytek portal →", "② 开放中，先核实资格再投": "② Open — verify eligibility, then apply", "多为 2027 暑期实习——通常要求 2027.9–2028 年中毕业（即\"届时仍在读\"）": "Mostly 2027 summer internships — usually require Sep 2027 – mid-2028 graduation (i.e. “still enrolled at the time”)", "开放 · 资格存疑": "Open · eligibility unclear", "Industrial Placement 2027 · Asia（6 个月 off-cycle，2027.1–7）": "Industrial Placement 2027 · Asia (6-month off-cycle, Jan–Jul 2027)", "最终轮截止 2026-09-27 23:55 HKT": "Final round closes 2026-09-27 23:55 HKT", "时段（2027 年 1–7 月）与你\"春季\"设想完美吻合，但 IED 岗写明要 2027.9–2028.6 毕业的在读生。投 IBD/GCM 前先向校招邮箱确认你的毕业窗口是否可行——若可行，这是 MS 最现实的进门路径。": "The period (Jan–Jul 2027) matches your “spring” plan perfectly, but the IED role states it wants enrolled students graduating Sep 2027 – Jun 2028. Before applying to IBD/GCM, email campus recruiting to confirm your graduation window is acceptable — if it is, this is the most realistic way into MS.", "MS 校招职位板 →": "MS campus job board →", "开放 · 需 2028 毕业窗口": "Open · needs a 2028 graduation window", "Markets Summer Analyst 2027 · 香港": "Markets Summer Analyst 2027 · Hong Kong", "2027 夏实习": "Summer 2027 internship", "截止 2026-09-30": "Closes 2026-09-30", "仅当你确定 2027 秋入学第二个硕士（毕业顺延至 2028），暑期实习通道才对你重新打开；届时这类岗位是 2028 全职 offer 的主渠道。": "Only if you are set on a second master's starting fall 2027 (pushing graduation to 2028) does the summer-internship route reopen for you; these roles are then the main channel to a 2028 full-time offer.", "JPM 入口 →": "JPM portal →", "GS / MS / Barclays": "GS / MS / Barclays", "开放 · 面向硕士在读": "Open · for enrolled master's students", "量化与 Strats 类暑期 2027（Master's/Associate 级）": "Quant & Strats summer 2027 (Master's / Associate level)", "GS APAC 10-04 截 · MS 香港 09-27 截 · Barclays NY 滚动": "GS APAC closes 10-04 · MS Hong Kong closes 09-27 · Barclays NY rolling", "GS 2027 暑期（APAC 明确收硕士生）、MS IED 量化金融（HK）、MS Strats & AlphaWise（NY）、Barclays 量化 Associate（NY）——都契合金融+AI 画像，但同样默认你 2027 夏仍在读。读二硕路线下值得列入 2027 春的申请清单（2028 暑期届时同步开）。": "GS summer 2027 (APAC explicitly takes master's students), MS IED quantitative finance (HK), MS Strats & AlphaWise (NY), Barclays quant Associate (NY) — all fit the finance + AI profile, but likewise assume you are still enrolled in summer 2027. On the second-master's route they belong on the spring 2027 application list (the 2028 summer roles open at the same time).", "Barclays 检索 →": "Search Barclays →", "开放 · 资格未标明": "Open · eligibility not stated", "Banking Analyst Summer Internship 2027 · 多伦多": "Banking Analyst Summer Internship 2027 · Toronto", "多伦多": "Toronto", "8 月刚发布 · 滚动": "Just posted in August · rolling", "多伦多唯一在招的投行暑期岗；页面未写毕业窗口，值得直接问清——若接受 2027 届，这就是留加选项里的优先级第一。": "The only investment-banking summer role open in Toronto; the page gives no graduation window, so ask directly — if the class of 2027 is accepted, this is priority one among the stay-in-Canada options.", "检索\"2027\" →": "Search “2027” →", "③ 盯紧：预计 9 月开闸": "③ Watch closely: expected to open in September", "中国券商 2027 届秋招 · 每周查一次官网/公众号": "Chinese securities firms' class-of-2027 fall recruiting · check the site / WeChat account weekly", "中金公司 CICC": "CICC", "未开 · 估计 9 月中启动": "Not open · est. mid-September", "2027 届秋季校园招聘（回流首选）": "Class-of-2027 fall campus recruiting (top choice for returning)", "往届：9-12 开网申 → 10-28 截止（仅约 6 周窗口）": "Past cycle: applications opened 9-12 → closed 10-28 (only about a 6-week window)", "你有中金投行部实习履历，回流是全场胜率最高的一张牌。订阅公众号\"中金Career\"，开闸当天就投。": "With your CICC investment-banking internship, returning is the highest-odds card on the table. Follow the “中金Career” WeChat account and apply the day it opens.", "中信建投证券": "CSC Financial (中信建投)", "疑似已启动 · 待核实": "Possibly started · to verify", "2027 届秋招（投行部 / 研究所）": "Class-of-2027 fall recruiting (investment banking / research institute)", "第三方称 8 月已全面启动；往届 10 月上旬公告、10 月底截止": "Third parties say it fully launched in August; past cycles announced in early October and closed at the end of October", "官方北森系统页面需手动打开确认。本周就去 csc108.zhiye.com 查一次，若已开放优先投投行部。": "The official Beisen system page has to be opened manually to confirm. Check csc108.zhiye.com this week; if it is open, apply to investment banking first.", "国信证券": "Guosen Securities (国信证券)", "未开 · 估计 9 月启动": "Not open · est. September", "2027 届秋招（总部深圳）": "Class-of-2027 fall recruiting (HQ Shenzhen)", "27 届暑期实习已于 5 月截止；秋招公告未出（估计 9 月）": "Class-of-2027 summer internships closed in May; the fall notice is not out yet (est. September)", "深圳总部与你的城市偏好吻合；投行类+金融科技类都值得报，金融科技岗能直接用上你的 AI 项目。": "The Shenzhen HQ matches your city preference; both investment banking and fintech are worth applying to, and the fintech roles can use your AI projects directly.", "MS 中国 / JPM APAC": "MS China / JPM APAC", "未放出 · 持续监控": "Not released · keep monitoring", "MSSC 2027 届校招 · JPM 亚太全职 2027": "MSSC class-of-2027 campus recruiting · JPM APAC full-time 2027", "MS 中国仅挂 2026 暑期周期；JPM 亚太 FT 以实习转正为主，秋季偶有直招": "MS China only lists the 2026 summer cycle; JPM APAC FT is mostly intern conversion, with occasional direct fall hiring", "10–11 月复查一轮；JPM 另有中国区 6 个月兼职实习计划（滚动，表现好可转正），作为后备路径。": "Re-check in Oct–Nov; JPM also runs a 6-month part-time internship program in China (rolling, convertible on good performance) as a fallback path.", "JPM China 项目页 →": "JPM China program page →", "④ 本轮已关，记下一轮": "④ Closed this round — note the next one", "含麦肯锡——刚刚错过，下轮时间明确写进日历": "Including McKinsey — just missed; put the next round's dates in the calendar", "已截止": "Closed", "Business Analyst 全职 · 北美（多伦多/纽约/芝加哥）": "Business Analyst full-time · North America (Toronto / New York / Chicago)", "2027 年入职批次": "2027 start cohort", "2026-08-11 已截止（7-01 开放）": "Closed 2026-08-11 (opened 7-01)", "下一轮估计 2027 年 6–8 月开放、对应 2028 年入职——若你 2027 秋入学二硕，那一轮正好在读期间申请，MSc 背景走 BA 线，时间线完全咬合。设个 2027-06-01 的提醒。": "The next round is estimated to open Jun–Aug 2027 for a 2028 start — if you begin the second master's in fall 2027, that round falls exactly during your studies; an MSc background on the BA track lines up perfectly. Set a reminder for 2027-06-01.", "职位页（英国 10-12、台北 10-15 仍开，不在你城市单）→": "Job page (UK 10-12 and Taipei 10-15 still open, not on your city list) →", "Business Analyst · 大中华（北京/深圳/香港）": "Business Analyst · Greater China (Beijing / Shenzhen / Hong Kong)", "2027 届": "Class of 2027", "2026-08-23 刚截止（7-17 官宣，单轮）": "Just closed 2026-08-23 (announced 7-17, single round)", "错过约一周，本届无补录轮的公开信息。同上：把希望放到 2027 年中的下一届周期；期间可积累 casing 和咨询实习履历。": "Missed by about a week, and there is no public information about a make-up round this cycle. As above: pin your hopes on the next cycle in mid-2027, and build casing practice and consulting-internship experience in the meantime.", "官方 BA 页 →": "Official BA page →", "MS / JPM / Barclays": "MS / JPM / Barclays", "美国 & 多伦多 2027 暑期分析师（IBD 等）": "US & Toronto 2027 summer analyst (IBD etc.)", "MS 2-15 截 · JPM 美国 7 月截 · Barclays 美国已关": "MS closed 2-15 · JPM US closed in July · Barclays US closed", "2028 暑期周期（读二硕时你恰好是\"在读硕士\"）预计 2026 年 12 月–2027 年 2 月陆续开放：Barclays 约 12 月、MS 约 1 月、JPM 约 2 月——这是二硕路线下的主战役，届时提前把 HireVue 练好。": "The 2028 summer cycle (when, on the second master's, you are exactly an “enrolled master's student”) is expected to open between Dec 2026 and Feb 2027: Barclays around December, MS around January, JPM around February — the main battle on the second-master's route, so have HireVue practised well in advance.", "周期参考（第三方跟踪）→": "Cycle reference (third-party tracker) →", "策略笔记": "Strategy notes", "你的身份决定主战场": "Your status decides the main battlefield", "你是 2027 届（2026.12–2027 中毕业），所以": "You are class of 2027 (graduating Dec 2026 – mid 2027), so ", "全职分析师项目 + off-cycle 实习是主赛道": "full-time analyst programs + off-cycle internships are the main track", "；2027 暑期实习基本都要求 2027.9 之后毕业的在读生，只有在\"2027 秋再读一个硕士\"的前提下才重新对你开放。两条线并不冲突：现在把 ① 里的全职机会全投掉，同时推进申研——若明年拿到 offer 入学，2026 年 12 月起再打 2028 暑期实习这场仗。": "; 2027 summer internships almost all require enrolled students graduating after Sep 2027, and only reopen to you on the premise of “another master's starting fall 2027”. The two lines don't conflict: apply to every full-time opportunity in ① now while pushing the grad-school applications — if you get an offer and enrol next year, fight the 2028 summer-internship battle from December 2026.", "两周内的动作清单": "Action list for the next two weeks", "本周：GS APAC 全职 + JPM 纽约 Markets 全职 + Barclays 港 S&T（三个都在收，滚动/10-04 截）；顺手向 MS 香港校招确认 Industrial Placement 资格（9-27 截）。下周：腾讯首批（9-30）、阿里（10-04）、GS 美洲全职；同时开始每周一查中金/建投/国信官网——中金往届窗口只有六周，错过即等春招补录，而券商核心岗春招基本不补。": "This week: GS APAC full-time + JPM New York Markets full-time + Barclays HK S&T (all three accepting, rolling / closes 10-04); also confirm Industrial Placement eligibility with MS Hong Kong campus recruiting (closes 9-27). Next week: Tencent round 1 (9-30), Alibaba (10-04), GS Americas full-time; and start checking the CICC / CSC / Guosen sites every Monday — CICC's past window was only six weeks, and missing it means waiting for spring make-up hiring, which core securities-firm roles basically don't do.", "学习价值排序（个人判断）": "Learning-value ranking (personal judgement)", "就\"利于学习\"而言：": "In terms of “good for learning”: ", "GS/JPM 全职分析师培训体系 > 券商总部投行部 > S&T 交易台 > AI 大厂产品/战略岗": "GS/JPM full-time analyst training programs > securities-firm HQ investment banking > S&T trading desks > product/strategy roles at big AI companies", "。若首要目标是三年后的选择权，优先顺序建议：GS APAC → JPM NY Markets → 中金回流 → Barclays 港 S&T → GS off-cycle（春季进场）→ 腾讯/阿里 AI 岗。麦肯锡本轮已关，把它整体挪到 2027 年年中的日历上。": ". If the primary goal is optionality three years out, the suggested order is: GS APAC → JPM NY Markets → return to CICC → Barclays HK S&T → GS off-cycle (spring entry) → Tencent / Alibaba AI roles. McKinsey is closed this round — move it as a whole to the mid-2027 calendar.", "数据截至 2026-08-30，由官方招聘页与近期一手信息核实汇总；\"估计\"字样均为按往届节奏的推算。招聘窗口变动频繁，投递前以各官网为准。链接均指向官方或注明的来源页。": "Data as of 2026-08-30, verified and compiled from official careers pages and recent first-hand information; anything marked “est.” is projected from previous cycles. Recruiting windows change often — check each official site before applying. All links point to official or cited source pages.", "⚡ 实时雷达": "⚡ Live Radar", "每 3 小时自动抓官网 · 只看全职 · 规则筛选零 tokens · AI 只评新岗位": "Career sites scanned every 3 h · full-time only · rule filter, zero tokens · AI reviews new postings only", "加载中…": "Loading…", "极高 90+": "Top 90+", "高 78–89": "High 78–89", "中高 66–77": "Mid-high 66–77", "中 52–65": "Mid 52–65", "偏低 38–51": "Lowish 38–51", "低 <38": "Low <38", "点击色块筛选 · 分数 = 级别 + 届别 + 城市 + 方向 + 优先公司": "Click a tile to filter · score = level + class year + city + area + priority firm", "搜索岗位 / 部门…": "Search title / division…", "只看新增": "New only", "只看已投": "Applied only", "显示已忽略": "Show hidden", "已投自动收起": "Auto-collapse applied", "标记已投后从主列表收起，点“已投递”或“只看已投”随时查看": "Applied postings leave the main list — open them any time via the Applied tile or “Applied only”"};
+/* ===== DreamCatcher language switch (中文 / EN) =====
+   Static text (Caesar's curated sections, header, live-section labels) is swapped node-by-node from the
+   zh→en table that build.py embeds as window.__DC_CURATED_EN; the live feed re-renders itself through
+   dcT() (strings table below). The choice is kept in localStorage (dc.lang); "dc:lang" fires on change. */
+(function () {
+  var MAP = window.__DC_CURATED_EN || {};
+  var lang = "zh";
+  try { lang = localStorage.getItem("dc.lang") === "en" ? "en" : "zh"; } catch (e) {}
+
+  // ---- strings the live feed / boot use (zh, en)
+  var STR = {
+    "boot.tagline": ["梦捕手 · 2027 求职雷达", "Dream Catcher · 2027 Job Radar"],
+    "ago.now": ["刚刚", "just now"], "ago.m": [" 分钟前", " min ago"], "ago.h": [" 小时前", " h ago"], "ago.d": [" 天前", " d ago"],
+    "heat": [[["极高", "值得立刻投"], ["高", "优先投"], ["中高", "核实后投"], ["中", "看情况"], ["偏低", "备用"], ["低", "参考"]],
+             [["Top", "apply now"], ["High", "apply first"], ["Mid-high", "verify first"], ["Mid", "depends"], ["Lowish", "backup"], ["Low", "reference"]]],
+    "type": [{ graduate: "全职 / 毕业生项目", campus: "校招", experienced: "社招 · 入门级", event: "活动", unknown: "其他" },
+             { graduate: "Full-time / graduate program", campus: "Campus", experienced: "Experienced · entry level", event: "Event", unknown: "Other" }],
+    "reason": [{ "program": "校招项目", "entry-level": "入门级", "senior": "资深岗", "senior-analyst": "资深分析师", "mba-track": "MBA 通道", "associate": "Associate 级", "level-unknown": "级别未标", "old-cycle": "往届", "location-open": "地点不限", "other-city": "非目标城市", "event": "活动", "excluded-term": "排除词", "priority-firm": "优先公司" },
+               { "program": "campus program", "entry-level": "entry level", "senior": "senior", "senior-analyst": "senior analyst", "mba-track": "MBA track", "associate": "associate level", "level-unknown": "level not stated", "old-cycle": "past cycle", "location-open": "location open", "other-city": "other city", "event": "event", "excluded-term": "excluded term", "priority-firm": "priority firm" }],
+    "reason.domain": ["方向 ", "area "], "reason.neg": ["扣分 ", "penalty "], "reason.senior": ["资深岗 ", "senior: "],
+    "status.last": ["上次抓取 ", "Last scan "], "status.sources": [" 个来源正常", " sources OK"],
+    "status.failed": ["（{n} 个失败，沿用上次数据）", " ({n} failed, showing their last data)"],
+    "status.show": ["查看来源", "Sources"], "status.hide": ["收起来源", "Hide sources"],
+    "src.count": [" 条 · ", " postings · "], "src.failed": ["失败 ", "failed "], "src.lastok": [" · 上次成功 ", " · last OK "],
+    "tile.new": ["新增（极高–中高）", "New (Top – Mid-high)"], "tile.filtering": [" · 筛选中", " · filtering"],
+    "tile.applied": ["已投递", "Applied"], "tile.collapsed": [" · 已收起，点击查看", " · collapsed, click to view"],
+    "tile.events": ["校园活动 · 案例赛", "Campus events · case comps"],
+    "city.other": ["其他", "Other"],
+    "list.empty": ["没有符合筛选条件的岗位。", "No postings match the current filters."],
+    "more.collapse": ["收起", "Collapse"], "more.expand": ["展开全部 {n} 条", "Show all {n}"],
+    "foot": ["本次显示 {shown} / {visible} 条（官网共抓到 {fetched} 条，规则剔除 {dropped} 条，其中实习类已全部过滤）。分数 = 级别 + 届别 + 城市 + 方向 + 优先公司；AI 评语只对新岗位生成。数据生成于 {at} UTC。",
+             "Showing {shown} of {visible} postings ({fetched} fetched from the career sites, {dropped} removed by the rules — every internship filtered out). Score = level + class year + city + area + priority firm; AI notes are written for new postings only. Data generated {at} UTC."],
+    "card.closes": ["截止 ", "Closes "], "card.posted": ["发布 ", "Posted "], "card.firstseen": ["首次出现 ", "First seen "],
+    "verdict": [{ apply: "建议投", consider: "可考虑", skip: "可跳过" }, { apply: "Apply", consider: "Consider", skip: "Skip" }],
+    "card.applied": ["✓ 已投 ", "✓ Applied "], "card.stale": ["上次数据", "last run"], "card.link": ["官网职位页 →", "Official posting →"],
+    "btn.applied": ["已投 ✓", "Applied ✓"], "btn.apply": ["标记已投", "Mark applied"], "btn.restore": ["恢复", "Restore"], "btn.hide": ["忽略", "Hide"],
+    "load.error": ["暂无数据（{msg}）。先在 GitHub 上手动跑一次 \"DreamCatcher scan\"，或在本文件顶部填好 DATA_URL。", "No data yet ({msg}). Run \"DreamCatcher scan\" once on GitHub, or set DATA_URL at the top of this file."],
+    "lang.title": ["Switch to English", "切换到中文"]
+  };
+  function T(key, vars) {
+    var v = STR[key]; if (!v) return key;
+    var s = v[lang === "en" ? 1 : 0];
+    if (typeof s === "string" && vars) Object.keys(vars).forEach(function (k) { s = s.split("{" + k + "}").join(vars[k]); });
+    return s;
+  }
+  window.dcT = T;
+  window.dcLang = function () { return lang; };
+
+  // ---- static text: swap every text node (and placeholder / title attributes) that has a translation
+  var SKIP = { SCRIPT: 1, STYLE: 1, CANVAS: 1, SVG: 1 };
+  function walk(root, fn) {
+    var it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-heat, #rl-meta, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-lang")) return NodeFilter.FILTER_REJECT;
+      return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP; } });
+    var n, list = []; while ((n = it.nextNode())) list.push(n); list.forEach(fn);
+  }
+  function apply(root) {
+    root = root || document.body;
+    walk(root, function (n) {
+      if (n.__zh == null) n.__zh = n.nodeValue;
+      var raw = n.__zh, key = raw.trim();
+      if (lang === "en") { var en = MAP[key]; if (en != null) { var lead = raw.match(/^\s*/)[0], tail = raw.match(/\s*$/)[0]; n.nodeValue = lead + en + tail; } }
+      else n.nodeValue = raw;
+    });
+    Array.prototype.forEach.call(root.querySelectorAll("[placeholder], [title]"), function (el) {
+      ["placeholder", "title"].forEach(function (a) {
+        if (!el.hasAttribute(a)) return;
+        var k = "__zh_" + a; if (el[k] == null) el[k] = el.getAttribute(a);
+        var en = MAP[el[k].trim()];
+        el.setAttribute(a, lang === "en" && en != null ? en : el[k]);
+      });
+    });
+    document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+    if (document.__zhTitle == null) document.__zhTitle = document.title;
+    document.title = lang === "en" ? (MAP[document.__zhTitle] || document.__zhTitle) : document.__zhTitle;
+    var btn = document.getElementById("dc-lang");
+    if (btn) { Array.prototype.forEach.call(btn.querySelectorAll("button"), function (b) { b.classList.toggle("on", b.getAttribute("data-lang") === lang); }); btn.title = T("lang.title"); }
+  }
+  window.dcApplyLang = apply;
+
+  function setLang(l) {
+    if (l === lang) return;
+    lang = l; try { localStorage.setItem("dc.lang", l); } catch (e) {}
+    apply(document.body);
+    window.dispatchEvent(new Event("dc:lang"));
+  }
+  window.dcSetLang = setLang;
+
+  // ---- the switch, top-right
+  function mount() {
+    var box = document.createElement("div"); box.id = "dc-lang"; box.setAttribute("role", "group"); box.setAttribute("aria-label", "Language");
+    box.innerHTML = '<button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button>';
+    box.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setLang(b.getAttribute("data-lang")); });
+    document.body.appendChild(box);
+    apply(document.body);
+  }
+  if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
+})();
+
+</script>
+<script>
 /* ===== DreamCatcher boot sequence + header logo + scroll reveal =====
    Full sequence (once a day, ~8.5 s): night sky fades up from black, the stars drift, a meteor crosses,
    a spark traces the hoop, the web is woven ring by ring, the moon rises with two halo ripples, stars and
@@ -775,7 +886,7 @@ function dcLogo(size, idp, opts) {
     boot.className = mode === "short" ? "short" : "";
     boot.innerHTML = '<div class="bg"></div><div class="aurora"><i></i><i></i></div><div class="stars"></div><div class="meteors"></div>' +
       '<div class="veil"></div><div class="halo"></div><div class="fireflies"></div><div class="logo"></div>' +
-      '<div class="word"><div class="w"></div><div class="line"></div><div class="t">梦捕手 · 2027 求职雷达</div></div>' +
+      '<div class="word"><div class="w"></div><div class="line"></div><div class="t">' + (window.dcT ? window.dcT("boot.tagline") : "梦捕手 · 2027 求职雷达") + '</div></div>' +
       '<button class="skip" type="button">跳过 SKIP</button>';
     // star field: 110 stars, each with its own twinkle phase; a few bigger ones glow
     var stars = boot.querySelector(".stars"), frag = document.createDocumentFragment();
@@ -899,10 +1010,11 @@ function dcLogo(size, idp, opts) {
   var ago = function (iso) {
     if (!iso) return "—";
     var m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
-    if (m < 1) return "刚刚"; if (m < 60) return m + " 分钟前";
-    var h = Math.round(m / 60); if (h < 48) return h + " 小时前";
-    return Math.round(h / 24) + " 天前";
+    if (m < 1) return T("ago.now"); if (m < 60) return m + T("ago.m");
+    var h = Math.round(m / 60); if (h < 48) return h + T("ago.h");
+    return Math.round(h / 24) + T("ago.d");
   };
+  window.dcAgo = ago;
   var isNew = function (j) {
     var seen = new Date(j.firstSeen).getTime();
     var sinceVisit = S.lastVisit ? seen > new Date(S.lastVisit).getTime() : false;
@@ -910,10 +1022,11 @@ function dcLogo(size, idp, opts) {
   };
   var cityOf = function (j) { return (j.match && j.match.matchedCity) || null; };
   var heatOf = function (j) { var h = j.match && j.match.heat; return typeof h === "number" ? h : 5; };
-  var HEAT = [["极高", "值得立刻投"], ["高", "优先投"], ["中高", "核实后投"], ["中", "看情况"], ["偏低", "备用"], ["低", "参考"]];
-  var TYPE = { graduate: "全职 / 毕业生项目", campus: "校招", experienced: "社招 · 入门级", event: "活动", unknown: "其他" };
-  var RZ = { "program": "校招项目", "entry-level": "入门级", "senior": "资深岗", "senior-analyst": "资深分析师", "mba-track": "MBA 通道", "associate": "Associate 级", "level-unknown": "级别未标", "old-cycle": "往届", "location-open": "地点不限", "other-city": "非目标城市", "event": "活动", "excluded-term": "排除词", "priority-firm": "优先公司" };
-  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return "方向 " + r.slice(7); if (r.indexOf("neg:") === 0) return "扣分 " + r.slice(4); return r; }
+  var T = function (k, v) { return window.dcT ? window.dcT(k, v) : k; };   // i18n.js (中文 / EN)
+  var HEAT, TYPE, RZ, OTHER;
+  function strings() { HEAT = T("heat"); TYPE = T("type"); RZ = T("reason"); OTHER = T("city.other"); }
+  strings();
+  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); return r; }
 
   function load() {
     var urls = [DATA_URL, "data/jobs.json"].filter(Boolean), i = 0;
@@ -939,12 +1052,12 @@ function dcLogo(size, idp, opts) {
     var d = S.data, jobs = d.jobs || [];
     var srcs = Object.keys(d.sources || {}).map(function (k) { return d.sources[k]; });
     var ok = srcs.filter(function (s) { return s.ok; }).length, stale = srcs.length - ok;
-    $("rl-status").innerHTML = '<span><i class="rl-dot ' + (stale ? "stale" : "") + '"></i>上次抓取 <b>' + esc(ago(d.generatedAt)) + '</b></span>' +
-      '<span>' + ok + '/' + srcs.length + ' 个来源正常' + (stale ? '（' + stale + ' 个失败，沿用上次数据）' : '') + '</span>' +
-      '<button class="rl-link" id="rl-togglesrc">' + ($("rl-sources").hidden ? "查看来源" : "收起来源") + '</button>';
+    $("rl-status").innerHTML = '<span><i class="rl-dot ' + (stale ? "stale" : "") + '"></i>' + T("status.last") + '<b>' + esc(ago(d.generatedAt)) + '</b></span>' +
+      '<span>' + ok + '/' + srcs.length + T("status.sources") + (stale ? T("status.failed", { n: stale }) : '') + '</span>' +
+      '<button class="rl-link" id="rl-togglesrc">' + ($("rl-sources").hidden ? T("status.show") : T("status.hide")) + '</button>';
     $("rl-togglesrc").onclick = function () { $("rl-sources").hidden = !$("rl-sources").hidden; render(); };
     $("rl-sources").innerHTML = Object.keys(d.sources || {}).map(function (k) { var s = d.sources[k];
-      return '<div><span><i class="rl-dot ' + (s.ok ? "" : "bad") + '"></i>' + esc(s.name || k) + '</span><span>' + (s.ok ? s.count + ' 条 · ' + esc(ago(s.fetchedAt)) : '<span class="err">失败 ' + esc(ago(s.failedAt)) + (s.lastOkAt ? ' · 上次成功 ' + esc(ago(s.lastOkAt)) : '') + '</span>') + '</span></div>'; }).join("");
+      return '<div><span><i class="rl-dot ' + (s.ok ? "" : "bad") + '"></i>' + esc(s.name || k) + '</span><span>' + (s.ok ? s.count + T("src.count") + esc(ago(s.fetchedAt)) : '<span class="err">' + T("src.failed") + esc(ago(s.failedAt)) + (s.lastOkAt ? T("src.lastok") + esc(ago(s.lastOkAt)) : '') + '</span>') + '</span></div>'; }).join("");
 
     var visible = jobs.filter(function (j) { return (S.showHidden || !S.hidden.has(j.id)) && (S.showEvents || j.type !== "event"); });
     // heat tiles
@@ -954,9 +1067,9 @@ function dcLogo(size, idp, opts) {
     var newCount = visible.filter(function (j) { return isNew(j) && heatOf(j) <= 2; }).length;
     var appliedCount = jobs.filter(function (j) { return S.applied[j.id]; }).length;
     var eventCount = jobs.filter(function (j) { return j.type === "event" && !S.hidden.has(j.id); }).length;
-    $("rl-meta").innerHTML = '<div class="rl-tile new" data-meta="new"' + (S.onlyNew ? "" : ' style="opacity:.85"') + '><b data-n="' + newCount + '">0</b><small>新增（极高–中高）' + (S.onlyNew ? ' · 筛选中' : '') + '</small></div>' +
-      '<div class="rl-tile applied" data-meta="applied"><b data-n="' + appliedCount + '">0</b><small>已投递' + (S.onlyApplied ? ' · 筛选中' : (appliedCount && S.hideApplied ? ' · 已收起，点击查看' : '')) + '</small></div>' +
-      '<div class="rl-tile event' + (S.showEvents ? "" : " off") + '" data-meta="events"><b data-n="' + eventCount + '">0</b><small>校园活动 · 案例赛</small></div>';
+    $("rl-meta").innerHTML = '<div class="rl-tile new" data-meta="new"' + (S.onlyNew ? "" : ' style="opacity:.85"') + '><b data-n="' + newCount + '">0</b><small>' + T("tile.new") + (S.onlyNew ? T("tile.filtering") : '') + '</small></div>' +
+      '<div class="rl-tile applied" data-meta="applied"><b data-n="' + appliedCount + '">0</b><small>' + T("tile.applied") + (S.onlyApplied ? T("tile.filtering") : (appliedCount && S.hideApplied ? T("tile.collapsed") : '')) + '</small></div>' +
+      '<div class="rl-tile event' + (S.showEvents ? "" : " off") + '" data-meta="events"><b data-n="' + eventCount + '">0</b><small>' + T("tile.events") + '</small></div>';
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-tile b[data-n]"), function (b) { countUp(b, +b.getAttribute("data-n")); });
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-tile[data-heat]"), function (el) { el.onclick = function () { var h = +el.getAttribute("data-heat"); S.heat.has(h) ? S.heat.delete(h) : S.heat.add(h); LS.set("heat", Array.from(S.heat)); render(); }; });
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-tile[data-meta]"), function (el) { el.onclick = function () { var m = el.getAttribute("data-meta");
@@ -967,10 +1080,10 @@ function dcLogo(size, idp, opts) {
 
     // chips
     var byCompany = {}, byCity = {}, byType = {};
-    visible.forEach(function (j) { byCompany[j.company] = (byCompany[j.company] || 0) + 1; var c = cityOf(j) || "其他"; byCity[c] = (byCity[c] || 0) + 1; byType[j.type] = (byType[j.type] || 0) + 1; });
-    $("rl-companies").innerHTML = Object.keys(byCompany).sort(function (a, b) { return byCompany[b] - byCompany[a]; }).map(function (c) { return chip("companies", c, c.replace(/ (Guosen Securities|CSC Financial|CICC|iFlytek)$/, ""), byCompany[c], S.companies.has(c)); }).join("");
+    visible.forEach(function (j) { byCompany[j.company] = (byCompany[j.company] || 0) + 1; var c = cityOf(j) || OTHER; byCity[c] = (byCity[c] || 0) + 1; byType[j.type] = (byType[j.type] || 0) + 1; });
+    $("rl-companies").innerHTML = Object.keys(byCompany).sort(function (a, b) { return byCompany[b] - byCompany[a]; }).map(function (c) { return chip("companies", c, window.dcLang && window.dcLang() === "en" ? c.replace(/^[\u4e00-\u9fff]+ /, "") : c.replace(/ (Guosen Securities|CSC Financial|CICC|iFlytek)$/, ""), byCompany[c], S.companies.has(c)); }).join("");
     var cityOrder = ((d.profileCities && d.profileCities.target) || []).concat((d.profileCities && d.profileCities.secondary) || []).filter(function (c) { return byCity[c]; });
-    if (byCity["其他"]) cityOrder.push("其他");
+    if (byCity[OTHER]) cityOrder.push(OTHER);
     $("rl-cities").innerHTML = cityOrder.map(function (c) { return chip("cities", c, c, byCity[c], S.cities.has(c)); }).join("");
     $("rl-types").innerHTML = Object.keys(TYPE).filter(function (t) { return byType[t]; }).map(function (t) { return chip("types", t, TYPE[t], byType[t], S.types.has(t)); }).join("");
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip"), function (el) { el.onclick = function () { var set = S[el.getAttribute("data-group")], key = el.getAttribute("data-key"); set.has(key) ? set.delete(key) : set.add(key); LS.set(el.getAttribute("data-group"), Array.from(set)); render(); }; });
@@ -980,7 +1093,7 @@ function dcLogo(size, idp, opts) {
     var rows = visible.filter(function (j) {
       return (j.type === "event" || S.heat.has(heatOf(j))) &&
         (!S.companies.size || S.companies.has(j.company)) &&
-        (!S.cities.size || S.cities.has(cityOf(j) || "其他")) &&
+        (!S.cities.size || S.cities.has(cityOf(j) || OTHER)) &&
         (!S.types.size || S.types.has(j.type)) &&
         (!S.onlyNew || isNew(j)) &&
         (!S.onlyApplied || S.applied[j.id]) &&
@@ -989,14 +1102,14 @@ function dcLogo(size, idp, opts) {
     });
     rows.sort(function (a, b) { return (b.match.score - a.match.score) || ((b.postedAt || b.firstSeen) > (a.postedAt || a.firstSeen) ? 1 : -1); });
     var shown = S.expanded ? rows : rows.slice(0, PAGE);
-    $("rl-list").innerHTML = shown.length ? shown.map(card).join("") : '<div class="rl-empty">没有符合筛选条件的岗位。</div>';
+    $("rl-list").innerHTML = shown.length ? shown.map(card).join("") : '<div class="rl-empty">' + T("list.empty") + '</div>';
     $("rl-more").hidden = rows.length <= PAGE;
-    $("rl-morebtn").textContent = S.expanded ? "收起" : "展开全部 " + rows.length + " 条";
+    $("rl-morebtn").textContent = S.expanded ? T("more.collapse") : T("more.expand", { n: rows.length });
     $("rl-morebtn").onclick = function () { S.expanded = !S.expanded; render(); };
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live [data-hide]"), function (b) { b.onclick = function () { var id = b.getAttribute("data-hide"); S.hidden.has(id) ? S.hidden.delete(id) : S.hidden.add(id); LS.set("hidden", Array.from(S.hidden)); render(); }; });
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live [data-apply]"), function (b) { b.onclick = function () { var id = b.getAttribute("data-apply"); if (S.applied[id]) delete S.applied[id]; else S.applied[id] = new Date().toISOString().slice(0, 10); LS.set("applied", S.applied); render(); }; });
     var c = d.counts || {};
-    $("rl-foot").innerHTML = '本次显示 ' + rows.length + ' / ' + visible.length + ' 条（官网共抓到 ' + (c.fetched != null ? c.fetched : "?") + ' 条，规则剔除 ' + (c.dropped != null ? c.dropped : "?") + ' 条，其中实习类已全部过滤）。分数 = 级别 + 届别 + 城市 + 方向 + 优先公司；AI 评语只对新岗位生成。数据生成于 ' + esc((d.generatedAt || "").replace("T", " ").slice(0, 16)) + ' UTC。';
+    $("rl-foot").innerHTML = T("foot", { shown: rows.length, visible: visible.length, fetched: c.fetched != null ? c.fetched : "?", dropped: c.dropped != null ? c.dropped : "?", at: esc((d.generatedAt || "").replace("T", " ").slice(0, 16)) });
     S.counted = true;
   }
 
@@ -1008,16 +1121,17 @@ function dcLogo(size, idp, opts) {
     if ((j.locations || []).length > 4) chips.push('<span class="chip">+' + (j.locations.length - 4) + '</span>');
     chips.push('<span class="chip">' + esc(TYPE[j.type] || j.type) + '</span>');
     if (j.division) chips.push('<span class="chip">' + esc(j.division) + '</span>');
-    var ddl = j.closesAt ? '<div class="ddl' + (new Date(j.closesAt) - Date.now() < 14 * 86400000 ? " hot" : "") + '">截止 ' + esc(j.closesAt) + '</div>'
-      : j.postedAt ? '<div class="ddl">发布 ' + esc(j.postedAt) + '</div>' : '<div class="ddl">首次出现 ' + esc((j.firstSeen || "").slice(0, 10)) + '</div>';
+    var ddl = j.closesAt ? '<div class="ddl' + (new Date(j.closesAt) - Date.now() < 14 * 86400000 ? " hot" : "") + '">' + T("card.closes") + esc(j.closesAt) + '</div>'
+      : j.postedAt ? '<div class="ddl">' + T("card.posted") + esc(j.postedAt) + '</div>' : '<div class="ddl">' + T("card.firstseen") + esc((j.firstSeen || "").slice(0, 10)) + '</div>';
     var ai = j.ai;
-    var fit = ai ? '<p class="fit"><span class="v ' + esc(ai.verdict) + '">' + ({ apply: "建议投", consider: "可考虑", skip: "可跳过" }[ai.verdict] || ai.verdict) + ' · AI ' + ai.fit + '/10</span>' + esc(ai.reason_en) + '<span class="zh">' + esc(ai.reason_zh) + '</span></p>'
+    var en = window.dcLang && window.dcLang() === "en";
+    var fit = ai ? '<p class="fit"><span class="v ' + esc(ai.verdict) + '">' + (T("verdict")[ai.verdict] || ai.verdict) + ' · AI ' + ai.fit + '/10</span>' + esc(en ? ai.reason_en : (ai.reason_zh || ai.reason_en)) + (en ? '' : '<span class="zh">' + esc(ai.reason_en) + '</span>') + '</p>'
       : '<p class="fit">' + (m.reasons || []).map(reasonZh).join(" · ") + '</p>';
     return '<div class="role h' + h + (dismissed ? " dismissed" : "") + (applied ? " applied" : "") + '" style="--i:' + Math.min(i, 14) + '">' +
-      '<div class="role-top"><span class="firm">' + esc(j.company) + '</span><span>' + (isNew(j) ? '<span class="pill new">NEW</span> ' : "") + (applied ? '<span class="pill applied">✓ 已投 ' + esc(applied) + '</span> ' : "") + (j.stale ? '<span class="pill stale">上次数据</span> ' : "") + '<span class="heat"><i></i>' + HEAT[h][0] + ' <span class="s">' + m.score + '</span></span></span></div>' +
+      '<div class="role-top"><span class="firm">' + esc(j.company) + '</span><span>' + (isNew(j) ? '<span class="pill new">NEW</span> ' : "") + (applied ? '<span class="pill applied">' + T("card.applied") + esc(applied) + '</span> ' : "") + (j.stale ? '<span class="pill stale">' + T("card.stale") + '</span> ' : "") + '<span class="heat"><i></i>' + HEAT[h][0] + ' <span class="s">' + m.score + '</span></span></span></div>' +
       '<h3>' + esc(j.title) + '</h3>' +
       '<div class="meta">' + chips.join("") + '</div>' + ddl + fit +
-      '<div class="rl-line"><a href="' + esc(j.url) + '" target="_blank" rel="noopener">官网职位页 →</a><span><span class="rl-bar"><i style="--w:' + Math.max(3, m.score) + '%"></i></span><span class="rl-score">' + m.score + '</span><span class="rl-btns"><button class="rl-b' + (applied ? " on" : "") + '" data-apply="' + esc(j.id) + '">' + (applied ? "已投 ✓" : "标记已投") + '</button><button class="rl-b" data-hide="' + esc(j.id) + '">' + (dismissed ? "恢复" : "忽略") + '</button></span></span></div>' +
+      '<div class="rl-line"><a href="' + esc(j.url) + '" target="_blank" rel="noopener">' + T("card.link") + '</a><span><span class="rl-bar"><i style="--w:' + Math.max(3, m.score) + '%"></i></span><span class="rl-score">' + m.score + '</span><span class="rl-btns"><button class="rl-b' + (applied ? " on" : "") + '" data-apply="' + esc(j.id) + '">' + (applied ? T("btn.applied") : T("btn.apply")) + '</button><button class="rl-b" data-hide="' + esc(j.id) + '">' + (dismissed ? T("btn.restore") : T("btn.hide")) + '</button></span></span></div>' +
       '</div>';
   }
 
@@ -1033,9 +1147,10 @@ function dcLogo(size, idp, opts) {
     var go = function () { render(); LS.set("lastVisit", new Date().toISOString()); };
     // wait for the boot overlay so the number roll-up is actually seen
     if (window.__dcBootDone) go(); else window.addEventListener("dc:boot-done", go, { once: true });
+    window.addEventListener("dc:lang", function () { strings(); S.counted = true; render(); });   // 中文 / EN switch
   }).catch(function (e) {
     $("rl-list").innerHTML = "";
-    $("rl-status").innerHTML = '<span><i class="rl-dot bad"></i>暂无数据（' + esc(e.message) + '）。先在 GitHub 上手动跑一次 "DreamCatcher scan"，或在本文件顶部填好 DATA_URL。</span>';
+    $("rl-status").innerHTML = '<span><i class="rl-dot bad"></i>' + esc(T("load.error", { msg: e.message })) + '</span>';
   });
 })();
 
@@ -1138,7 +1253,7 @@ function dcLogo(size, idp, opts) {
   /* ---------- 5. header logo: hover intensifies, click replays the boot ---------- */
   var brand = document.getElementById("dc-brand-logo");
   if (brand) {
-    brand.style.cursor = "pointer"; brand.title = "重放开机动画";
+    brand.style.cursor = "pointer";
     brand.addEventListener("click", function () {
       if (document.getElementById("dc-boot") || !window.dcBootPlay) return;
       window.scrollTo({ top: 0, behavior: "instant" });   // so the logo can fly back onto the header
@@ -1149,8 +1264,7 @@ function dcLogo(size, idp, opts) {
   /* ---------- 6. "上次抓取" relative-time ticker ---------- */
   setInterval(function () {
     var b = document.querySelector("#rl-status b"); if (!b || !window.__dcGeneratedAt) return;
-    var m = Math.round((Date.now() - new Date(window.__dcGeneratedAt).getTime()) / 60000);
-    b.textContent = m < 1 ? "刚刚" : m < 60 ? m + " 分钟前" : Math.round(m / 60) < 48 ? Math.round(m / 60) + " 小时前" : Math.round(m / 1440) + " 天前";
+    if (window.dcAgo) b.textContent = window.dcAgo(window.__dcGeneratedAt);
   }, 30000);
 })();
 

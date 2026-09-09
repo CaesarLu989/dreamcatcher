@@ -22,7 +22,7 @@ body = body[: body.rindex("</div>") + len("</div>")]
 assert "<h1>2027 求职雷达</h1>" in body
 
 # ---- brand header: logo + wordmark, original copy untouched ----
-brand = ('<div class="brand"><div id="dc-brand-logo" aria-hidden="true"></div>'
+brand = ('<div class="brand"><div id="dc-brand-logo" aria-hidden="true" title="重放开机动画"></div>'
          '<div><h1>DreamCatcher</h1><div class="sub-title">2027 求职雷达<small>梦捕手 · Job Radar</small></div></div></div>')
 body = body.replace("<h1>2027 求职雷达</h1>", brand, 1)
 
@@ -40,6 +40,9 @@ logo_js = (here / "logo.js").read_text(encoding="utf-8")
 boot_js = (here / "boot.js").read_text(encoding="utf-8")
 live_js = (here / "live.js").read_text(encoding="utf-8")
 motion_js = (here / "motion.js").read_text(encoding="utf-8")
+i18n_js = (here / "i18n.js").read_text(encoding="utf-8")
+_i18n = json.loads((here / "i18n_curated.json").read_text(encoding="utf-8")); _i18n.pop("$comment", None)
+i18n_map = "window.__DC_CURATED_EN = " + json.dumps(_i18n, ensure_ascii=False) + ";"
 
 # only the sky is in the markup (covers the page before any script runs); boot.js fills in the rest
 boot_html = '''<div id="dc-boot" aria-hidden="true"><div class="bg"></div></div>'''
@@ -74,6 +77,10 @@ def page(embed_json=None):
 {body}
 {embed}<script>
 {logo_js}
+</script>
+<script>
+{i18n_map}
+{i18n_js}
 </script>
 <script>
 {boot_js}

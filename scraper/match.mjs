@@ -32,6 +32,7 @@ export function buildMatcher(profile) {
     entry: rx(P.levels.entry),
     mba: rx(P.levels.mbaAssociate || ["summer associate", "pre-mba", "mba"]),
     senior: rx(P.levels.senior),
+    seniorHard: rx(P.levels.seniorHard || ["vice president", "\\bvp\\b", "executive director", "managing director", "director", "head of", "\\bphd\\b"]),
     seniorSoft: rx(P.levels.seniorSoft || ["senior analyst"]),
     preferred: rx(P.domains.preferred),
     moderate: rx(P.domains.moderate || ["risk", "finance", "treasury", "operations"]),
@@ -56,7 +57,11 @@ export function buildMatcher(profile) {
 
     // ---- level
     const isEvent = j.type === "event";
-    if (R.senior.test(title) && !R.entry.test(title)) {
+    if (R.seniorHard.test(title)) {
+      // VP / director / MD / PhD-only titles are out even when they also say "analyst"
+      excluded = true;
+      reasons.push("senior:" + (title.match(R.seniorHard)?.[1] || "").toLowerCase());
+    } else if (R.senior.test(title) && !R.entry.test(title)) {
       excluded = true;
       reasons.push("senior");
     } else if (R.seniorSoft.test(title)) {

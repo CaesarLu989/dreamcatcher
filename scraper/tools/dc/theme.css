@@ -230,3 +230,12 @@ section.in h2::after { width: 100%; }
 .brand .dc-logo { transition: transform .5s cubic-bezier(.2,.8,.3,1.1); }
 .brand:hover .dc-logo { transform: scale(1.06) rotate(-3deg); }
 @media (prefers-reduced-motion: reduce) { #dc-sky, #dc-aurora, .rl-sweep { display: none !important; } section h2::after { width: 100%; transition: none; } }
+
+/* ---------- language switch (top-right) ---------- */
+#dc-lang { position: fixed; top: 14px; right: 16px; z-index: 900; display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 82%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--shadow); }
+#dc-lang button { appearance: none; border: 0; background: transparent; color: var(--ink-2); font: 600 12px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .08em; padding: 7px 12px; border-radius: 999px; cursor: pointer; transition: background .25s ease, color .25s ease, transform .25s ease; }
+#dc-lang button:hover { color: var(--ink); }
+#dc-lang button.on { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,47,167,.35); }
+body.dc-booting #dc-lang { opacity: 0; pointer-events: none; }
+#dc-lang { transition: opacity .6s ease .3s; }
+@media (max-width: 560px) { #dc-lang { top: 10px; right: 10px; } #dc-lang button { padding: 6px 10px; font-size: 11px; } }
