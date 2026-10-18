@@ -188,10 +188,24 @@ radancy.fetchDetail = async function (cfg, j) {
 export async function eightfold(cfg) {
   const host = cfg.host.replace(/\/$/, "");
   const seen = new Map();
+  const warnings = [];
+  // pages are 10 rows (num is capped server-side); newest first, so the page cap keeps the freshest postings.
+  // The API rate-limits bursts (HTTP 429) → ~1 s between pages, and back off + retry when it happens.
   for (const s of cfg.searches || [{ query: "", location: "" }]) {
-    for (let p = 0; p < (cfg.maxPages || 20); p++) {
-      const u = `${host}/api/pcsx/search?domain=${cfg.domain}&query=${encodeURIComponent(s.query || "")}&location=${encodeURIComponent(s.location || "")}&start=${p * 10}&num=10&sort_by=relevance`;
-      const res = await getJson(u, { headers: { accept: "application/json", referer: `${host}/careers` } });
+    for (let p = 0; p < (cfg.maxPages || 15); p++) {
+      const u = `${host}/api/pcsx/search?domain=${cfg.domain}&query=${encodeURIComponent(s.query || "")}&location=${encodeURIComponent(s.location || "")}&start=${p * 10}&num=10&sort_by=timestamp`;
+      let res = null;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          res = await getJson(u, { headers: { accept: "application/json", referer: `${host}/careers` } });
+          break;
+        } catch (e) {
+          if (!/HTTP 429/.test(String(e.message || e))) throw e;
+          if (attempt === 2) warnings.push(`rate-limited at ${s.location || s.query} page ${p + 1} — kept what was fetched`);
+          else await sleep(6000 * (attempt + 1));
+        }
+      }
+      if (!res) break;
       const list = res?.data?.positions || [];
       for (const pos of list) {
         if (seen.has(pos.id)) continue;
@@ -199,10 +213,12 @@ export async function eightfold(cfg) {
       }
       const count = res?.data?.count || 0;
       if (!list.length || (p + 1) * 10 >= count) break;
-      await sleep(200);
+      await sleep(1000);
     }
   }
-  return [...seen.values()];
+  const out = [...seen.values()];
+  if (warnings.length) out.warnings = warnings;
+  return out;
 }
 eightfold.fetchDetail = async function (cfg, j) {
   const host = cfg.host.replace(/\/$/, "");
@@ -239,24 +255,30 @@ export async function avature(cfg) {
   const base = cfg.base.replace(/\/$/, "");
   const seen = new Map();
   const want = (cfg.cities || []).map((c) => c.toLowerCase());
+  const ids = new Set();
+  let fetched = 0;
+  // the portal pages with folderOffset (10 rows a page; jobOffset / folderRecordsPerPage are ignored)
   for (let off = 0; off < 10 * (cfg.maxPages || 40); off += 10) {
-    const html = await getText(`${base}/jobs/SearchJobs/?jobOffset=${off}`);
-    let n = 0;
+    const html = await getText(`${base}/jobs/SearchJobs/?folderRecordsPerPage=10&folderOffset=${off}`);
+    let n = 0, fresh = 0;
     for (const m of matchAll(/<article class="article article--result">([\s\S]*?)<\/article>/g, html)) {
       const block = m[1];
       const a = block.match(/<a href="([^"]*\/FolderDetail\/[^"]*\/(\d+))"[^>]*>([\s\S]*?)<\/a>/);
       if (!a) continue;
       n++;
+      if (!ids.has(a[2])) { ids.add(a[2]); fresh++; fetched++; }
       const title = stripTags(a[3]);
       const loc = stripTags((block.match(/article__header__text__subtitle"[^>]*>([\s\S]*?)<\/div>/) || [])[1] || "");
       const locs = loc.split(/\s*,\s*/).filter(Boolean);
       if (want.length && !locs.some((l) => want.some((w) => l.toLowerCase().includes(w)))) continue;
       if (!seen.has(a[2])) seen.set(a[2], job({ companyKey: cfg.key, company: cfg.name, id: a[2], title, url: a[1], locations: locs, postedAt: null, type: guessType(title), snippet: "" }));
     }
-    if (!n) break;
+    if (!n || !fresh) break; // empty page, or the site ignored the offset and repeated itself
     await sleep(300);
   }
-  return [...seen.values()];
+  const out = [...seen.values()];
+  out.warnings = [`${fetched} postings on the portal, ${out.length} in ${(cfg.cities || []).join("/") || "all cities"}`];
+  return out;
 }
 avature.fetchDetail = async function (cfg, j) {
   const html = await getText(j.url);

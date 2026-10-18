@@ -78,7 +78,9 @@ export async function workday(cfg) {
         for (const j of list) {
           const id = (j.externalPath || "").split("/").pop() || j.title;
           if (seen.has(id)) continue;
-          const locText = j.locationsText || "";
+          // some tenants (Accenture, Thomson Reuters) send no locationsText — the location then sits in bulletFields
+          // ("Ontario - Toronto", "Frisco; Toronto; Eagan; New York") or in the URL path (/job/Ontario---Toronto/…)
+          const locText = j.locationsText || wdLocFromBullets(j.bulletFields) || wdLocFromPath(j.externalPath) || "";
           const multi = /^\d+\s+locations?$/i.test(locText);
           seen.set(
             id,
@@ -88,7 +90,7 @@ export async function workday(cfg) {
               id,
               title: j.title,
               url: `${host}/${cfg.lang || "en-US"}/${site}${j.externalPath}`,
-              locations: multi ? [] : [locText].filter(Boolean),
+              locations: multi ? [] : locText.split(/\s*;\s*/).filter(Boolean),
               postedAt: workdayPosted(j.postedOn),
               type: guessType(j.title),
               snippet: (j.bulletFields || []).join(" · "),
@@ -113,6 +115,16 @@ workday.fetchDetail = async function (cfg, j) {
   const locations = [i.location, ...(i.additionalLocations || [])].filter(Boolean);
   return { description: htmlToText(i.jobDescription || ""), locations, postedAt: toDate(i.startDate), timeType: i.timeType || null };
 };
+
+// first bulletField that is not a requisition id ("R00344122", "JREQ204608"), a time type or a bare number
+function wdLocFromBullets(b = []) {
+  return (b || []).map((s) => String(s || "").trim()).find((s) => s && !/^[A-Z]{0,8}[-_]?\d{3,}[-\w]*$/i.test(s) && !/^(full|part)[ -]?time$/i.test(s) && !/^\d+$/.test(s)) || "";
+}
+// "/job/Ontario---Toronto/Title_R00344122" → "Ontario - Toronto"
+function wdLocFromPath(p = "") {
+  const seg = String(p || "").split("/")[2] || "";
+  return seg.replace(/---/g, "\u0000").replace(/-/g, " ").replace(/\u0000/g, " - ").replace(/\s+/g, " ").trim();
+}
 
 function workdayPosted(s = "") {
   // "Posted Today" / "Posted Yesterday" / "Posted 3 Days Ago" / "Posted 30+ Days Ago"
