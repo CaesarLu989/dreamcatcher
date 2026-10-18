@@ -80,3 +80,10 @@
 #radar-live .sk { height: 92px; border-radius: 8px; background: linear-gradient(90deg, var(--line) 25%, var(--card) 50%, var(--line) 75%); background-size: 200% 100%; animation: rlShimmer 1.4s linear infinite; }
 @keyframes rlShimmer { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { #radar-live .radar::before, #radar-live .radar::after, #radar-live .rl-dot, #radar-live .role, #radar-live .sk { animation: none !important; } }
+
+/* industry group chips + collapsible company list (Oct 2026) */
+#radar-live .rl-groups .rl-chip { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+#radar-live .rl-groups .rl-chip.on { background: var(--accent); color: #fff; }
+#radar-live .rl-chip.more { border-style: dashed; color: var(--ink-2); }
+#radar-live .role .req { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-family: "IBM Plex Mono", ui-monospace, monospace; }
+#radar-live .role .req.warn { background: rgba(245,166,35,.14); color: #B26A00; }

@@ -18,6 +18,7 @@
     data: null,
     heat: new Set(LS.get("heat", DEFAULT_HEAT)),
     companies: new Set(LS.get("companies", [])),
+    groups: new Set(LS.get("groups", [])), moreCompanies: false,
     cities: new Set(LS.get("cities", [])),
     types: new Set(LS.get("types", [])),
     q: "", onlyNew: false, onlyApplied: false, showHidden: false, expanded: false, showEvents: LS.get("events", false), hideApplied: LS.get("hideApplied", true),
@@ -48,7 +49,7 @@
   var HEAT, TYPE, RZ, OTHER;
   function strings() { HEAT = T("heat"); TYPE = T("type"); RZ = T("reason"); OTHER = T("city.other"); }
   strings();
-  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); return r; }
+  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); if (r.indexOf("years-pref:") === 0) return T("reason.yearspref") + r.slice(11); if (r === "cred-pref") return T("reason.credpref"); return r; }
 
   function load() {
     var urls = [DATA_URL, "data/jobs.json"].filter(Boolean), i = 0;
@@ -79,7 +80,7 @@
       '<button class="rl-link" id="rl-togglesrc">' + ($("rl-sources").hidden ? T("status.show") : T("status.hide")) + '</button>';
     $("rl-togglesrc").onclick = function () { $("rl-sources").hidden = !$("rl-sources").hidden; render(); };
     $("rl-sources").innerHTML = Object.keys(d.sources || {}).map(function (k) { var s = d.sources[k];
-      return '<div><span><i class="rl-dot ' + (s.ok ? "" : "bad") + '"></i>' + esc(s.name || k) + '</span><span>' + (s.ok ? s.count + T("src.count") + esc(ago(s.fetchedAt)) : '<span class="err">' + T("src.failed") + esc(ago(s.failedAt)) + (s.lastOkAt ? T("src.lastok") + esc(ago(s.lastOkAt)) : '') + '</span>') + '</span></div>'; }).join("");
+      return '<div><span><i class="rl-dot ' + (s.ok ? "" : "bad") + '"></i>' + esc(s.name || k) + (s.group && (d.groups || {})[s.group] ? ' <small style="opacity:.6">' + esc((T("group." + s.group) === "group." + s.group ? d.groups[s.group] : T("group." + s.group))) + '</small>' : '') + '</span><span>' + (s.ok ? s.count + T("src.count") + esc(ago(s.fetchedAt)) : '<span class="err">' + T("src.failed") + esc(ago(s.failedAt)) + (s.lastOkAt ? T("src.lastok") + esc(ago(s.lastOkAt)) : '') + '</span>') + '</span></div>'; }).join("");
 
     var visible = jobs.filter(function (j) { return (S.showHidden || !S.hidden.has(j.id)) && (S.showEvents || j.type !== "event"); });
     // heat tiles
@@ -103,18 +104,31 @@
     // chips
     var byCompany = {}, byCity = {}, byType = {};
     visible.forEach(function (j) { byCompany[j.company] = (byCompany[j.company] || 0) + 1; var c = cityOf(j) || OTHER; byCity[c] = (byCity[c] || 0) + 1; byType[j.type] = (byType[j.type] || 0) + 1; });
-    $("rl-companies").innerHTML = Object.keys(byCompany).sort(function (a, b) { return byCompany[b] - byCompany[a]; }).map(function (c) { return chip("companies", c, window.dcLang && window.dcLang() === "en" ? c.replace(/^[\u4e00-\u9fff]+ /, "") : c.replace(/ (Guosen Securities|CSC Financial|CICC|iFlytek)$/, ""), byCompany[c], S.companies.has(c)); }).join("");
+    // industry groups (config.groups) → company chips (top 12 + 更多)
+    var G = d.groups || {}, CG = d.companyGroup || {};
+    var byGroup = {}; visible.forEach(function (j) { var g = CG[j.company] || "other"; byGroup[g] = (byGroup[g] || 0) + 1; });
+    var groupHtml = Object.keys(G).filter(function (g) { return byGroup[g]; }).map(function (g) { return chip("groups", g, T("group." + g) === "group." + g ? G[g] : T("group." + g), byGroup[g], S.groups.has(g)); }).join("");
+    $("rl-groups").innerHTML = groupHtml;
+    // older data files (before v3) carry no groups: hide the empty row and its separator
+    $("rl-groups").style.display = groupHtml ? "" : "none";
+    if ($("rl-groups").nextElementSibling) $("rl-groups").nextElementSibling.style.display = groupHtml ? "" : "none";
+    var compNames = Object.keys(byCompany).filter(function (c) { return !S.groups.size || S.groups.has(CG[c] || "other"); }).sort(function (a, b) { return byCompany[b] - byCompany[a]; });
+    var CAP = 12, shownComp = S.moreCompanies || compNames.length <= CAP + 2 ? compNames : compNames.filter(function (c, i) { return i < CAP || S.companies.has(c); });
+    $("rl-companies").innerHTML = shownComp.map(function (c) { return chip("companies", c, window.dcLang && window.dcLang() === "en" ? c.replace(/^[\u4e00-\u9fff]+ /, "") : c.replace(/ (Guosen Securities|CSC Financial|CICC|iFlytek)$/, ""), byCompany[c], S.companies.has(c)); }).join("") +
+      (compNames.length > shownComp.length ? '<span class="rl-chip more" id="rl-morecomp">' + T("chips.more", { n: compNames.length - shownComp.length }) + '</span>' : S.moreCompanies && compNames.length > CAP + 2 ? '<span class="rl-chip more" id="rl-morecomp">' + T("chips.less") + '</span>' : "");
+    if ($("rl-morecomp")) $("rl-morecomp").onclick = function () { S.moreCompanies = !S.moreCompanies; render(); };
     var cityOrder = ((d.profileCities && d.profileCities.target) || []).concat((d.profileCities && d.profileCities.secondary) || []).filter(function (c) { return byCity[c]; });
     if (byCity[OTHER]) cityOrder.push(OTHER);
     $("rl-cities").innerHTML = cityOrder.map(function (c) { return chip("cities", c, c, byCity[c], S.cities.has(c)); }).join("");
     $("rl-types").innerHTML = Object.keys(TYPE).filter(function (t) { return byType[t]; }).map(function (t) { return chip("types", t, TYPE[t], byType[t], S.types.has(t)); }).join("");
-    Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip"), function (el) { el.onclick = function () { var set = S[el.getAttribute("data-group")], key = el.getAttribute("data-key"); set.has(key) ? set.delete(key) : set.add(key); LS.set(el.getAttribute("data-group"), Array.from(set)); render(); }; });
+    Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip[data-group]"), function (el) { el.onclick = function () { var set = S[el.getAttribute("data-group")], key = el.getAttribute("data-key"); set.has(key) ? set.delete(key) : set.add(key); LS.set(el.getAttribute("data-group"), Array.from(set)); render(); }; });
 
     // list
     var q = S.q.trim().toLowerCase();
     var rows = visible.filter(function (j) {
       return (j.type === "event" || S.heat.has(heatOf(j))) &&
         (!S.companies.size || S.companies.has(j.company)) &&
+        (!S.groups.size || S.groups.has(CG[j.company] || "other")) &&
         (!S.cities.size || S.cities.has(cityOf(j) || OTHER)) &&
         (!S.types.size || S.types.has(j.type)) &&
         (!S.onlyNew || isNew(j)) &&
@@ -142,6 +156,7 @@
     (j.locations || []).slice(0, 4).forEach(function (l) { chips.push('<span class="chip">' + esc(l) + '</span>'); });
     if ((j.locations || []).length > 4) chips.push('<span class="chip">+' + (j.locations.length - 4) + '</span>');
     chips.push('<span class="chip">' + esc(TYPE[j.type] || j.type) + '</span>');
+    var rq = m.req; if (rq && (rq.years || (rq.credsSoft || []).length)) chips.push('<span class="req' + (rq.soft && /\+$/.test(rq.years || "") ? " warn" : "") + '">' + (rq.years ? T("req.years", { y: rq.years }) + (rq.soft ? T("req.soft") : "") : "") + ((rq.credsSoft || []).length ? (rq.years ? " · " : "") + T("req.cred", { c: rq.credsSoft.join("/") }) : "") + '</span>');
     if (j.division) chips.push('<span class="chip">' + esc(j.division) + '</span>');
     var ddl = j.closesAt ? '<div class="ddl' + (new Date(j.closesAt) - Date.now() < 14 * 86400000 ? " hot" : "") + '">' + T("card.closes") + esc(j.closesAt) + '</div>'
       : j.postedAt ? '<div class="ddl">' + T("card.posted") + esc(j.postedAt) + '</div>' : '<div class="ddl">' + T("card.firstseen") + esc((j.firstSeen || "").slice(0, 10)) + '</div>';

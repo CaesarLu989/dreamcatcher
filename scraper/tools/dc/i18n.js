@@ -35,7 +35,12 @@
     "card.applied": ["✓ 已投 ", "✓ Applied "], "card.stale": ["上次数据", "last run"], "card.link": ["官网职位页 →", "Official posting →"],
     "btn.applied": ["已投 ✓", "Applied ✓"], "btn.apply": ["标记已投", "Mark applied"], "btn.restore": ["恢复", "Restore"], "btn.hide": ["忽略", "Hide"],
     "load.error": ["暂无数据（{msg}）。先在 GitHub 上手动跑一次 \"DreamCatcher scan\"，或在本文件顶部填好 DATA_URL。", "No data yet ({msg}). Run \"DreamCatcher scan\" once on GitHub, or set DATA_URL at the top of this file."],
-    "lang.title": ["Switch to English", "切换到中文"]
+    "lang.title": ["Switch to English", "切换到中文"],
+    "group.ib": ["投行 / 外资行", "Investment banks"], "group.consulting": ["咨询", "Consulting"], "group.cabank": ["加拿大五大行", "Canadian Big 5"],
+    "group.buyside": ["资管 · 养老金 · PE · 对冲基金", "Buy side · pensions · PE · HF"], "group.vc": ["VC", "VC"], "group.tech": ["科技 · AI · 大厂", "Tech · AI"], "group.cn": ["中国券商 · 科技", "China securities · tech"],
+    "chips.more": ["更多 {n} 家 ▾", "{n} more ▾"], "chips.less": ["收起 ▴", "Fewer ▴"],
+    "req.years": ["经验 {y} 年", "{y} yrs exp"], "req.soft": ["（偏好）", " (preferred)"], "req.cred": ["偏好 {c}", "{c} preferred"],
+    "reason.yearspref": ["偏好经验 ", "prefers "], "reason.credpref": ["偏好证书", "credential preferred"]
   };
   function T(key, vars) {
     var v = STR[key]; if (!v) return key;
@@ -50,7 +55,7 @@
   var SKIP = { SCRIPT: 1, STYLE: 1, CANVAS: 1, SVG: 1 };
   function walk(root, fn) {
     var it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
-      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-heat, #rl-meta, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-lang")) return NodeFilter.FILTER_REJECT;
+      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-heat, #rl-meta, #rl-groups, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-lang")) return NodeFilter.FILTER_REJECT;
       return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP; } });
     var n, list = []; while ((n = it.nextNode())) list.push(n); list.forEach(fn);
   }
