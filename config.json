@@ -1,1430 +1,1436 @@
 {
-  "$comment": "DreamCatcher config. Edit freely — everything here is plain data. Companies use adapters from scraper/adapters/.",
-  "schedule": "every 3 hours (see .github/workflows/radar.yml)",
-  "profile": {
-    "summary": "Caesar. UofT BCom — Finance Specialist + Economics (2020–2025); MSc Digital Management, Ivey Business School (2025–2026); applying to quant-finance/MFin master's programs for 2027. Experience: IB Summer Analyst at CICC (2024); Investment Analyst Intern at Fosun Health Capital (2022); Digital Innovation Consultant engagements with CIBC, SAS, United Way GTA, CGS Advisors (2026); builds agentic-AI platforms for fintech/insurance. Native Chinese, fluent English. Targets: FULL-TIME entry-level analyst / graduate programs starting 2027 (no internships) in investment banking, global markets / sales & trading, research, quant/strats, asset & wealth management, and digital/AI/technology roles at top banks and consultancies. Preferred cities: New York (primary), Hong Kong, Toronto, Chicago, Shenzhen, Beijing. Not interested in retail branch sales, client-service, VP+ roles.",
-    "years": {
-      "target": [
-        2027
-      ],
-      "ok": [
-        2026,
-        2028
-      ]
-    },
-    "cities": {
-      "target": [
-        "New York",
-        "Hong Kong",
-        "Toronto",
-        "Chicago",
-        "Shenzhen",
-        "Beijing"
-      ],
-      "secondary": [
-        "London",
-        "Singapore",
-        "Shanghai",
-        "Montreal",
-        "Vancouver",
-        "Jersey City",
-        "Purchase",
-        "San Francisco",
-        "Boston"
-      ]
-    },
-    "cityAliases": {
-      "New York": [
-        "NYC",
-        "New York City",
-        "Manhattan",
-        "NY, United States",
-        "纽约"
-      ],
-      "Hong Kong": [
-        "HK",
-        "香港",
-        "Hongkong"
-      ],
-      "Toronto": [
-        "多伦多",
-        "Toronto, ON"
-      ],
-      "Chicago": [
-        "芝加哥"
-      ],
-      "Shenzhen": [
-        "深圳"
-      ],
-      "Beijing": [
-        "北京"
-      ],
-      "Shanghai": [
-        "上海"
-      ],
-      "Singapore": [
-        "新加坡"
-      ],
-      "London": [
-        "伦敦"
-      ],
-      "Montreal": [
-        "蒙特利尔"
-      ],
-      "Vancouver": [
-        "温哥华"
-      ]
-    },
-    "levels": {
-      "entry": [
-        "analyst",
-        "graduate",
-        "intern",
-        "internship",
-        "summer",
-        "off-cycle",
-        "off cycle",
-        "co-op",
-        "placement",
-        "new grad",
-        "new college grad",
-        "university grad",
-        "early career",
-        "early careers",
-        "junior",
-        "entry level",
-        "entry-level",
-        "fellow",
-        "trainee",
-        "development program",
-        "development programme",
-        "rotational",
-        "助理",
-        "校招",
-        "校园招聘",
-        "应届",
-        "管培",
-        "培训生",
-        "实习",
-        "interns",
-        "analysts",
-        "graduates"
-      ],
-      "mbaAssociate": [
-        "summer associate",
-        "pre-mba",
-        "mba associate",
-        "post-mba",
-        "new associate",
-        "associate program",
-        "associate programme",
-        "associate graduate program",
-        "associate graduate programme",
-        "full-time associate",
-        "full time associate"
-      ],
-      "senior": [
-        "vice president",
-        "\\bvp\\b",
-        "\\bsvp\\b",
-        "\\bavp\\b",
-        "assistant vice president",
-        "director",
-        "executive director",
-        "managing director",
-        "\\bmd\\b",
-        "head of",
-        "\\bhead\\b",
-        "senior manager",
-        "manager",
-        "principal",
-        "partner",
-        "\\blead\\b",
-        "chief",
-        "specialist leader",
-        "总监",
-        "经理",
-        "负责人",
-        "主管",
-        "总经理",
-        "高级",
-        "资深",
-        "博士后",
-        "\\bsr\\.",
-        "senior associate",
-        "senior vice"
-      ],
-      "seniorSoft": [
-        "senior analyst",
-        "senior business analyst"
-      ],
-      "seniorHard": [
-        "vice president",
-        "\\bvp\\b",
-        "\\bsvp\\b",
-        "\\bavp\\b",
-        "\\bevp\\b",
-        "assistant vice president",
-        "executive director",
-        "managing director",
-        "\\bmd\\b",
-        "director",
-        "head of",
-        "chief",
-        "partner",
-        "senior vice",
-        "总监",
-        "总经理",
-        "\\bphd\\b",
-        "ph\\.d",
-        "doctoral",
-        "postdoc",
-        "post-doctoral"
-      ]
-    },
-    "domains": {
-      "preferred": [
-        "investment bank",
-        "investment banking",
-        "\\bib\\b",
-        "m&a",
-        "mergers",
-        "capital markets",
-        "\\becm\\b",
-        "\\bdcm\\b",
-        "leveraged finance",
-        "coverage",
-        "global markets",
-        "sales & trading",
-        "sales and trading",
-        "trading",
-        "\\bficc\\b",
-        "fixed income",
-        "equities",
-        "equity research",
-        "research",
-        "quant",
-        "strats",
-        "quantitative",
-        "asset management",
-        "wealth management",
-        "private wealth",
-        "investment management",
-        "private equity",
-        "private capital",
-        "corporate finance",
-        "digital",
-        "technology",
-        "\\bai\\b",
-        "artificial intelligence",
-        "machine learning",
-        "data science",
-        "data analytics",
-        "analytics",
-        "software",
-        "engineer",
-        "product",
-        "fintech",
-        "strategy",
-        "consultant",
-        "consulting",
-        "business analyst",
-        "junior associate",
-        "investment",
-        "markets",
-        "structuring",
-        "derivatives",
-        "投行",
-        "投资银行",
-        "并购",
-        "股票发行",
-        "债券",
-        "固定收益",
-        "衍生品",
-        "研究",
-        "机构销售",
-        "资管",
-        "资产管理",
-        "国际业务",
-        "金融科技",
-        "大模型",
-        "算法",
-        "数据",
-        "交易",
-        "量化",
-        "战略",
-        "engineering",
-        "trader",
-        "traders",
-        "researcher",
-        "technologist",
-        "developer",
-        "data engineer",
-        "product manager",
-        "banker",
-        "banking"
-      ],
-      "moderate": [
-        "risk",
-        "treasury",
-        "finance",
-        "controller",
-        "operations",
-        "corporate development",
-        "product management",
-        "\\bcib\\b",
-        "commercial bank",
-        "corporate bank",
-        "托管",
-        "运营",
-        "风险",
-        "金融市场",
-        "证券金融"
-      ],
-      "negative": [
-        "financial advisor",
-        "financial advisers",
-        "wealth advisor",
-        "virtual engagement associate",
-        "client service associate",
-        "client relationship",
-        "service associate",
-        "financial services representative",
-        "\\bsie\\b",
-        "branch",
-        "teller",
-        "registered",
-        "paralegal",
-        "legal",
-        "nurse",
-        "recruiter",
-        "recruitment",
-        "talent acquisition",
-        "human capital",
-        "human resources",
-        "\\bhr\\b",
-        "payroll",
-        "facilities",
-        "security guard",
-        "receptionist",
-        "administrative assistant",
-        "executive assistant",
-        "call center",
-        "call centre",
-        "customer service",
-        "sales support",
-        "理财顾问",
-        "财富顾问",
-        "投资顾问",
-        "客服",
-        "网络渠道",
-        "网络服务",
-        "网络运营",
-        "投教",
-        "柜员",
-        "营业部",
-        "私人财富顾问",
-        "机构业务顾问",
-        "审核客服",
-        "人力",
-        "行政岗",
-        "党群",
-        "纪检",
-        "行政专员",
-        "行政助理",
-        "行政管理",
-        "designer",
-        "graphic design",
-        "ux design",
-        "visual design"
-      ]
-    },
-    "exclude": [
-      "physician",
-      "physiotherap",
-      "\\bcna\\b",
-      "janitor"
-    ],
-    "excludeTypes": [
-      "internship"
-    ],
-    "cityWeights": {
-      "New York": 25,
-      "Hong Kong": 25,
-      "Toronto": 23,
-      "Chicago": 22,
-      "Shenzhen": 20,
-      "Beijing": 20,
-      "London": 12,
-      "Singapore": 12,
-      "Shanghai": 10,
-      "Montreal": 10,
-      "Vancouver": 10,
-      "Jersey City": 12,
-      "Purchase": 10,
-      "San Francisco": 8,
-      "Boston": 8
-    },
-    "companyBoost": {
-      "goldman": 6,
-      "jpmorgan": 6,
-      "morganstanley": 6,
-      "mckinsey": 6,
-      "cicc": 4,
-      "bain": 5,
-      "bcg": 5,
-      "blackstone": 4,
-      "citi": 3,
-      "cpp": 3,
-      "otpp": 3,
-      "rbc": 2,
-      "bmo": 2,
-      "td": 2,
-      "scotiabank": 2,
-      "cibc": 2
-    },
-    "$comment": "cityWeights: points per matched city; companyBoost: extra points for priority firms; excludeTypes: posting types dropped entirely",
-    "hardLimits": {
-      "maxYears": 2,
-      "creds": [
-        "MBA",
-        "CPA",
-        "CFA",
-        "PHD",
-        "JD",
-        "ACCA",
-        "FSA",
-        "ASA",
-        "FCIA",
-        "PENG"
-      ],
-      "$comment": "postings that REQUIRE more than maxYears of experience or one of these credentials are dropped; 'preferred' only costs a few points"
-    }
+ "$comment": "DreamCatcher config. Edit freely — everything here is plain data. Companies use adapters from scraper/adapters/.",
+ "schedule": "every 3 hours (see .github/workflows/radar.yml)",
+ "profile": {
+  "summary": "Caesar. UofT BCom — Finance Specialist + Economics (2020–2025); MSc Digital Management, Ivey Business School (2025–2026); applying to quant-finance/MFin master's programs for 2027. Experience: IB Summer Analyst at CICC (2024); Investment Analyst Intern at Fosun Health Capital (2022); Digital Innovation Consultant engagements with CIBC, SAS, United Way GTA, CGS Advisors (2026); builds agentic-AI platforms for fintech/insurance. Native Chinese, fluent English. Targets: FULL-TIME entry-level analyst / graduate programs starting 2027 (no internships) in investment banking, global markets / sales & trading, research, quant/strats, asset & wealth management, and digital/AI/technology roles at top banks and consultancies. Preferred cities: New York (primary), Hong Kong, Toronto, Chicago, Shenzhen, Beijing. Not interested in retail branch sales, client-service, VP+ roles.",
+  "years": {
+   "target": [
+    2027
+   ],
+   "ok": [
+    2026,
+    2028
+   ]
   },
-  "scoring": {
-    "enabled": true,
-    "model": "claude-haiku-4-5",
-    "tiers": [
-      "strong",
-      "possible"
-    ],
-    "maxPerRun": 40,
-    "batchSize": 10
+  "cities": {
+   "target": [
+    "New York",
+    "Hong Kong",
+    "Toronto",
+    "Chicago",
+    "Shenzhen",
+    "Beijing"
+   ],
+   "secondary": [
+    "London",
+    "Singapore",
+    "Shanghai",
+    "Montreal",
+    "Vancouver",
+    "Jersey City",
+    "Purchase",
+    "San Francisco",
+    "Boston"
+   ]
   },
-  "companies": [
-    {
-      "key": "goldman",
-      "name": "Goldman Sachs",
-      "adapter": "goldman",
-      "enabled": true,
-      "group": "ib"
-    },
-    {
-      "key": "jpmorgan",
-      "name": "J.P. Morgan",
-      "adapter": "jpmorgan",
-      "enabled": true,
-      "group": "ib"
-    },
-    {
-      "key": "morganstanley",
-      "name": "Morgan Stanley",
-      "adapter": "morganstanley",
-      "enabled": true,
-      "group": "ib"
-    },
-    {
-      "key": "mckinsey",
-      "name": "McKinsey & Company",
-      "adapter": "mckinsey",
-      "enabled": true,
-      "group": "consulting"
-    },
-    {
-      "key": "barclays",
-      "name": "Barclays",
-      "adapter": "barclays",
-      "enabled": true,
-      "group": "ib"
-    },
-    {
-      "key": "bnp",
-      "name": "BNP Paribas",
-      "adapter": "bnp",
-      "enabled": true,
-      "group": "ib"
-    },
-    {
-      "key": "guosen",
-      "name": "国信证券 Guosen Securities",
-      "adapter": "beisen",
-      "tenant": "guosen",
-      "enabled": true,
-      "group": "cn"
-    },
-    {
-      "key": "csc108",
-      "name": "中信建投 CSC Financial",
-      "adapter": "beisen",
-      "tenant": "csc108",
-      "enabled": true,
-      "group": "cn"
-    },
-    {
-      "key": "cicc",
-      "name": "中金公司 CICC",
-      "adapter": "beisen",
-      "tenant": "cicc",
-      "categories": [
-        "2"
-      ],
-      "enabled": true,
-      "$comment": "2 = 校园招聘 (full-time campus hires)",
-      "group": "cn"
-    },
-    {
-      "key": "iflytek",
-      "name": "科大讯飞 iFlytek",
-      "adapter": "beisen",
-      "tenant": "iflytek",
-      "enabled": true,
-      "group": "cn"
-    },
-    {
-      "key": "nvidia",
-      "name": "NVIDIA",
-      "adapter": "workday",
-      "tenant": "nvidia",
-      "wd": "wd5",
-      "site": "NVIDIAExternalCareerSite",
-      "queries": [
-        "new college grad",
-        "finance",
-        "business analyst",
-        "strategy",
-        "product manager"
-      ],
-      "enabled": true,
-      "$comment": "verified Sep 2026 via the Workday CXS endpoint",
-      "group": "tech"
-    },
-    {
-      "key": "td",
-      "name": "TD Bank",
-      "adapter": "workday",
-      "tenant": "td",
-      "wd": "wd3",
-      "site": "TD_Bank_Careers",
-      "queries": [
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "cabank",
-      "enabled": true,
-      "maxPages": 40
-    },
-    {
-      "key": "cibc",
-      "name": "CIBC",
-      "adapter": "workday",
-      "tenant": "cibc",
-      "wd": "wd3",
-      "sites": [
-        "search",
-        "campus"
-      ],
-      "queries": [
-        ""
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "cabank",
-      "enabled": true,
-      "facets": {
-        "City": [
-          "5a781e4ad9710113e8f4efbb1701cf1a"
-        ]
-      },
-      "maxPages": 12,
-      "$comment": "City facet id = Toronto, ON"
-    },
-    {
-      "key": "rbc",
-      "name": "RBC",
-      "adapter": "workday",
-      "tenant": "rbc",
-      "wd": "wd3",
-      "site": "RBCGLOBAL1",
-      "queries": [
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "cabank",
-      "enabled": true,
-      "maxPages": 40
-    },
-    {
-      "key": "bmo",
-      "name": "BMO",
-      "adapter": "workday",
-      "tenant": "bmo",
-      "wd": "wd3",
-      "sites": [
-        "External",
-        "Campus"
-      ],
-      "queries": [
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "cabank",
-      "enabled": true,
-      "maxPages": 30
-    },
-    {
-      "key": "scotiabank",
-      "name": "Scotiabank",
-      "adapter": "successfactors",
-      "base": "https://jobs.scotiabank.com",
-      "path": "",
-      "cities": [
-        "Toronto"
-      ],
-      "keywords": [
-        ""
-      ],
-      "maxPages": 20,
-      "group": "cabank",
-      "enabled": true
-    },
-    {
-      "key": "citi",
-      "name": "Citi",
-      "adapter": "workday",
-      "tenant": "citi",
-      "wd": "wd5",
-      "site": "2",
-      "queries": [
-        "Toronto",
-        "Hong Kong analyst",
-        "New York analyst 2027",
-        "Shenzhen"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "ib",
-      "enabled": true,
-      "maxPages": 10
-    },
-    {
-      "key": "ms_workday",
-      "name": "Morgan Stanley",
-      "adapter": "workday",
-      "tenant": "ms",
-      "wd": "wd5",
-      "site": "External",
-      "queries": [
-        "Toronto",
-        "Hong Kong analyst",
-        "New York analyst",
-        "Shenzhen"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "ib",
-      "enabled": true,
-      "maxPages": 10,
-      "$comment": "experienced-hire site; campus programs come from the morganstanley adapter"
-    },
-    {
-      "key": "bcg",
-      "name": "BCG",
-      "adapter": "phenom",
-      "base": "https://careers.bcg.com",
-      "path": "global/en",
-      "lang": "en_global",
-      "country": "global",
-      "pageId": "page35-ds",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "keywords": [
-        ""
-      ],
-      "group": "consulting",
-      "enabled": true
-    },
-    {
-      "key": "bain",
-      "name": "Bain & Company",
-      "adapter": "avature",
-      "base": "https://careers.bain.com",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "maxPages": 40,
-      "group": "consulting",
-      "enabled": true,
-      "$comment": "careers.bain.com lists experienced roles; campus AC/consultant applications run through bain.com (bot-protected) — keep checking by hand"
-    },
-    {
-      "key": "oliverwyman",
-      "name": "Oliver Wyman",
-      "adapter": "workday",
-      "tenant": "mmc",
-      "wd": "wd1",
-      "site": "MMC",
-      "queries": [
-        "Oliver Wyman Toronto",
-        "Oliver Wyman New York",
-        "Oliver Wyman Hong Kong",
-        "Oliver Wyman Shenzhen"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "consulting",
-      "enabled": true,
-      "maxPages": 6
-    },
-    {
-      "key": "pwc",
-      "name": "PwC / Strategy&",
-      "adapter": "workday",
-      "tenant": "pwc",
-      "wd": "wd3",
-      "sites": [
-        "Global_Experienced_Careers",
-        "Global_Campus_Careers"
-      ],
-      "queries": [
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "consulting",
-      "enabled": true,
-      "maxPages": 15
-    },
-    {
-      "key": "deloitte",
-      "name": "Deloitte",
-      "adapter": "successfactors",
-      "api": true,
-      "base": "https://careers.deloitte.ca",
-      "locale": "en_US",
-      "cities": [
-        "Toronto"
-      ],
-      "keywords": [
-        ""
-      ],
-      "maxPages": 40,
-      "group": "consulting",
-      "enabled": true
-    },
-    {
-      "key": "ey",
-      "name": "EY",
-      "adapter": "successfactors",
-      "base": "https://careers.ey.com",
-      "path": "/ey",
-      "cities": [
-        "Toronto"
-      ],
-      "keywords": [
-        ""
-      ],
-      "maxPages": 12,
-      "group": "consulting",
-      "enabled": true
-    },
-    {
-      "key": "kpmg",
-      "name": "KPMG",
-      "adapter": "jibe",
-      "base": "https://careers.kpmg.ca",
-      "cities": [
-        "Toronto"
-      ],
-      "maxPages": 40,
-      "group": "consulting",
-      "enabled": true
-    },
-    {
-      "key": "accenture",
-      "name": "Accenture",
-      "adapter": "workday",
-      "tenant": "accenture",
-      "wd": "wd103",
-      "site": "AccentureCareers",
-      "queries": [
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "consulting",
-      "enabled": true,
-      "maxPages": 20
-    },
-    {
-      "key": "fti",
-      "name": "FTI Consulting",
-      "adapter": "workday",
-      "tenant": "fticonsulting",
-      "wd": "wd108",
-      "site": "FTIConsultingCareers",
-      "queries": [
-        "Toronto",
-        "New York",
-        "Hong Kong"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "consulting",
-      "enabled": true,
-      "maxPages": 6
-    },
-    {
-      "key": "capco",
-      "name": "Capco",
-      "adapter": "greenhouse",
-      "board": "capco",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "consulting",
-      "enabled": true
-    },
-    {
-      "key": "cpp",
-      "name": "CPP Investments",
-      "adapter": "workday",
-      "tenant": "cppib",
-      "wd": "wd10",
-      "site": "cppinvestments",
-      "queries": [
-        ""
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 10
-    },
-    {
-      "key": "otpp",
-      "name": "Ontario Teachers'",
-      "adapter": "workday",
-      "tenant": "otppb",
-      "wd": "wd3",
-      "site": "OntarioTeachers_Careers",
-      "queries": [
-        ""
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 10
-    },
-    {
-      "key": "omers",
-      "name": "OMERS",
-      "adapter": "workday",
-      "tenant": "omers",
-      "wd": "wd3",
-      "site": "OMERS_External",
-      "queries": [
-        ""
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 10
-    },
-    {
-      "key": "brookfield",
-      "name": "Brookfield",
-      "adapter": "workday",
-      "tenant": "brookfield",
-      "wd": "wd5",
-      "site": "brookfield",
-      "queries": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shanghai"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen",
-        "Shanghai"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 10
-    },
-    {
-      "key": "manulife",
-      "name": "Manulife",
-      "adapter": "workday",
-      "tenant": "manulife",
-      "wd": "wd3",
-      "site": "MFCJH_Jobs",
-      "queries": [
-        "Toronto",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 15
-    },
-    {
-      "key": "sunlife",
-      "name": "Sun Life",
-      "adapter": "workday",
-      "tenant": "sunlife",
-      "wd": "wd3",
-      "sites": [
-        "Experienced-Jobs",
-        "Campus"
-      ],
-      "queries": [
-        "Toronto",
-        "Hong Kong"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 12
-    },
-    {
-      "key": "blackrock",
-      "name": "BlackRock",
-      "adapter": "workday",
-      "tenant": "blackrock",
-      "wd": "wd1",
-      "site": "BlackRock_Professional",
-      "queries": [
-        "Toronto",
-        "New York analyst",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 8
-    },
-    {
-      "key": "blackstone",
-      "name": "Blackstone",
-      "adapter": "workday",
-      "tenant": "blackstone",
-      "wd": "wd1",
-      "sites": [
-        "Blackstone_Careers",
-        "Blackstone_Campus_Careers"
-      ],
-      "queries": [
-        "Hong Kong",
-        "New York analyst",
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 8
-    },
-    {
-      "key": "carlyle",
-      "name": "Carlyle",
-      "adapter": "workday",
-      "tenant": "carlyle",
-      "wd": "wd1",
-      "site": "Carlyle",
-      "queries": [
-        "Hong Kong",
-        "New York",
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 6
-    },
-    {
-      "key": "warburg",
-      "name": "Warburg Pincus",
-      "adapter": "greenhouse",
-      "board": "warburgpincusllc",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen",
-        "United States"
-      ],
-      "group": "buyside",
-      "enabled": true
-    },
-    {
-      "key": "generalatlantic",
-      "name": "General Atlantic",
-      "adapter": "greenhouse",
-      "board": "generalatlantic",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true
-    },
-    {
-      "key": "point72",
-      "name": "Point72",
-      "adapter": "greenhouse",
-      "board": "point72",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true
-    },
-    {
-      "key": "janestreet",
-      "name": "Jane Street",
-      "adapter": "greenhouse",
-      "board": "janestreet",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true
-    },
-    {
-      "key": "iconiq",
-      "name": "ICONIQ",
-      "adapter": "greenhouse",
-      "board": "iconiq",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true
-    },
-    {
-      "key": "squarepoint",
-      "name": "Squarepoint Capital",
-      "adapter": "greenhouse",
-      "board": "squarepointcapital",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true
-    },
-    {
-      "key": "spgi",
-      "name": "S&P Global",
-      "adapter": "workday",
-      "tenant": "spgi",
-      "wd": "wd5",
-      "site": "SPGI_Careers",
-      "queries": [
-        "Toronto",
-        "New York analyst",
-        "Hong Kong"
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "buyside",
-      "enabled": true,
-      "maxPages": 8
-    },
-    {
-      "key": "a16z",
-      "name": "a16z",
-      "adapter": "greenhouse",
-      "board": "a16z",
-      "cities": [
-        "New York",
-        "Toronto"
-      ],
-      "group": "vc",
-      "enabled": true
-    },
-    {
-      "key": "georgian",
-      "name": "Georgian",
-      "adapter": "ashby",
-      "board": "georgian",
-      "cities": [
-        "Toronto"
-      ],
-      "group": "vc",
-      "enabled": true
-    },
-    {
-      "key": "bessemer",
-      "name": "Bessemer Venture Partners",
-      "adapter": "greenhouse",
-      "board": "bessemerventurepartners",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "vc",
-      "enabled": true
-    },
-    {
-      "key": "microsoft",
-      "name": "Microsoft",
-      "adapter": "eightfold",
-      "host": "https://apply.careers.microsoft.com",
-      "domain": "microsoft.com",
-      "searches": [
-        {
-          "query": "",
-          "location": "Toronto, Canada"
-        },
-        {
-          "query": "",
-          "location": "New York, United States"
-        },
-        {
-          "query": "",
-          "location": "Hong Kong"
-        },
-        {
-          "query": "",
-          "location": "Shenzhen, China"
-        }
-      ],
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "maxPages": 12,
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "amazon",
-      "name": "Amazon / AWS",
-      "adapter": "amazon",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "keywords": [
-        ""
-      ],
-      "maxPages": 3,
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "disney",
-      "name": "Disney",
-      "adapter": "radancy",
-      "base": "https://www.disneycareers.com",
-      "path": "/en",
-      "keywords": [
-        ""
-      ],
-      "regions": [
-        "United States",
-        "Canada",
-        "China",
-        "Hong Kong",
-        "Shanghai"
-      ],
-      "maxPages": 10,
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "thomsonreuters",
-      "name": "Thomson Reuters",
-      "adapter": "workday",
-      "tenant": "thomsonreuters",
-      "wd": "wd5",
-      "site": "External_Career_Site",
-      "queries": [
-        "Toronto"
-      ],
-      "cities": [
-        "Toronto"
-      ],
-      "group": "tech",
-      "enabled": true,
-      "maxPages": 10
-    },
-    {
-      "key": "cohere",
-      "name": "Cohere",
-      "adapter": "ashby",
-      "board": "cohere",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "wealthsimple",
-      "name": "Wealthsimple",
-      "adapter": "ashby",
-      "board": "wealthsimple",
-      "cities": [
-        "Toronto"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "waabi",
-      "name": "Waabi",
-      "adapter": "lever",
-      "site": "waabi",
-      "cities": [
-        "Toronto"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "ideogram",
-      "name": "Ideogram",
-      "adapter": "ashby",
-      "board": "ideogram",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "tenstorrent",
-      "name": "Tenstorrent",
-      "adapter": "greenhouse",
-      "board": "tenstorrent",
-      "cities": [
-        "Toronto"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "stripe",
-      "name": "Stripe",
-      "adapter": "greenhouse",
-      "board": "stripe",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "datadog",
-      "name": "Datadog",
-      "adapter": "greenhouse",
-      "board": "datadog",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "scaleai",
-      "name": "Scale AI",
-      "adapter": "greenhouse",
-      "board": "scaleai",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "ramp",
-      "name": "Ramp",
-      "adapter": "greenhouse",
-      "board": "ramp",
-      "cities": [
-        "New York"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "coinbase",
-      "name": "Coinbase",
-      "adapter": "greenhouse",
-      "board": "coinbase",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "anthropic",
-      "name": "Anthropic",
-      "adapter": "greenhouse",
-      "board": "anthropic",
-      "cities": [
-        "Toronto",
-        "New York",
-        "Hong Kong",
-        "Shenzhen"
-      ],
-      "group": "tech",
-      "enabled": true
-    },
-    {
-      "key": "_manual",
-      "adapter": null,
-      "enabled": false,
-      "$comment": "Checked by hand (bot-gated or no public API): 腾讯 join.qq.com · 阿里 talent.alibaba.com · 百度 talent.baidu.com · 字节 joinbytedance.com · Google google.com/about/careers · Meta metacareers.com · Siemens jobs.siemens.com · Apple jobs.apple.com · Bain campus (bain.com/careers) · Bloomberg careers.bloomberg.com · Moody's careers.moodys.com · KKR kkr.com/careers · Hillhouse / HongShan / IDG / 深创投 (no public boards)"
-    }
+  "cityAliases": {
+   "New York": [
+    "NYC",
+    "New York City",
+    "Manhattan",
+    "NY, United States",
+    "纽约"
+   ],
+   "Hong Kong": [
+    "HK",
+    "香港",
+    "Hongkong"
+   ],
+   "Toronto": [
+    "多伦多",
+    "Toronto, ON"
+   ],
+   "Chicago": [
+    "芝加哥"
+   ],
+   "Shenzhen": [
+    "深圳"
+   ],
+   "Beijing": [
+    "北京"
+   ],
+   "Shanghai": [
+    "上海"
+   ],
+   "Singapore": [
+    "新加坡"
+   ],
+   "London": [
+    "伦敦"
+   ],
+   "Montreal": [
+    "蒙特利尔"
+   ],
+   "Vancouver": [
+    "温哥华"
+   ]
+  },
+  "levels": {
+   "entry": [
+    "analyst",
+    "graduate",
+    "intern",
+    "internship",
+    "summer",
+    "off-cycle",
+    "off cycle",
+    "co-op",
+    "placement",
+    "new grad",
+    "new college grad",
+    "university grad",
+    "early career",
+    "early careers",
+    "junior",
+    "entry level",
+    "entry-level",
+    "fellow",
+    "trainee",
+    "development program",
+    "development programme",
+    "rotational",
+    "助理",
+    "校招",
+    "校园招聘",
+    "应届",
+    "管培",
+    "培训生",
+    "实习",
+    "interns",
+    "analysts",
+    "graduates"
+   ],
+   "mbaAssociate": [
+    "summer associate",
+    "pre-mba",
+    "mba associate",
+    "post-mba",
+    "new associate",
+    "associate program",
+    "associate programme",
+    "associate graduate program",
+    "associate graduate programme",
+    "full-time associate",
+    "full time associate"
+   ],
+   "senior": [
+    "vice president",
+    "\\bvp\\b",
+    "\\bsvp\\b",
+    "\\bavp\\b",
+    "assistant vice president",
+    "director",
+    "executive director",
+    "managing director",
+    "\\bmd\\b",
+    "head of",
+    "\\bhead\\b",
+    "senior manager",
+    "manager",
+    "principal",
+    "partner",
+    "\\blead\\b",
+    "chief",
+    "specialist leader",
+    "总监",
+    "经理",
+    "负责人",
+    "主管",
+    "总经理",
+    "高级",
+    "资深",
+    "博士后",
+    "\\bsr\\.",
+    "senior associate",
+    "senior vice"
+   ],
+   "seniorSoft": [
+    "senior analyst",
+    "senior business analyst"
+   ],
+   "seniorHard": [
+    "vice president",
+    "\\bvp\\b",
+    "\\bsvp\\b",
+    "\\bavp\\b",
+    "\\bevp\\b",
+    "assistant vice president",
+    "executive director",
+    "managing director",
+    "\\bmd\\b",
+    "director",
+    "head of",
+    "chief",
+    "partner",
+    "senior vice",
+    "总监",
+    "总经理",
+    "\\bphd\\b",
+    "ph\\.d",
+    "doctoral",
+    "postdoc",
+    "post-doctoral"
+   ]
+  },
+  "domains": {
+   "preferred": [
+    "investment bank",
+    "investment banking",
+    "\\bib\\b",
+    "m&a",
+    "mergers",
+    "capital markets",
+    "\\becm\\b",
+    "\\bdcm\\b",
+    "leveraged finance",
+    "coverage",
+    "global markets",
+    "sales & trading",
+    "sales and trading",
+    "trading",
+    "\\bficc\\b",
+    "fixed income",
+    "equities",
+    "equity research",
+    "research",
+    "quant",
+    "strats",
+    "quantitative",
+    "asset management",
+    "wealth management",
+    "private wealth",
+    "investment management",
+    "private equity",
+    "private capital",
+    "corporate finance",
+    "digital",
+    "technology",
+    "\\bai\\b",
+    "artificial intelligence",
+    "machine learning",
+    "data science",
+    "data analytics",
+    "analytics",
+    "software",
+    "engineer",
+    "product",
+    "fintech",
+    "strategy",
+    "consultant",
+    "consulting",
+    "business analyst",
+    "junior associate",
+    "investment",
+    "markets",
+    "structuring",
+    "derivatives",
+    "投行",
+    "投资银行",
+    "并购",
+    "股票发行",
+    "债券",
+    "固定收益",
+    "衍生品",
+    "研究",
+    "机构销售",
+    "资管",
+    "资产管理",
+    "国际业务",
+    "金融科技",
+    "大模型",
+    "算法",
+    "数据",
+    "交易",
+    "量化",
+    "战略",
+    "engineering",
+    "trader",
+    "traders",
+    "researcher",
+    "technologist",
+    "developer",
+    "data engineer",
+    "product manager",
+    "banker",
+    "banking"
+   ],
+   "moderate": [
+    "risk",
+    "treasury",
+    "finance",
+    "controller",
+    "operations",
+    "corporate development",
+    "product management",
+    "\\bcib\\b",
+    "commercial bank",
+    "corporate bank",
+    "托管",
+    "运营",
+    "风险",
+    "金融市场",
+    "证券金融"
+   ],
+   "negative": [
+    "financial advisor",
+    "financial advisers",
+    "wealth advisor",
+    "virtual engagement associate",
+    "client service associate",
+    "client relationship",
+    "service associate",
+    "financial services representative",
+    "\\bsie\\b",
+    "branch",
+    "teller",
+    "registered",
+    "paralegal",
+    "legal",
+    "nurse",
+    "recruiter",
+    "recruitment",
+    "talent acquisition",
+    "human capital",
+    "human resources",
+    "\\bhr\\b",
+    "payroll",
+    "facilities",
+    "security guard",
+    "receptionist",
+    "administrative assistant",
+    "executive assistant",
+    "call center",
+    "call centre",
+    "customer service",
+    "sales support",
+    "理财顾问",
+    "财富顾问",
+    "投资顾问",
+    "客服",
+    "网络渠道",
+    "网络服务",
+    "网络运营",
+    "投教",
+    "柜员",
+    "营业部",
+    "私人财富顾问",
+    "机构业务顾问",
+    "审核客服",
+    "人力",
+    "行政岗",
+    "党群",
+    "纪检",
+    "行政专员",
+    "行政助理",
+    "行政管理",
+    "designer",
+    "graphic design",
+    "ux design",
+    "visual design"
+   ]
+  },
+  "exclude": [
+   "physician",
+   "physiotherap",
+   "\\bcna\\b",
+   "janitor"
   ],
+  "excludeTypes": [
+   "internship"
+  ],
+  "cityWeights": {
+   "New York": 25,
+   "Hong Kong": 25,
+   "Toronto": 23,
+   "Chicago": 22,
+   "Shenzhen": 20,
+   "Beijing": 20,
+   "London": 12,
+   "Singapore": 12,
+   "Shanghai": 10,
+   "Montreal": 10,
+   "Vancouver": 10,
+   "Jersey City": 12,
+   "Purchase": 10,
+   "San Francisco": 8,
+   "Boston": 8
+  },
+  "companyBoost": {
+   "goldman": 6,
+   "jpmorgan": 6,
+   "morganstanley": 6,
+   "mckinsey": 6,
+   "cicc": 4,
+   "bain": 5,
+   "bcg": 5,
+   "blackstone": 4,
+   "citi": 3,
+   "cpp": 3,
+   "otpp": 3,
+   "rbc": 2,
+   "bmo": 2,
+   "td": 2,
+   "scotiabank": 2,
+   "cibc": 2
+  },
+  "$comment": "cityWeights: points per matched city; companyBoost: extra points for priority firms; excludeTypes: posting types dropped entirely",
+  "hardLimits": {
+   "maxYears": 2,
+   "creds": [
+    "MBA",
+    "CPA",
+    "CFA",
+    "PHD",
+    "JD",
+    "ACCA",
+    "FSA",
+    "ASA",
+    "FCIA",
+    "PENG"
+   ],
+   "$comment": "postings that REQUIRE more than maxYears of experience or one of these credentials are dropped; 'preferred' only costs a few points"
+  }
+ },
+ "scoring": {
+  "enabled": true,
+  "model": "claude-haiku-4-5",
+  "tiers": [
+   "strong",
+   "possible"
+  ],
+  "maxPerRun": 40,
+  "batchSize": 10
+ },
+ "companies": [
+  {
+   "key": "goldman",
+   "name": "Goldman Sachs",
+   "adapter": "goldman",
+   "enabled": true,
+   "group": "ib"
+  },
+  {
+   "key": "jpmorgan",
+   "name": "J.P. Morgan",
+   "adapter": "jpmorgan",
+   "enabled": true,
+   "group": "ib"
+  },
+  {
+   "key": "morganstanley",
+   "name": "Morgan Stanley",
+   "adapter": "morganstanley",
+   "enabled": true,
+   "group": "ib"
+  },
+  {
+   "key": "mckinsey",
+   "name": "McKinsey & Company",
+   "adapter": "mckinsey",
+   "enabled": true,
+   "group": "consulting"
+  },
+  {
+   "key": "barclays",
+   "name": "Barclays",
+   "adapter": "barclays",
+   "enabled": true,
+   "group": "ib"
+  },
+  {
+   "key": "bnp",
+   "name": "BNP Paribas",
+   "adapter": "bnp",
+   "enabled": true,
+   "group": "ib"
+  },
+  {
+   "key": "guosen",
+   "name": "国信证券 Guosen Securities",
+   "adapter": "beisen",
+   "tenant": "guosen",
+   "enabled": true,
+   "group": "cn"
+  },
+  {
+   "key": "csc108",
+   "name": "中信建投 CSC Financial",
+   "adapter": "beisen",
+   "tenant": "csc108",
+   "enabled": true,
+   "group": "cn"
+  },
+  {
+   "key": "cicc",
+   "name": "中金公司 CICC",
+   "adapter": "beisen",
+   "tenant": "cicc",
+   "categories": [
+    "2"
+   ],
+   "enabled": true,
+   "$comment": "2 = 校园招聘 (full-time campus hires)",
+   "group": "cn"
+  },
+  {
+   "key": "iflytek",
+   "name": "科大讯飞 iFlytek",
+   "adapter": "beisen",
+   "tenant": "iflytek",
+   "enabled": true,
+   "group": "cn"
+  },
+  {
+   "key": "nvidia",
+   "name": "NVIDIA",
+   "adapter": "workday",
+   "tenant": "nvidia",
+   "wd": "wd5",
+   "site": "NVIDIAExternalCareerSite",
+   "queries": [
+    "new college grad",
+    "finance",
+    "business analyst",
+    "strategy",
+    "product manager"
+   ],
+   "enabled": true,
+   "$comment": "verified Sep 2026 via the Workday CXS endpoint",
+   "group": "tech"
+  },
+  {
+   "key": "td",
+   "name": "TD Bank",
+   "adapter": "workday",
+   "tenant": "td",
+   "wd": "wd3",
+   "site": "TD_Bank_Careers",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "cabank",
+   "enabled": true,
+   "maxPages": 40
+  },
+  {
+   "key": "cibc",
+   "name": "CIBC",
+   "adapter": "workday",
+   "tenant": "cibc",
+   "wd": "wd3",
+   "sites": [
+    "search",
+    "campus"
+   ],
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "cabank",
+   "enabled": true,
+   "facets": {
+    "City": [
+     "5a781e4ad9710113e8f4efbb1701cf1a"
+    ]
+   },
+   "maxPages": 12,
+   "$comment": "City facet id = Toronto, ON"
+  },
+  {
+   "key": "rbc",
+   "name": "RBC",
+   "adapter": "workday",
+   "tenant": "rbc",
+   "wd": "wd3",
+   "site": "RBCGLOBAL1",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "cabank",
+   "enabled": true,
+   "maxPages": 40
+  },
+  {
+   "key": "bmo",
+   "name": "BMO",
+   "adapter": "workday",
+   "tenant": "bmo",
+   "wd": "wd3",
+   "sites": [
+    "External",
+    "Campus"
+   ],
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "cabank",
+   "enabled": true,
+   "maxPages": 30
+  },
+  {
+   "key": "scotiabank",
+   "name": "Scotiabank",
+   "adapter": "successfactors",
+   "base": "https://jobs.scotiabank.com",
+   "path": "",
+   "cities": [
+    "Toronto"
+   ],
+   "keywords": [
+    ""
+   ],
+   "maxPages": 20,
+   "group": "cabank",
+   "enabled": true
+  },
+  {
+   "key": "citi",
+   "name": "Citi",
+   "adapter": "workday",
+   "tenant": "citi",
+   "wd": "wd5",
+   "site": "2",
+   "queries": [
+    "Toronto",
+    "Hong Kong analyst",
+    "New York analyst 2027",
+    "Shenzhen"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 10
+  },
+  {
+   "key": "ms_workday",
+   "name": "Morgan Stanley",
+   "adapter": "workday",
+   "tenant": "ms",
+   "wd": "wd5",
+   "site": "External",
+   "queries": [
+    "Toronto",
+    "Hong Kong analyst",
+    "New York analyst",
+    "Shenzhen"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 10,
+   "$comment": "experienced-hire site; campus programs come from the morganstanley adapter"
+  },
+  {
+   "key": "bcg",
+   "name": "BCG",
+   "adapter": "phenom",
+   "base": "https://careers.bcg.com",
+   "path": "global/en",
+   "lang": "en_global",
+   "country": "global",
+   "pageId": "page35-ds",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "keywords": [
+    ""
+   ],
+   "group": "consulting",
+   "enabled": true
+  },
+  {
+   "key": "bain",
+   "name": "Bain & Company",
+   "adapter": "avature",
+   "base": "https://careers.bain.com",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "maxPages": 40,
+   "group": "consulting",
+   "enabled": true,
+   "$comment": "careers.bain.com lists experienced roles; campus AC/consultant applications run through bain.com (bot-protected) — keep checking by hand"
+  },
+  {
+   "key": "oliverwyman",
+   "name": "Oliver Wyman",
+   "adapter": "workday",
+   "tenant": "mmc",
+   "wd": "wd1",
+   "site": "MMC",
+   "queries": [
+    "Oliver Wyman Toronto",
+    "Oliver Wyman New York",
+    "Oliver Wyman Hong Kong",
+    "Oliver Wyman Shenzhen"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "consulting",
+   "enabled": true,
+   "maxPages": 6
+  },
+  {
+   "key": "pwc",
+   "name": "PwC / Strategy&",
+   "adapter": "workday",
+   "tenant": "pwc",
+   "wd": "wd3",
+   "sites": [
+    "Global_Experienced_Careers",
+    "Global_Campus_Careers"
+   ],
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "consulting",
+   "enabled": true,
+   "maxPages": 15
+  },
+  {
+   "key": "deloitte",
+   "name": "Deloitte",
+   "adapter": "successfactors",
+   "api": true,
+   "base": "https://careers.deloitte.ca",
+   "locale": "en_US",
+   "cities": [
+    "Toronto"
+   ],
+   "keywords": [
+    ""
+   ],
+   "maxPages": 40,
+   "group": "consulting",
+   "enabled": true
+  },
+  {
+   "key": "ey",
+   "name": "EY",
+   "adapter": "successfactors",
+   "base": "https://careers.ey.com",
+   "path": "/ey",
+   "cities": [
+    "Toronto"
+   ],
+   "keywords": [
+    ""
+   ],
+   "maxPages": 12,
+   "group": "consulting",
+   "enabled": true
+  },
+  {
+   "key": "kpmg",
+   "name": "KPMG",
+   "adapter": "jibe",
+   "base": "https://careers.kpmg.ca",
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 40,
+   "group": "consulting",
+   "enabled": true
+  },
+  {
+   "key": "accenture",
+   "name": "Accenture",
+   "adapter": "workday",
+   "tenant": "accenture",
+   "wd": "wd103",
+   "site": "AccentureCareers",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "consulting",
+   "enabled": true,
+   "maxPages": 20
+  },
+  {
+   "key": "fti",
+   "name": "FTI Consulting",
+   "adapter": "workday",
+   "tenant": "fticonsulting",
+   "wd": "wd108",
+   "site": "FTIConsultingCareers",
+   "queries": [
+    "Toronto",
+    "New York",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "consulting",
+   "enabled": true,
+   "maxPages": 6
+  },
+  {
+   "key": "capco",
+   "name": "Capco",
+   "adapter": "greenhouse",
+   "board": "capco",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "consulting",
+   "enabled": true
+  },
+  {
+   "key": "cpp",
+   "name": "CPP Investments",
+   "adapter": "workday",
+   "tenant": "cppib",
+   "wd": "wd10",
+   "site": "cppinvestments",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 10
+  },
+  {
+   "key": "otpp",
+   "name": "Ontario Teachers'",
+   "adapter": "workday",
+   "tenant": "otppb",
+   "wd": "wd3",
+   "site": "OntarioTeachers_Careers",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 10
+  },
+  {
+   "key": "omers",
+   "name": "OMERS",
+   "adapter": "workday",
+   "tenant": "omers",
+   "wd": "wd3",
+   "site": "OMERS_External",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 10
+  },
+  {
+   "key": "brookfield",
+   "name": "Brookfield",
+   "adapter": "workday",
+   "tenant": "brookfield",
+   "wd": "wd5",
+   "site": "brookfield",
+   "queries": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shanghai"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen",
+    "Shanghai"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 10
+  },
+  {
+   "key": "manulife",
+   "name": "Manulife",
+   "adapter": "workday",
+   "tenant": "manulife",
+   "wd": "wd3",
+   "site": "MFCJH_Jobs",
+   "queries": [
+    "Toronto",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 15
+  },
+  {
+   "key": "sunlife",
+   "name": "Sun Life",
+   "adapter": "workday",
+   "tenant": "sunlife",
+   "wd": "wd3",
+   "sites": [
+    "Experienced-Jobs",
+    "Campus"
+   ],
+   "queries": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 12
+  },
+  {
+   "key": "blackrock",
+   "name": "BlackRock",
+   "adapter": "workday",
+   "tenant": "blackrock",
+   "wd": "wd1",
+   "site": "BlackRock_Professional",
+   "queries": [
+    "Toronto",
+    "New York analyst",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 8
+  },
+  {
+   "key": "blackstone",
+   "name": "Blackstone",
+   "adapter": "workday",
+   "tenant": "blackstone",
+   "wd": "wd1",
+   "sites": [
+    "Blackstone_Careers",
+    "Blackstone_Campus_Careers"
+   ],
+   "queries": [
+    "Hong Kong",
+    "New York analyst",
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 8
+  },
+  {
+   "key": "carlyle",
+   "name": "Carlyle",
+   "adapter": "workday",
+   "tenant": "carlyle",
+   "wd": "wd1",
+   "site": "Carlyle",
+   "queries": [
+    "Hong Kong",
+    "New York",
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 6
+  },
+  {
+   "key": "warburg",
+   "name": "Warburg Pincus",
+   "adapter": "greenhouse",
+   "board": "warburgpincusllc",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen",
+    "United States"
+   ],
+   "group": "buyside",
+   "enabled": true
+  },
+  {
+   "key": "generalatlantic",
+   "name": "General Atlantic",
+   "adapter": "greenhouse",
+   "board": "generalatlantic",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true
+  },
+  {
+   "key": "point72",
+   "name": "Point72",
+   "adapter": "greenhouse",
+   "board": "point72",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true
+  },
+  {
+   "key": "janestreet",
+   "name": "Jane Street",
+   "adapter": "greenhouse",
+   "board": "janestreet",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true
+  },
+  {
+   "key": "iconiq",
+   "name": "ICONIQ",
+   "adapter": "greenhouse",
+   "board": "iconiq",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true
+  },
+  {
+   "key": "squarepoint",
+   "name": "Squarepoint Capital",
+   "adapter": "greenhouse",
+   "board": "squarepointcapital",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true
+  },
+  {
+   "key": "spgi",
+   "name": "S&P Global",
+   "adapter": "workday",
+   "tenant": "spgi",
+   "wd": "wd5",
+   "site": "SPGI_Careers",
+   "queries": [
+    "Toronto",
+    "New York analyst",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 8
+  },
+  {
+   "key": "a16z",
+   "name": "a16z",
+   "adapter": "greenhouse",
+   "board": "a16z",
+   "cities": [
+    "New York",
+    "Toronto"
+   ],
+   "group": "vc",
+   "enabled": true
+  },
+  {
+   "key": "georgian",
+   "name": "Georgian",
+   "adapter": "ashby",
+   "board": "georgian",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "vc",
+   "enabled": true
+  },
+  {
+   "key": "bessemer",
+   "name": "Bessemer Venture Partners",
+   "adapter": "greenhouse",
+   "board": "bessemerventurepartners",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "vc",
+   "enabled": true
+  },
+  {
+   "key": "microsoft",
+   "name": "Microsoft",
+   "adapter": "eightfold",
+   "host": "https://apply.careers.microsoft.com",
+   "domain": "microsoft.com",
+   "searches": [
+    {
+     "query": "",
+     "location": "Toronto, Canada"
+    },
+    {
+     "query": "",
+     "location": "New York, United States"
+    },
+    {
+     "query": "",
+     "location": "Hong Kong"
+    },
+    {
+     "query": "",
+     "location": "Shenzhen, China"
+    }
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "maxPages": 15,
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "amazon",
+   "name": "Amazon / AWS",
+   "adapter": "amazon",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "keywords": [
+    ""
+   ],
+   "maxPages": 3,
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "disney",
+   "name": "Disney",
+   "adapter": "radancy",
+   "base": "https://www.disneycareers.com",
+   "path": "/en",
+   "keywords": [
+    ""
+   ],
+   "regions": [
+    "United States",
+    "Canada",
+    "China",
+    "Hong Kong",
+    "Shanghai"
+   ],
+   "maxPages": 10,
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "thomsonreuters",
+   "name": "Thomson Reuters",
+   "adapter": "workday",
+   "tenant": "thomsonreuters",
+   "wd": "wd5",
+   "site": "External_Career_Site",
+   "queries": [
+    "Toronto",
+    "New York"
+   ],
+   "cities": [
+    "Toronto",
+    "New York"
+   ],
+   "group": "tech",
+   "enabled": true,
+   "maxPages": 10
+  },
+  {
+   "key": "cohere",
+   "name": "Cohere",
+   "adapter": "ashby",
+   "board": "cohere",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "wealthsimple",
+   "name": "Wealthsimple",
+   "adapter": "ashby",
+   "board": "wealthsimple",
+   "cities": [
+    "Toronto",
+    "Remote (Canada)",
+    "Canada"
+   ],
+   "group": "tech",
+   "enabled": true,
+   "$comment": "remote-first: most roles are Remote (Canada)"
+  },
+  {
+   "key": "waabi",
+   "name": "Waabi",
+   "adapter": "lever",
+   "site": "waabi",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "ideogram",
+   "name": "Ideogram",
+   "adapter": "ashby",
+   "board": "ideogram",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "tenstorrent",
+   "name": "Tenstorrent",
+   "adapter": "greenhouse",
+   "board": "tenstorrent",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "stripe",
+   "name": "Stripe",
+   "adapter": "greenhouse",
+   "board": "stripe",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "datadog",
+   "name": "Datadog",
+   "adapter": "greenhouse",
+   "board": "datadog",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "scaleai",
+   "name": "Scale AI",
+   "adapter": "greenhouse",
+   "board": "scaleai",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "ramp",
+   "name": "Ramp",
+   "adapter": "ashby",
+   "board": "ramp",
+   "cities": [
+    "New York",
+    "Toronto"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "coinbase",
+   "name": "Coinbase",
+   "adapter": "greenhouse",
+   "board": "coinbase",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "anthropic",
+   "name": "Anthropic",
+   "adapter": "greenhouse",
+   "board": "anthropic",
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Shenzhen"
+   ],
+   "group": "tech",
+   "enabled": true
+  },
+  {
+   "key": "_manual",
+   "adapter": null,
+   "enabled": false,
+   "$comment": "Checked by hand (bot-gated or no public API): 腾讯 join.qq.com · 阿里 talent.alibaba.com · 百度 talent.baidu.com · 字节 joinbytedance.com · Google google.com/about/careers · Meta metacareers.com · Siemens jobs.siemens.com · Apple jobs.apple.com · Bain campus (bain.com/careers) · Bloomberg careers.bloomberg.com · Moody's careers.moodys.com · KKR kkr.com/careers · Hillhouse / HongShan / IDG / 深创投 (no public boards)"
+  }
+ ],
+ "concurrency": 4,
+ "details": {
+  "minScore": 52,
+  "maxPerRun": 600,
   "concurrency": 4,
-  "details": {
-    "minScore": 52,
-    "maxPerRun": 300,
-    "concurrency": 4,
-    "$comment": "job descriptions are fetched (once, cached in data/details.json) for postings scoring >= minScore so hard requirements can be checked"
-  },
-  "groups": {
-    "ib": "投行 / 外资行",
-    "consulting": "咨询",
-    "cabank": "加拿大五大行",
-    "buyside": "资管 · 养老金 · PE · 对冲基金",
-    "vc": "VC",
-    "tech": "科技 · AI · 大厂",
-    "cn": "中国券商 · 科技"
-  },
-  "$comment_regions": "cities on a company = post-filter on the posting location; FOUR = Toronto / New York / Hong Kong / Shenzhen"
+  "$comment": "job descriptions are fetched (once, cached in data/details.json) for postings scoring >= minScore so hard requirements can be checked; maxPerRun caps one run (the cache fills up over a few runs)"
+ },
+ "groups": {
+  "ib": "投行 / 外资行",
+  "consulting": "咨询",
+  "cabank": "加拿大五大行",
+  "buyside": "资管 · 养老金 · PE · 对冲基金",
+  "vc": "VC",
+  "tech": "科技 · AI · 大厂",
+  "cn": "中国券商 · 科技"
+ },
+ "$comment_regions": "cities on a company = post-filter on the posting location; FOUR = Toronto / New York / Hong Kong / Shenzhen"
 }
