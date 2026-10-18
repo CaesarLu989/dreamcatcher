@@ -147,3 +147,79 @@ export function guessType(title = "", hint = "") {
   if (/^\d{4}\b/.test(title.trim()) || /\b20(26|27|28)\b/.test(t)) return "campus";
   return "experienced";
 }
+
+/** HTML → readable text (keeps line breaks for list items so requirement sentences stay separate). */
+export function htmlToText(html = "") {
+  return decodeEntities(
+    String(html)
+      .replace(/<\s*(br|\/p|\/li|\/div|\/h\d|\/tr)\s*\/?>/gi, "\n")
+      .replace(/<li[^>]*>/gi, "\n• ")
+      .replace(/<[^>]+>/g, " ")
+  )
+    .replace(/[ \t ]+/g, " ")
+    .replace(/\s*\n\s*/g, "\n")
+    .trim();
+}
+
+const WORD_NUM = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, 一: 1, 两: 2, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 十: 10 };
+const SOFT = /\b(preferred|an asset|a plus|nice[- ]to[- ]have|ideally|bonus|desirable|would be|is a plus|advantage|or equivalent|or (?:a |an )?(?:master|graduate|advanced|mba))\b|优先|加分|为佳|者优先/i;
+
+/**
+ * Pull hard requirements out of a job description: minimum years of experience and required credentials.
+ * Returns { minYears, yearsSoft, yearsText, creds: [...], credsSoft: [...] } — every field null/empty when not found.
+ * "3+ years", "minimum of 5 years", "5-7 years", "at least two years", "3年以上工作经验" are all understood;
+ * a sentence that also says preferred / an asset / ideally is treated as soft (penalty, not exclusion).
+ */
+export function parseRequirements(text = "") {
+  const t = String(text || "");
+  const out = { minYears: null, maxYears: null, yearsSoft: false, yearsText: null, creds: [], credsSoft: [] };
+  if (!t) return out;
+  const sentences = t.split(/(?<=[.。;；!?])\s+|\n+/);
+  const yearRe = /(?:(?:minimum|min\.?|at least|a minimum of|more than|over|requires?|required|must have|with)\s+(?:of\s+)?)?(\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten)\s*(?:\+|plus|or more)?\s*(?:[-–to]+\s*(\d{1,2}))?\s*\+?\s*(?:years?|yrs?)\b[^.\n]{0,60}?\b(?:experience|exp\b|working|work|industry|professional|relevant|background|track record|in\b)/i;
+  const zhRe = /(\d{1,2}|[一两二三四五六七八十]+)\s*年(?:及|或)?以上[^。\n]{0,20}?(?:经验|工作)/;
+  for (const s of sentences) {
+    if (!/\b(years?|yrs?)\b|年/i.test(s)) continue;
+    if (/\b(fiscal|calendar|academic|school|rotation(?:al)? program|program lasts|contract|term|tenure|within (?:the )?(?:first|next)|every|per year|a year|years old|year[- ]round|year of (?:the|study|graduation|university|school|degree)|graduat\w+ (?:in|by|between)|class of|20\d\d)/i.test(s) && !/experience/i.test(s)) continue;
+    let m = s.match(yearRe);
+    let n = null;
+    const num = (x) => (x == null ? null : /^\d+$/.test(x) ? Number(x) : WORD_NUM[String(x).toLowerCase()] ?? null);
+    if (m) n = num(m[1]);
+    if (n == null) {
+      const z = s.match(zhRe);
+      if (z) n = /^\d+$/.test(z[1]) ? Number(z[1]) : String(z[1]).split("").reduce((a, c) => a + (WORD_NUM[c] || 0), 0) || null;
+    }
+    if (n == null || n > 20) continue;
+    // "less than 4 years", "up to 2 years", "0-2 years": an upper bound, never a minimum
+    if (/\b(less than|fewer than|up to|no more than|maximum of|max\.?)\s+(?:\d|one|two|three|four|five)/i.test(s) || (m && m[2] != null && n === 0)) { out.maxYears = Math.max(out.maxYears || 0, m && m[2] != null ? Number(m[2]) : n); continue; }
+    const soft = SOFT.test(s) || /\b(typically|generally|usually)\b/i.test(s);
+    // keep the strictest hard requirement, else the strictest soft one
+    if (out.minYears == null || (!soft && out.yearsSoft) || (soft === out.yearsSoft && n > out.minYears)) {
+      out.minYears = n;
+      out.yearsSoft = soft;
+      out.yearsText = s.trim().replace(/\s+/g, " ").slice(0, 160);
+    }
+  }
+  const credRe = /\b(MBA|CPA|CFA|CA|ACCA|FRM|PhD|Ph\.D\.?|JD|CPA\/CA|P\.?Eng|CFP|CAIA|actuarial (?:designation|credential)|FSA|ASA|FCIA)\b/g;
+  for (const s of sentences) {
+    const creds = new Set();
+    for (const m of s.matchAll(credRe)) creds.add(m[1].toUpperCase().replace(/\./g, "").replace(/PHD/, "PHD"));
+    if (!creds.size) continue;
+    const hard = /\b(required|must (?:hold|have|be)|requires|mandatory|is a requirement|designation required|completed|completion of|obtained|holder)\b/i.test(s) && !SOFT.test(s);
+    for (const c of creds) {
+      if (hard) { if (!out.creds.includes(c)) out.creds.push(c); }
+      else if (!out.credsSoft.includes(c)) out.credsSoft.push(c);
+    }
+  }
+  return out;
+}
+
+/** True when any location string mentions one of the wanted cities (or their aliases). */
+export function matchesCity(locations = [], cities = [], aliases = {}) {
+  if (!cities || !cities.length) return true;
+  const hay = locations.map((l) => String(l).toLowerCase());
+  for (const c of cities) {
+    const names = [c, ...(aliases[c] || [])].map((x) => String(x).toLowerCase());
+    if (hay.some((h) => names.some((n) => h.includes(n)))) return true;
+  }
+  return false;
+}

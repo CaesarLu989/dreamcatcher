@@ -42,6 +42,9 @@ export function buildMatcher(profile) {
   };
   const years = { target: P.years.target, ok: P.years.ok || [] };
   const excludeTypes = new Set(P.excludeTypes || []);
+  // hard limits Caesar cannot meet: experience above maxYears, credentials he does not hold
+  const lim = { maxYears: 2, creds: ["MBA", "CPA", "CFA", "PHD", "JD", "ACCA", "FSA", "ASA", "FCIA", "PENG"], ...(P.hardLimits || {}) };
+  const limCreds = new Set((lim.creds || []).map((c) => String(c).toUpperCase().replace(/\./g, "")));
 
   return function match(j) {
     const title = j.title || "";
@@ -147,17 +150,31 @@ export function buildMatcher(profile) {
       reasons.push("neg:" + (negHay.match(R.negative)?.[1] || "").toLowerCase());
     }
 
+    // ---- hard requirements parsed from the description (index.mjs attaches j.req)
+    const req = j.req || null;
+    let reqOut = null;
+    if (req) {
+      reqOut = { years: req.minYears != null ? req.minYears + "+" : req.maxYears != null ? "≤" + req.maxYears : null, soft: !!req.yearsSoft, creds: req.creds || [], credsSoft: req.credsSoft || [] };
+      if (req.minYears != null && req.minYears > lim.maxYears) {
+        if (!req.yearsSoft) { excluded = true; reasons.push("years:" + req.minYears + "+"); }
+        else { score -= 8; reasons.push("years-pref:" + req.minYears + "+"); }
+      }
+      const hardCred = (req.creds || []).find((c) => limCreds.has(String(c).toUpperCase()));
+      if (hardCred) { excluded = true; reasons.push("cred:" + hardCred); }
+      else if ((req.credsSoft || []).some((c) => limCreds.has(String(c).toUpperCase()))) { score -= 4; reasons.push("cred-pref"); }
+    }
+
     // ---- events: informational, never "strong"
     if (isEvent) {
       const t = cityTier ? "event" : "dropped";
       const sc = Math.max(0, Math.min(score, 45));
       return { score: sc, tier: t, heat: heatBand(sc), reasons: ["event", ...reasons], excluded: false, matchedCity };
     }
-    if (excluded) return { score: 0, tier: "dropped", reasons, excluded: true, matchedCity };
+    if (excluded) return { score: 0, tier: "dropped", reasons, excluded: true, matchedCity, req: reqOut || undefined };
 
     score = Math.max(0, Math.min(100, score));
     const tier = score >= 65 ? "strong" : score >= 40 ? "possible" : score >= 20 ? "weak" : "dropped";
-    return { score, tier, heat: heatBand(score), reasons, excluded: false, matchedCity };
+    return { score, tier, heat: heatBand(score), reasons, excluded: false, matchedCity, req: reqOut || undefined };
   };
 }
 
