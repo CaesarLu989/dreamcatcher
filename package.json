@@ -1,6 +1,6 @@
 {
   "name": "dreamcatcher",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "description": "DreamCatcher — zero-token job radar: scrapes career sites on a schedule, rule-filters postings, optionally lets Claude score new ones.",
   "type": "module",

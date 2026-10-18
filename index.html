@@ -407,6 +407,13 @@ body.dc-booting #dc-lang { opacity: 0; pointer-events: none; }
 @keyframes rlShimmer { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { #radar-live .radar::before, #radar-live .radar::after, #radar-live .rl-dot, #radar-live .role, #radar-live .sk { animation: none !important; } }
 
+/* industry group chips + collapsible company list (Oct 2026) */
+#radar-live .rl-groups .rl-chip { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+#radar-live .rl-groups .rl-chip.on { background: var(--accent); color: #fff; }
+#radar-live .rl-chip.more { border-style: dashed; color: var(--ink-2); }
+#radar-live .role .req { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-family: "IBM Plex Mono", ui-monospace, monospace; }
+#radar-live .role .req.warn { background: rgba(245,166,35,.14); color: #B26A00; }
+
 </style>
 </head>
 <body class="dc-booting">
@@ -441,6 +448,8 @@ body.dc-booting #dc-lang { opacity: 0; pointer-events: none; }
   <div class="rl-meta" id="rl-meta"></div>
   <div class="rl-legend"><span class="h0">极高 90+</span><span class="h1">高 78–89</span><span class="h2">中高 66–77</span><span class="h3">中 52–65</span><span class="h4">偏低 38–51</span><span class="h5">低 &lt;38</span><span style="margin-left:auto">点击色块筛选 · 分数 = 级别 + 届别 + 城市 + 方向 + 优先公司</span></div>
   <div class="rl-controls">
+    <div class="rl-chips rl-groups" id="rl-groups"></div>
+    <span class="rl-sep"></span>
     <div class="rl-chips" id="rl-companies"></div>
     <span class="rl-sep"></span>
     <div class="rl-chips" id="rl-cities"></div>
@@ -806,7 +815,12 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
     "card.applied": ["✓ 已投 ", "✓ Applied "], "card.stale": ["上次数据", "last run"], "card.link": ["官网职位页 →", "Official posting →"],
     "btn.applied": ["已投 ✓", "Applied ✓"], "btn.apply": ["标记已投", "Mark applied"], "btn.restore": ["恢复", "Restore"], "btn.hide": ["忽略", "Hide"],
     "load.error": ["暂无数据（{msg}）。先在 GitHub 上手动跑一次 \"DreamCatcher scan\"，或在本文件顶部填好 DATA_URL。", "No data yet ({msg}). Run \"DreamCatcher scan\" once on GitHub, or set DATA_URL at the top of this file."],
-    "lang.title": ["Switch to English", "切换到中文"]
+    "lang.title": ["Switch to English", "切换到中文"],
+    "group.ib": ["投行 / 外资行", "Investment banks"], "group.consulting": ["咨询", "Consulting"], "group.cabank": ["加拿大五大行", "Canadian Big 5"],
+    "group.buyside": ["资管 · 养老金 · PE · 对冲基金", "Buy side · pensions · PE · HF"], "group.vc": ["VC", "VC"], "group.tech": ["科技 · AI · 大厂", "Tech · AI"], "group.cn": ["中国券商 · 科技", "China securities · tech"],
+    "chips.more": ["更多 {n} 家 ▾", "{n} more ▾"], "chips.less": ["收起 ▴", "Fewer ▴"],
+    "req.years": ["经验 {y} 年", "{y} yrs exp"], "req.soft": ["（偏好）", " (preferred)"], "req.cred": ["偏好 {c}", "{c} preferred"],
+    "reason.yearspref": ["偏好经验 ", "prefers "], "reason.credpref": ["偏好证书", "credential preferred"]
   };
   function T(key, vars) {
     var v = STR[key]; if (!v) return key;
@@ -821,7 +835,7 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
   var SKIP = { SCRIPT: 1, STYLE: 1, CANVAS: 1, SVG: 1 };
   function walk(root, fn) {
     var it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
-      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-heat, #rl-meta, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-lang")) return NodeFilter.FILTER_REJECT;
+      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-heat, #rl-meta, #rl-groups, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-lang")) return NodeFilter.FILTER_REJECT;
       return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP; } });
     var n, list = []; while ((n = it.nextNode())) list.push(n); list.forEach(fn);
   }
@@ -996,6 +1010,7 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
     data: null,
     heat: new Set(LS.get("heat", DEFAULT_HEAT)),
     companies: new Set(LS.get("companies", [])),
+    groups: new Set(LS.get("groups", [])), moreCompanies: false,
     cities: new Set(LS.get("cities", [])),
     types: new Set(LS.get("types", [])),
     q: "", onlyNew: false, onlyApplied: false, showHidden: false, expanded: false, showEvents: LS.get("events", false), hideApplied: LS.get("hideApplied", true),
@@ -1026,7 +1041,7 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
   var HEAT, TYPE, RZ, OTHER;
   function strings() { HEAT = T("heat"); TYPE = T("type"); RZ = T("reason"); OTHER = T("city.other"); }
   strings();
-  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); return r; }
+  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); if (r.indexOf("years-pref:") === 0) return T("reason.yearspref") + r.slice(11); if (r === "cred-pref") return T("reason.credpref"); return r; }
 
   function load() {
     var urls = [DATA_URL, "data/jobs.json"].filter(Boolean), i = 0;
@@ -1057,7 +1072,7 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
       '<button class="rl-link" id="rl-togglesrc">' + ($("rl-sources").hidden ? T("status.show") : T("status.hide")) + '</button>';
     $("rl-togglesrc").onclick = function () { $("rl-sources").hidden = !$("rl-sources").hidden; render(); };
     $("rl-sources").innerHTML = Object.keys(d.sources || {}).map(function (k) { var s = d.sources[k];
-      return '<div><span><i class="rl-dot ' + (s.ok ? "" : "bad") + '"></i>' + esc(s.name || k) + '</span><span>' + (s.ok ? s.count + T("src.count") + esc(ago(s.fetchedAt)) : '<span class="err">' + T("src.failed") + esc(ago(s.failedAt)) + (s.lastOkAt ? T("src.lastok") + esc(ago(s.lastOkAt)) : '') + '</span>') + '</span></div>'; }).join("");
+      return '<div><span><i class="rl-dot ' + (s.ok ? "" : "bad") + '"></i>' + esc(s.name || k) + (s.group && (d.groups || {})[s.group] ? ' <small style="opacity:.6">' + esc((T("group." + s.group) === "group." + s.group ? d.groups[s.group] : T("group." + s.group))) + '</small>' : '') + '</span><span>' + (s.ok ? s.count + T("src.count") + esc(ago(s.fetchedAt)) : '<span class="err">' + T("src.failed") + esc(ago(s.failedAt)) + (s.lastOkAt ? T("src.lastok") + esc(ago(s.lastOkAt)) : '') + '</span>') + '</span></div>'; }).join("");
 
     var visible = jobs.filter(function (j) { return (S.showHidden || !S.hidden.has(j.id)) && (S.showEvents || j.type !== "event"); });
     // heat tiles
@@ -1081,18 +1096,31 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
     // chips
     var byCompany = {}, byCity = {}, byType = {};
     visible.forEach(function (j) { byCompany[j.company] = (byCompany[j.company] || 0) + 1; var c = cityOf(j) || OTHER; byCity[c] = (byCity[c] || 0) + 1; byType[j.type] = (byType[j.type] || 0) + 1; });
-    $("rl-companies").innerHTML = Object.keys(byCompany).sort(function (a, b) { return byCompany[b] - byCompany[a]; }).map(function (c) { return chip("companies", c, window.dcLang && window.dcLang() === "en" ? c.replace(/^[\u4e00-\u9fff]+ /, "") : c.replace(/ (Guosen Securities|CSC Financial|CICC|iFlytek)$/, ""), byCompany[c], S.companies.has(c)); }).join("");
+    // industry groups (config.groups) → company chips (top 12 + 更多)
+    var G = d.groups || {}, CG = d.companyGroup || {};
+    var byGroup = {}; visible.forEach(function (j) { var g = CG[j.company] || "other"; byGroup[g] = (byGroup[g] || 0) + 1; });
+    var groupHtml = Object.keys(G).filter(function (g) { return byGroup[g]; }).map(function (g) { return chip("groups", g, T("group." + g) === "group." + g ? G[g] : T("group." + g), byGroup[g], S.groups.has(g)); }).join("");
+    $("rl-groups").innerHTML = groupHtml;
+    // older data files (before v3) carry no groups: hide the empty row and its separator
+    $("rl-groups").style.display = groupHtml ? "" : "none";
+    if ($("rl-groups").nextElementSibling) $("rl-groups").nextElementSibling.style.display = groupHtml ? "" : "none";
+    var compNames = Object.keys(byCompany).filter(function (c) { return !S.groups.size || S.groups.has(CG[c] || "other"); }).sort(function (a, b) { return byCompany[b] - byCompany[a]; });
+    var CAP = 12, shownComp = S.moreCompanies || compNames.length <= CAP + 2 ? compNames : compNames.filter(function (c, i) { return i < CAP || S.companies.has(c); });
+    $("rl-companies").innerHTML = shownComp.map(function (c) { return chip("companies", c, window.dcLang && window.dcLang() === "en" ? c.replace(/^[\u4e00-\u9fff]+ /, "") : c.replace(/ (Guosen Securities|CSC Financial|CICC|iFlytek)$/, ""), byCompany[c], S.companies.has(c)); }).join("") +
+      (compNames.length > shownComp.length ? '<span class="rl-chip more" id="rl-morecomp">' + T("chips.more", { n: compNames.length - shownComp.length }) + '</span>' : S.moreCompanies && compNames.length > CAP + 2 ? '<span class="rl-chip more" id="rl-morecomp">' + T("chips.less") + '</span>' : "");
+    if ($("rl-morecomp")) $("rl-morecomp").onclick = function () { S.moreCompanies = !S.moreCompanies; render(); };
     var cityOrder = ((d.profileCities && d.profileCities.target) || []).concat((d.profileCities && d.profileCities.secondary) || []).filter(function (c) { return byCity[c]; });
     if (byCity[OTHER]) cityOrder.push(OTHER);
     $("rl-cities").innerHTML = cityOrder.map(function (c) { return chip("cities", c, c, byCity[c], S.cities.has(c)); }).join("");
     $("rl-types").innerHTML = Object.keys(TYPE).filter(function (t) { return byType[t]; }).map(function (t) { return chip("types", t, TYPE[t], byType[t], S.types.has(t)); }).join("");
-    Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip"), function (el) { el.onclick = function () { var set = S[el.getAttribute("data-group")], key = el.getAttribute("data-key"); set.has(key) ? set.delete(key) : set.add(key); LS.set(el.getAttribute("data-group"), Array.from(set)); render(); }; });
+    Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip[data-group]"), function (el) { el.onclick = function () { var set = S[el.getAttribute("data-group")], key = el.getAttribute("data-key"); set.has(key) ? set.delete(key) : set.add(key); LS.set(el.getAttribute("data-group"), Array.from(set)); render(); }; });
 
     // list
     var q = S.q.trim().toLowerCase();
     var rows = visible.filter(function (j) {
       return (j.type === "event" || S.heat.has(heatOf(j))) &&
         (!S.companies.size || S.companies.has(j.company)) &&
+        (!S.groups.size || S.groups.has(CG[j.company] || "other")) &&
         (!S.cities.size || S.cities.has(cityOf(j) || OTHER)) &&
         (!S.types.size || S.types.has(j.type)) &&
         (!S.onlyNew || isNew(j)) &&
@@ -1120,6 +1148,7 @@ window.__DC_CURATED_EN = {"Caesar · 2027 届 · 金融 × AI": "Caesar · Class
     (j.locations || []).slice(0, 4).forEach(function (l) { chips.push('<span class="chip">' + esc(l) + '</span>'); });
     if ((j.locations || []).length > 4) chips.push('<span class="chip">+' + (j.locations.length - 4) + '</span>');
     chips.push('<span class="chip">' + esc(TYPE[j.type] || j.type) + '</span>');
+    var rq = m.req; if (rq && (rq.years || (rq.credsSoft || []).length)) chips.push('<span class="req' + (rq.soft && /\+$/.test(rq.years || "") ? " warn" : "") + '">' + (rq.years ? T("req.years", { y: rq.years }) + (rq.soft ? T("req.soft") : "") : "") + ((rq.credsSoft || []).length ? (rq.years ? " · " : "") + T("req.cred", { c: rq.credsSoft.join("/") }) : "") + '</span>');
     if (j.division) chips.push('<span class="chip">' + esc(j.division) + '</span>');
     var ddl = j.closesAt ? '<div class="ddl' + (new Date(j.closesAt) - Date.now() < 14 * 86400000 ? " hot" : "") + '">' + T("card.closes") + esc(j.closesAt) + '</div>'
       : j.postedAt ? '<div class="ddl">' + T("card.posted") + esc(j.postedAt) + '</div>' : '<div class="ddl">' + T("card.firstseen") + esc((j.firstSeen || "").slice(0, 10)) + '</div>';
