@@ -1,6 +1,6 @@
 // Generic adapters for the ATS platforms most tech / AI companies use.
 // Add a company in config.json with "adapter": "greenhouse" | "lever" | "ashby" | "workday".
-import { getJson, postJson, job, guessType, sleep } from "../lib.mjs";
+import { getJson, postJson, job, guessType, sleep, htmlToText, toDate } from "../lib.mjs";
 
 // ---- Greenhouse: {"adapter":"greenhouse","board":"openai"} -> https://boards.greenhouse.io/openai
 export async function greenhouse(cfg) {
@@ -60,42 +60,59 @@ export async function ashby(cfg) {
 }
 
 // ---- Workday: {"adapter":"workday","tenant":"nvidia","wd":"wd5","site":"NVIDIAExternalCareerSite","queries":["new college grad","analyst"]}
+//      optional: "sites":["search","campus"] (several career sites on one tenant), "facets":{"locationCountry":["…"]},
+//      "cities":["Toronto"] (post-filter on the location text; "N Locations" rows are resolved through fetchDetail by index.mjs)
 export async function workday(cfg) {
   const host = `https://${cfg.tenant}.${cfg.wd || "wd5"}.myworkdayjobs.com`;
-  const api = `${host}/wday/cxs/${cfg.tenant}/${cfg.site}/jobs`;
+  const sites = cfg.sites || [cfg.site];
   const queries = cfg.queries || [""];
   const limit = 20;
   const maxPages = cfg.maxPages || 10;
   const seen = new Map();
-  for (const q of queries) {
-    for (let p = 0; p < maxPages; p++) {
-      const res = await postJson(api, { appliedFacets: cfg.facets || {}, limit, offset: p * limit, searchText: q }, { headers: { accept: "application/json", referer: `${host}/${cfg.site}` } });
-      const list = res.jobPostings || [];
-      for (const j of list) {
-        const id = (j.externalPath || "").split("/").pop() || j.title;
-        if (seen.has(id)) continue;
-        seen.set(
-          id,
-          job({
-            companyKey: cfg.key,
-            company: cfg.name,
+  for (const site of sites) {
+    const api = `${host}/wday/cxs/${cfg.tenant}/${site}/jobs`;
+    for (const q of queries) {
+      for (let p = 0; p < maxPages; p++) {
+        const res = await postJson(api, { appliedFacets: cfg.facets || {}, limit, offset: p * limit, searchText: q }, { headers: { accept: "application/json", referer: `${host}/${site}` } });
+        const list = res.jobPostings || [];
+        for (const j of list) {
+          const id = (j.externalPath || "").split("/").pop() || j.title;
+          if (seen.has(id)) continue;
+          const locText = j.locationsText || "";
+          const multi = /^\d+\s+locations?$/i.test(locText);
+          seen.set(
             id,
-            title: j.title,
-            url: `${host}/${cfg.lang || "en-US"}/${cfg.site}${j.externalPath}`,
-            locations: [j.locationsText].filter(Boolean),
-            postedAt: workdayPosted(j.postedOn),
-            type: guessType(j.title),
-            snippet: (j.bulletFields || []).join(" · "),
-          })
-        );
+            job({
+              companyKey: cfg.key,
+              company: cfg.name,
+              id,
+              title: j.title,
+              url: `${host}/${cfg.lang || "en-US"}/${site}${j.externalPath}`,
+              locations: multi ? [] : [locText].filter(Boolean),
+              postedAt: workdayPosted(j.postedOn),
+              type: guessType(j.title),
+              snippet: (j.bulletFields || []).join(" · "),
+              extra: { wdPath: j.externalPath, wdSite: site, locationsUnknown: multi || undefined, locationsHint: multi ? locText : undefined },
+            })
+          );
+        }
+        const total = res.total || 0;
+        if (!list.length || (p + 1) * limit >= total) break;
+        await sleep(300);
       }
-      const total = res.total || 0;
-      if (!list.length || (p + 1) * limit >= total) break;
-      await sleep(300);
     }
   }
   return [...seen.values()];
 }
+workday.fetchDetail = async function (cfg, j) {
+  const host = `https://${cfg.tenant}.${cfg.wd || "wd5"}.myworkdayjobs.com`;
+  const site = j.wdSite || cfg.site || (cfg.sites || [])[0];
+  if (!j.wdPath) return null;
+  const res = await getJson(`${host}/wday/cxs/${cfg.tenant}/${site}${j.wdPath}`, { headers: { accept: "application/json", referer: `${host}/${site}` } });
+  const i = res.jobPostingInfo || {};
+  const locations = [i.location, ...(i.additionalLocations || [])].filter(Boolean);
+  return { description: htmlToText(i.jobDescription || ""), locations, postedAt: toDate(i.startDate), timeType: i.timeType || null };
+};
 
 function workdayPosted(s = "") {
   // "Posted Today" / "Posted Yesterday" / "Posted 3 Days Ago" / "Posted 30+ Days Ago"
