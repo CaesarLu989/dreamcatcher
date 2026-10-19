@@ -9,7 +9,7 @@ for the page (`index.html`).
 called for postings that are new *and* already passed the rule filter — and only if you add an
 API key. Without a key everything still works, just rule-based.
 
-## Sources (62 companies, 7 groups — endpoints verified in the live sites, Sep–Oct 2026)
+## Sources (101 companies, 7 groups — endpoints verified in the live sites, Sep–Oct 2026)
 
 Every company in `config.json` carries a `group` (the tinted chips above the company chips on the page) and,
 where the firm hires everywhere, a `cities` list — only postings in those cities survive (Toronto / New York /
@@ -23,11 +23,37 @@ Hong Kong / Shenzhen unless noted; Workday rows that just say "3 Locations" are 
 | 资管 · 养老金 · PE · 对冲基金 `buyside` | CPP Investments · Ontario Teachers' · OMERS · Brookfield · Manulife · Sun Life · BlackRock · Blackstone (+ campus site) · Carlyle · Warburg Pincus · General Atlantic · Point72 · Jane Street · ICONIQ · Squarepoint · S&P Global | Workday CXS · Greenhouse |
 | VC `vc` | a16z · Georgian · Bessemer | Greenhouse · Ashby |
 | 科技 · AI · 大厂 `tech` | NVIDIA · Microsoft (Toronto / New York / Hong Kong / Shenzhen searches) · Amazon / AWS · Disney (US, Canada, China, Hong Kong, Shanghai) · Thomson Reuters · Cohere · Wealthsimple · Waabi · Ideogram · Tenstorrent · Stripe · Datadog · Scale AI · Ramp · Coinbase · Anthropic | Workday · `eightfold` (apply.careers.microsoft.com) · `amazon` search.json · `radancy` (disneycareers.com) · Ashby · Lever · Greenhouse |
+| 多伦多本地 · 中型（v5，tier 3 unless noted） | TMX Group · Interac · IMCO · HOOPP · OPTrust · Fiera Capital · Morningstar/DBRS · LSEG · Onex (tier 2) · Houlihan Lokey (tier 2) · ZS Associates (tier 2) · Mercer/NERA/Marsh (tier 2) · 1Password · Float · Loopio · Relay · Clearco · KOHO · Hopper · Faire · Instacart · StackAdapt · D2L · Pine · Ada · League · Shakudo · Wave · PointClickCare · Bell (2027 Graduate Program) · Rogers | Workday · Greenhouse · Ashby · Lever · `jibe` (jobs.zs.com) · `phenom` (jobs.bell.ca) · `successfactors` (jobs.rogers.com) |
+| 纽约 / 芝加哥 量化（v5，tier 1） | DRW · IMC · Jump Trading · Optiver · Tower Research · Hudson River Trading · Virtu · Akuna | Greenhouse |
 | 中国券商 · 科技 `cn` | 国信证券 · 中信建投 · 中金 · 科大讯飞 | Beisen `https://<tenant>.zhiye.com/api/Jobad/GetJobAdPageList` (校园招聘 + 中金 项目实习; any Beisen tenant works) |
 
 **Checked by hand** (bot-gated or no public API — listed in `config.json → _manual`): 腾讯 · 阿里 · 百度 · 字节 ·
 Google · Meta · Siemens · Apple · Bain campus (bain.com/careers) · Bloomberg · Moody's · KKR · Hillhouse / HongShan /
 IDG / 深创投.
+
+### Fit fingerprint + résumé hits (new in v4)
+
+Every posting gets five scores (`match.dims`, 0–100): **AI · 金融 · 咨询 · 管理** from the keyword dictionaries in
+`config.json → profile.dimensions` (a hit in the title scores 100, in the description 72, in the division / snippet 70;
+"weak" words score less), and **应届** — how open the posting is to a new graduate (campus / graduate program 95,
+entry-level title 85, "0–2 years" 88, associate or unstated 55, "3+ years preferred" 45; text such as "new grad",
+"recent graduate", "class of 2027" lifts it to 90). The page shows them as the five-bar fingerprint on each card and as
+the 方向 chips (a posting counts for a direction when that dimension ≥ 60).
+
+`profile.resumeKeywords.items` lists what Caesar can prove from his résumé (估值建模, 投行经验, AI / 大模型, Python / SQL,
+中英双语 …); a posting that mentions one shows it as a 命中 tag (`match.hits`). The overall score moves only a little:
+best direction ≥ 90 → +6 (≥ 70 → +3), 3+ résumé hits → +4 (1–2 → +2), 应届 ≥ 85 → +3, 应届 ≤ 45 → −6.
+
+### 胜算 — odds of an interview / offer (new in v5)
+
+`match.odds` = `{ v, band, why }`: a rough, public-signals-only estimate of Caesar's chance, shown as the diamond badge on
+every card (A 高把握 ≥ 70 · B 有戏 50–69 · C 冲刺 30–49 · D 远冲 < 30), as the 高把握 tile and as the odds chips.
+Base comes from the company's competition tier in `config.json` (`tier` 1 elite → 18, 2 strong → 38, 3 mid-size /
+local → 52; `profile.odds.tierBase`), then: new-grad friendliness (`(应届 − 50) × 0.4`, −20…+18), best direction ≥ 90
+→ +8 (≥ 70 → +4), résumé hits +2.5 each (max +10), Mandarin asked for → +8, city (Toronto +6 · HK/Shenzhen/Beijing
++4 · New York/Chicago −5 · elsewhere −2), graduate program at a tier-2/3 firm +5, senior-analyst title −8, "3+ years
+preferred" −6, credential preferred −5, posted > 45 days ago with no deadline −5. Clamped to 3–92 — it is an estimate,
+never a certainty. `why` keeps the three biggest factors for the badge text.
 
 ### Hard requirements (new in v3)
 
@@ -69,7 +95,7 @@ scraper/match.mjs           rule-based scoring (0–100 → strong / possible / 
 scraper/score.mjs           Claude scoring for new postings (optional)
 scraper/adapters/*.mjs      one file per site; generic.mjs = Greenhouse/Lever/Ashby/Workday, more.mjs = Phenom,
                             SuccessFactors, Jibe, Radancy, Eightfold, Amazon, Avature (+ description fetchers)
-data/jobs.json              output the page reads (version 3: + groups, companyGroup, match.req)
+data/jobs.json              output the page reads (version 4: + groups, companyGroup, resumeTags, match.req / dims / hits)
 data/details.json           cache of fetched job descriptions → parsed requirements / resolved locations
 data/scores.json            memory of Claude scores (so a posting is scored once)
 index.html                  DreamCatcher page = the original 2027 求职雷达 (verbatim copy) + Klein-blue skin + boot + ⚡ live section
@@ -131,6 +157,12 @@ curated content — edit it there) and the DreamCatcher layer in `scraper/tools/
   zh→en table in `scraper/tools/dc/i18n_curated.json`, the live feed via `i18n.js`); the choice is remembered.
 * **已投自动收起** — postings you mark as applied leave the main list (the 已投递 tile / 只看已投 shows them);
   untick the box to keep them inline. The app cannot see your applications by itself — marking is manual.
+* **Black theme (v4)** — the page is black with International Klein Blue accents by default; the ◐ button next to
+  中文 / EN switches to the light set (kept in `localStorage dc.theme`). Logo v2: a hoop with a 12-spoke radar web, a
+  rotating sweep, a Klein-blue crescent and three threads (`logo.js`); the boot is a 4-second scan-line + self-draw
+  sequence straight to the "DreamCatcher" wordmark (1.7 s the rest of the day).
+* **今日待投 (v4)** — the strip above the heat tiles: up to six postings that are new (or close within 14 days), score
+  ≥ 78 and are not yet marked applied — sorted by deadline, then score. Marking one applied frees the slot.
 * **Group chips** (v3) — 投行 / 咨询 / 加拿大五大行 / 资管 / VC / 科技 / 中国 filter the company chips and the
   list; the company row shows the 12 busiest firms and a `更多 N 家 ▾` toggle for the rest. Cards carry a
   requirement badge (`经验 ≤2 年`, `经验 3+ 年（偏好）`, `偏好 MBA`) when the posting text states one.

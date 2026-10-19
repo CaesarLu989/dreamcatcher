@@ -48,7 +48,9 @@
    ],
    "Toronto": [
     "多伦多",
-    "Toronto, ON"
+    "Toronto, ON",
+    "Greater Toronto",
+    "Mississauga"
    ],
    "Chicago": [
     "芝加哥"
@@ -381,9 +383,16 @@
    "bmo": 2,
    "td": 2,
    "scotiabank": 2,
-   "cibc": 2
+   "cibc": 2,
+   "hl": 2,
+   "onex": 2,
+   "zs": 2,
+   "bell": 1,
+   "tmx": 1,
+   "hoopp": 1,
+   "imco": 1
   },
-  "$comment": "cityWeights: points per matched city; companyBoost: extra points for priority firms; excludeTypes: posting types dropped entirely",
+  "$comment": "cityWeights: points per matched city; companyBoost: extra points for priority firms; excludeTypes: posting types dropped entirely dimensions / resumeKeywords: see match.mjs → dims + hits (Oct 2026).",
   "hardLimits": {
    "maxYears": 2,
    "creds": [
@@ -399,6 +408,452 @@
     "PENG"
    ],
    "$comment": "postings that REQUIRE more than maxYears of experience or one of these credentials are dropped; 'preferred' only costs a few points"
+  },
+  "dimensions": {
+   "$comment": "multi-dimension fit (0-100 each) shown as the fingerprint on every card: strong terms score high in the title, lower in the description; weak terms score a little. entry = how open the posting is to a new graduate (computed from level/years, not keywords).",
+   "ai": {
+    "label": "AI",
+    "strong": [
+     "\\bai\\b",
+     "artificial intelligence",
+     "machine learning",
+     "\\bml\\b",
+     "\\bllm\\b",
+     "\\bllms\\b",
+     "large language",
+     "generative",
+     "genai",
+     "gen ai",
+     "deep learning",
+     "\\bnlp\\b",
+     "data science",
+     "data scientist",
+     "agentic",
+     "ai engineer",
+     "applied scientist",
+     "computer vision",
+     "大模型",
+     "人工智能",
+     "算法",
+     "机器学习",
+     "智能"
+    ],
+    "weak": [
+     "data",
+     "analytics",
+     "digital",
+     "technology",
+     "technologist",
+     "software",
+     "automation",
+     "platform",
+     "cloud",
+     "engineer",
+     "engineering",
+     "developer",
+     "python",
+     "quant",
+     "数据",
+     "数字化",
+     "科技",
+     "技术",
+     "研发"
+    ]
+   },
+   "finance": {
+    "label": "金融",
+    "strong": [
+     "investment bank",
+     "investment banking",
+     "\\bib\\b",
+     "\\bibd\\b",
+     "m&a",
+     "mergers",
+     "capital markets",
+     "\\becm\\b",
+     "\\bdcm\\b",
+     "leveraged finance",
+     "global markets",
+     "sales & trading",
+     "sales and trading",
+     "trading",
+     "trader",
+     "\\bficc\\b",
+     "fixed income",
+     "equities",
+     "equity research",
+     "quant",
+     "strats",
+     "quantitative",
+     "asset management",
+     "wealth management",
+     "private wealth",
+     "investment management",
+     "portfolio",
+     "private equity",
+     "private capital",
+     "venture capital",
+     "corporate finance",
+     "structuring",
+     "derivatives",
+     "credit",
+     "treasury",
+     "valuation",
+     "investment",
+     "investor",
+     "markets",
+     "banker",
+     "banking",
+     "fund",
+     "投行",
+     "投资银行",
+     "并购",
+     "资本市场",
+     "固定收益",
+     "资管",
+     "资产管理",
+     "量化",
+     "交易",
+     "研究",
+     "基金",
+     "投资"
+    ],
+    "weak": [
+     "finance",
+     "financial",
+     "risk",
+     "capital",
+     "economics",
+     "economist",
+     "fintech",
+     "insurance",
+     "actuarial",
+     "金融",
+     "证券",
+     "财务",
+     "风险"
+    ]
+   },
+   "consulting": {
+    "label": "咨询",
+    "strong": [
+     "consultant",
+     "consulting",
+     "advisory",
+     "strategy",
+     "strategic",
+     "business analyst",
+     "associate consultant",
+     "transformation",
+     "deal advisory",
+     "transaction services",
+     "management consulting",
+     "咨询",
+     "战略",
+     "顾问"
+    ],
+    "weak": [
+     "engagement",
+     "client",
+     "project",
+     "insights",
+     "research",
+     "operations",
+     "change",
+     "solution",
+     "advisor",
+     "analysis",
+     "解决方案",
+     "项目"
+    ]
+   },
+   "management": {
+    "label": "管理",
+    "strong": [
+     "management program",
+     "management programme",
+     "leadership program",
+     "leadership programme",
+     "rotational",
+     "rotation program",
+     "management trainee",
+     "program manager",
+     "programme manager",
+     "product manager",
+     "product management",
+     "business management",
+     "chief of staff",
+     "strategy & operations",
+     "strategy and operations",
+     "business operations",
+     "管培",
+     "管理培训生",
+     "轮岗",
+     "储备干部",
+     "产品经理"
+    ],
+    "weak": [
+     "business",
+     "management",
+     "manager",
+     "planning",
+     "operations",
+     "commercial",
+     "growth",
+     "partnerships",
+     "product",
+     "运营",
+     "管理",
+     "商业",
+     "业务"
+    ]
+   }
+  },
+  "resumeKeywords": {
+   "$comment": "what a posting must mention to earn a 命中 tag (shown on the card as the reason it fits Caesar); tag = label shown, terms = matched in title / snippet / description",
+   "items": [
+    {
+     "tag": "估值建模",
+     "en": "Valuation / modeling",
+     "terms": [
+      "valuation",
+      "\\bdcf\\b",
+      "financial model",
+      "financial modeling",
+      "financial modelling",
+      "comparable",
+      "\\bcomps\\b",
+      "\\blbo\\b",
+      "估值",
+      "建模",
+      "财务模型"
+     ]
+    },
+    {
+     "tag": "投行经验",
+     "en": "IB experience",
+     "terms": [
+      "investment banking",
+      "\\bibd\\b",
+      "pitch",
+      "pitchbook",
+      "m&a",
+      "\\bipo\\b",
+      "deal execution",
+      "transaction",
+      "投行",
+      "承销",
+      "并购"
+     ]
+    },
+    {
+     "tag": "投资分析",
+     "en": "Investment analysis",
+     "terms": [
+      "due diligence",
+      "investment analysis",
+      "investment thesis",
+      "portfolio",
+      "private equity",
+      "venture",
+      "fund",
+      "尽调",
+      "尽职调查",
+      "投资分析",
+      "私募"
+     ]
+    },
+    {
+     "tag": "行业研究",
+     "en": "Research",
+     "terms": [
+      "equity research",
+      "market research",
+      "industry research",
+      "research report",
+      "sector",
+      "研究报告",
+      "行业研究",
+      "研报"
+     ]
+    },
+    {
+     "tag": "数字化咨询",
+     "en": "Digital consulting",
+     "terms": [
+      "digital transformation",
+      "digital innovation",
+      "consulting",
+      "consultant",
+      "advisory",
+      "client engagement",
+      "stakeholder",
+      "数字化转型",
+      "咨询"
+     ]
+    },
+    {
+     "tag": "AI / 大模型",
+     "en": "AI / LLM",
+     "terms": [
+      "\\bai\\b",
+      "artificial intelligence",
+      "machine learning",
+      "\\bllm\\b",
+      "large language",
+      "generative",
+      "agentic",
+      "\\bnlp\\b",
+      "人工智能",
+      "大模型",
+      "机器学习"
+     ]
+    },
+    {
+     "tag": "Python / SQL",
+     "en": "Python / SQL",
+     "terms": [
+      "python",
+      "\\bsql\\b",
+      "pandas",
+      "jupyter",
+      "\\br\\b programming",
+      "scripting"
+     ]
+    },
+    {
+     "tag": "数据分析",
+     "en": "Data analytics",
+     "terms": [
+      "data analysis",
+      "data analytics",
+      "analytics",
+      "tableau",
+      "power bi",
+      "dashboard",
+      "数据分析",
+      "可视化"
+     ]
+    },
+    {
+     "tag": "产品 / 平台",
+     "en": "Product / platform",
+     "terms": [
+      "product management",
+      "product manager",
+      "product strategy",
+      "platform",
+      "roadmap",
+      "user experience",
+      "产品",
+      "平台"
+     ]
+    },
+    {
+     "tag": "金融科技",
+     "en": "Fintech",
+     "terms": [
+      "fintech",
+      "insurtech",
+      "payments",
+      "digital banking",
+      "wealthtech",
+      "金融科技"
+     ]
+    },
+    {
+     "tag": "Excel / PPT",
+     "en": "Excel / PowerPoint",
+     "terms": [
+      "excel",
+      "powerpoint",
+      "\\bppt\\b",
+      "presentation",
+      "slides",
+      "deck"
+     ]
+    },
+    {
+     "tag": "Bloomberg / CapIQ",
+     "en": "Bloomberg / Capital IQ",
+     "terms": [
+      "bloomberg",
+      "capital iq",
+      "capiq",
+      "factset",
+      "refinitiv",
+      "\\bwind\\b"
+     ]
+    },
+    {
+     "tag": "中英双语",
+     "en": "Mandarin + English",
+     "terms": [
+      "mandarin",
+      "chinese",
+      "bilingual",
+      "cantonese",
+      "普通话",
+      "中文",
+      "英语",
+      "双语"
+     ]
+    },
+    {
+     "tag": "金融 / 经济学位",
+     "en": "Finance / economics degree",
+     "terms": [
+      "finance degree",
+      "economics",
+      "bachelor of commerce",
+      "\\bbcom\\b",
+      "business degree",
+      "quantitative degree",
+      "金融学",
+      "经济学"
+     ]
+    },
+    {
+     "tag": "健康医疗",
+     "en": "Healthcare",
+     "terms": [
+      "healthcare",
+      "health care",
+      "life sciences",
+      "pharma",
+      "biotech",
+      "医疗",
+      "医药",
+      "大健康"
+     ]
+    }
+   ]
+  },
+  "odds": {
+   "$comment": "胜算 (chance of an interview/offer, heuristic): base by company tier, then new-grad friendliness, direction fit, résumé hits, Mandarin asked for, city, negatives. Bands: A ≥70 高把握 · B 50–69 有戏 · C 30–49 冲刺 · D <30 远冲",
+   "tierBase": {
+    "1": 18,
+    "2": 38,
+    "3": 52
+   },
+   "localCities": [
+    "Toronto"
+   ],
+   "chineseCities": [
+    "Hong Kong",
+    "Shenzhen",
+    "Beijing",
+    "Shanghai"
+   ],
+   "visaCities": [
+    "New York",
+    "Chicago",
+    "San Francisco",
+    "Boston",
+    "Jersey City",
+    "Purchase"
+   ],
+   "mandarinTag": "中英双语"
   }
  },
  "scoring": {
@@ -417,42 +872,48 @@
    "name": "Goldman Sachs",
    "adapter": "goldman",
    "enabled": true,
-   "group": "ib"
+   "group": "ib",
+   "tier": 1
   },
   {
    "key": "jpmorgan",
    "name": "J.P. Morgan",
    "adapter": "jpmorgan",
    "enabled": true,
-   "group": "ib"
+   "group": "ib",
+   "tier": 1
   },
   {
    "key": "morganstanley",
    "name": "Morgan Stanley",
    "adapter": "morganstanley",
    "enabled": true,
-   "group": "ib"
+   "group": "ib",
+   "tier": 1
   },
   {
    "key": "mckinsey",
    "name": "McKinsey & Company",
    "adapter": "mckinsey",
    "enabled": true,
-   "group": "consulting"
+   "group": "consulting",
+   "tier": 1
   },
   {
    "key": "barclays",
    "name": "Barclays",
    "adapter": "barclays",
    "enabled": true,
-   "group": "ib"
+   "group": "ib",
+   "tier": 2
   },
   {
    "key": "bnp",
    "name": "BNP Paribas",
    "adapter": "bnp",
    "enabled": true,
-   "group": "ib"
+   "group": "ib",
+   "tier": 2
   },
   {
    "key": "guosen",
@@ -460,7 +921,8 @@
    "adapter": "beisen",
    "tenant": "guosen",
    "enabled": true,
-   "group": "cn"
+   "group": "cn",
+   "tier": 3
   },
   {
    "key": "csc108",
@@ -468,7 +930,8 @@
    "adapter": "beisen",
    "tenant": "csc108",
    "enabled": true,
-   "group": "cn"
+   "group": "cn",
+   "tier": 3
   },
   {
    "key": "cicc",
@@ -480,7 +943,8 @@
    ],
    "enabled": true,
    "$comment": "2 = 校园招聘 (full-time campus hires)",
-   "group": "cn"
+   "group": "cn",
+   "tier": 2
   },
   {
    "key": "iflytek",
@@ -488,7 +952,8 @@
    "adapter": "beisen",
    "tenant": "iflytek",
    "enabled": true,
-   "group": "cn"
+   "group": "cn",
+   "tier": 3
   },
   {
    "key": "nvidia",
@@ -506,7 +971,8 @@
    ],
    "enabled": true,
    "$comment": "verified Sep 2026 via the Workday CXS endpoint",
-   "group": "tech"
+   "group": "tech",
+   "tier": 1
   },
   {
    "key": "td",
@@ -523,7 +989,8 @@
    ],
    "group": "cabank",
    "enabled": true,
-   "maxPages": 40
+   "maxPages": 40,
+   "tier": 2
   },
   {
    "key": "cibc",
@@ -549,7 +1016,8 @@
     ]
    },
    "maxPages": 12,
-   "$comment": "City facet id = Toronto, ON"
+   "$comment": "City facet id = Toronto, ON",
+   "tier": 2
   },
   {
    "key": "rbc",
@@ -566,7 +1034,8 @@
    ],
    "group": "cabank",
    "enabled": true,
-   "maxPages": 40
+   "maxPages": 40,
+   "tier": 2
   },
   {
    "key": "bmo",
@@ -586,7 +1055,8 @@
    ],
    "group": "cabank",
    "enabled": true,
-   "maxPages": 30
+   "maxPages": 30,
+   "tier": 2
   },
   {
    "key": "scotiabank",
@@ -602,7 +1072,8 @@
    ],
    "maxPages": 20,
    "group": "cabank",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "citi",
@@ -625,7 +1096,8 @@
    ],
    "group": "ib",
    "enabled": true,
-   "maxPages": 10
+   "maxPages": 10,
+   "tier": 1
   },
   {
    "key": "ms_workday",
@@ -649,7 +1121,8 @@
    "group": "ib",
    "enabled": true,
    "maxPages": 10,
-   "$comment": "experienced-hire site; campus programs come from the morganstanley adapter"
+   "$comment": "experienced-hire site; campus programs come from the morganstanley adapter",
+   "tier": 1
   },
   {
    "key": "bcg",
@@ -670,7 +1143,8 @@
     ""
    ],
    "group": "consulting",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "bain",
@@ -686,7 +1160,8 @@
    "maxPages": 40,
    "group": "consulting",
    "enabled": true,
-   "$comment": "careers.bain.com lists experienced roles; campus AC/consultant applications run through bain.com (bot-protected) — keep checking by hand"
+   "$comment": "careers.bain.com lists experienced roles; campus AC/consultant applications run through bain.com (bot-protected) — keep checking by hand",
+   "tier": 1
   },
   {
    "key": "oliverwyman",
@@ -709,7 +1184,8 @@
    ],
    "group": "consulting",
    "enabled": true,
-   "maxPages": 6
+   "maxPages": 6,
+   "tier": 2
   },
   {
    "key": "pwc",
@@ -729,7 +1205,8 @@
    ],
    "group": "consulting",
    "enabled": true,
-   "maxPages": 15
+   "maxPages": 15,
+   "tier": 2
   },
   {
    "key": "deloitte",
@@ -746,7 +1223,8 @@
    ],
    "maxPages": 40,
    "group": "consulting",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "ey",
@@ -762,7 +1240,8 @@
    ],
    "maxPages": 12,
    "group": "consulting",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "kpmg",
@@ -774,7 +1253,8 @@
    ],
    "maxPages": 40,
    "group": "consulting",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "accenture",
@@ -791,7 +1271,8 @@
    ],
    "group": "consulting",
    "enabled": true,
-   "maxPages": 20
+   "maxPages": 20,
+   "tier": 2
   },
   {
    "key": "fti",
@@ -813,7 +1294,8 @@
    ],
    "group": "consulting",
    "enabled": true,
-   "maxPages": 6
+   "maxPages": 6,
+   "tier": 3
   },
   {
    "key": "capco",
@@ -827,7 +1309,8 @@
     "Shenzhen"
    ],
    "group": "consulting",
-   "enabled": true
+   "enabled": true,
+   "tier": 3
   },
   {
    "key": "cpp",
@@ -847,7 +1330,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 10
+   "maxPages": 10,
+   "tier": 2
   },
   {
    "key": "otpp",
@@ -867,7 +1351,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 10
+   "maxPages": 10,
+   "tier": 2
   },
   {
    "key": "omers",
@@ -887,7 +1372,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 10
+   "maxPages": 10,
+   "tier": 2
   },
   {
    "key": "brookfield",
@@ -911,7 +1397,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 10
+   "maxPages": 10,
+   "tier": 2
   },
   {
    "key": "manulife",
@@ -933,7 +1420,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 15
+   "maxPages": 15,
+   "tier": 3
   },
   {
    "key": "sunlife",
@@ -957,7 +1445,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 12
+   "maxPages": 12,
+   "tier": 3
   },
   {
    "key": "blackrock",
@@ -980,7 +1469,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 8
+   "maxPages": 8,
+   "tier": 2
   },
   {
    "key": "blackstone",
@@ -1005,7 +1495,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 8
+   "maxPages": 8,
+   "tier": 1
   },
   {
    "key": "carlyle",
@@ -1027,7 +1518,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 6
+   "maxPages": 6,
+   "tier": 1
   },
   {
    "key": "warburg",
@@ -1042,7 +1534,8 @@
     "United States"
    ],
    "group": "buyside",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "generalatlantic",
@@ -1056,7 +1549,8 @@
     "Shenzhen"
    ],
    "group": "buyside",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "point72",
@@ -1070,7 +1564,8 @@
     "Shenzhen"
    ],
    "group": "buyside",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "janestreet",
@@ -1084,7 +1579,8 @@
     "Shenzhen"
    ],
    "group": "buyside",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "iconiq",
@@ -1098,7 +1594,8 @@
     "Shenzhen"
    ],
    "group": "buyside",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "squarepoint",
@@ -1112,7 +1609,8 @@
     "Shenzhen"
    ],
    "group": "buyside",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "spgi",
@@ -1134,7 +1632,8 @@
    ],
    "group": "buyside",
    "enabled": true,
-   "maxPages": 8
+   "maxPages": 8,
+   "tier": 3
   },
   {
    "key": "a16z",
@@ -1146,7 +1645,8 @@
     "Toronto"
    ],
    "group": "vc",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "georgian",
@@ -1157,7 +1657,8 @@
     "Toronto"
    ],
    "group": "vc",
-   "enabled": true
+   "enabled": true,
+   "tier": 3
   },
   {
    "key": "bessemer",
@@ -1171,7 +1672,8 @@
     "Shenzhen"
    ],
    "group": "vc",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "microsoft",
@@ -1205,7 +1707,8 @@
    ],
    "maxPages": 15,
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "amazon",
@@ -1222,7 +1725,8 @@
    ],
    "maxPages": 3,
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "disney",
@@ -1242,7 +1746,8 @@
    ],
    "maxPages": 10,
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 3
   },
   {
    "key": "thomsonreuters",
@@ -1261,7 +1766,8 @@
    ],
    "group": "tech",
    "enabled": true,
-   "maxPages": 10
+   "maxPages": 10,
+   "tier": 3
   },
   {
    "key": "cohere",
@@ -1275,7 +1781,8 @@
     "Shenzhen"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "wealthsimple",
@@ -1289,7 +1796,8 @@
    ],
    "group": "tech",
    "enabled": true,
-   "$comment": "remote-first: most roles are Remote (Canada)"
+   "$comment": "remote-first: most roles are Remote (Canada)",
+   "tier": 3
   },
   {
    "key": "waabi",
@@ -1300,7 +1808,8 @@
     "Toronto"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 3
   },
   {
    "key": "ideogram",
@@ -1314,7 +1823,8 @@
     "Shenzhen"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 3
   },
   {
    "key": "tenstorrent",
@@ -1325,7 +1835,8 @@
     "Toronto"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 3
   },
   {
    "key": "stripe",
@@ -1339,7 +1850,8 @@
     "Shenzhen"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 1
   },
   {
    "key": "datadog",
@@ -1353,7 +1865,8 @@
     "Shenzhen"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "scaleai",
@@ -1367,7 +1880,8 @@
     "Shenzhen"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "ramp",
@@ -1379,7 +1893,8 @@
     "Toronto"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "coinbase",
@@ -1393,7 +1908,8 @@
     "Shenzhen"
    ],
    "group": "tech",
-   "enabled": true
+   "enabled": true,
+   "tier": 2
   },
   {
    "key": "anthropic",
@@ -1407,6 +1923,593 @@
     "Shenzhen"
    ],
    "group": "tech",
+   "enabled": true,
+   "tier": 1
+  },
+  {
+   "key": "tmx",
+   "name": "TMX Group",
+   "adapter": "workday",
+   "tenant": "tmx",
+   "wd": "wd3",
+   "site": "TMX_Careers",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 8,
+   "group": "cabank",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "interac",
+   "name": "Interac",
+   "adapter": "workday",
+   "tenant": "interac",
+   "wd": "wd3",
+   "site": "Interac",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 6,
+   "group": "cabank",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "imco",
+   "name": "IMCO",
+   "adapter": "workday",
+   "tenant": "imcoinvest",
+   "wd": "wd3",
+   "site": "IMCO",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 3,
+   "group": "buyside",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "hoopp",
+   "name": "HOOPP",
+   "adapter": "workday",
+   "tenant": "hoopp",
+   "wd": "wd10",
+   "site": "HOOPP",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 4,
+   "group": "buyside",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "optrust",
+   "name": "OPTrust",
+   "adapter": "workday",
+   "tenant": "optrust",
+   "wd": "wd3",
+   "site": "OPTrust",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 2,
+   "group": "buyside",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "fiera",
+   "name": "Fiera Capital",
+   "adapter": "workday",
+   "tenant": "fieracapital",
+   "wd": "wd3",
+   "site": "Career",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 3,
+   "group": "buyside",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "morningstar",
+   "name": "Morningstar · DBRS",
+   "adapter": "workday",
+   "tenant": "morningstar",
+   "wd": "wd5",
+   "site": "morningstar",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 4,
+   "group": "buyside",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "lseg",
+   "name": "LSEG",
+   "adapter": "workday",
+   "tenant": "lseg",
+   "wd": "wd3",
+   "site": "Careers",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 3,
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "onex",
+   "name": "Onex",
+   "adapter": "greenhouse",
+   "board": "onexgeneral",
+   "cities": [
+    "Toronto",
+    "New York"
+   ],
+   "group": "buyside",
+   "tier": 2,
+   "enabled": true
+  },
+  {
+   "key": "hl",
+   "name": "Houlihan Lokey",
+   "adapter": "workday",
+   "tenant": "hl",
+   "wd": "wd1",
+   "sites": [
+    "Campus",
+    "Lateral"
+   ],
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto",
+    "New York",
+    "Hong Kong",
+    "Chicago"
+   ],
+   "maxPages": 8,
+   "group": "ib",
+   "tier": 2,
+   "enabled": true
+  },
+  {
+   "key": "zs",
+   "name": "ZS Associates",
+   "adapter": "jibe",
+   "base": "https://jobs.zs.com",
+   "locations": [
+    "Toronto, Ontario, Canada"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 3,
+   "group": "consulting",
+   "tier": 2,
+   "enabled": true
+  },
+  {
+   "key": "mercer",
+   "name": "Mercer · NERA · Marsh",
+   "adapter": "workday",
+   "tenant": "mmc",
+   "wd": "wd1",
+   "site": "MMC",
+   "queries": [
+    "Mercer Toronto",
+    "NERA Toronto",
+    "Marsh Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "maxPages": 6,
+   "group": "consulting",
+   "tier": 2,
+   "enabled": true
+  },
+  {
+   "key": "onepassword",
+   "name": "1Password",
+   "adapter": "ashby",
+   "board": "1password",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "float",
+   "name": "Float",
+   "adapter": "ashby",
+   "board": "float",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "loopio",
+   "name": "Loopio",
+   "adapter": "ashby",
+   "board": "loopio",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "relay",
+   "name": "Relay Financial",
+   "adapter": "ashby",
+   "board": "relayfi",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "clearco",
+   "name": "Clearco",
+   "adapter": "ashby",
+   "board": "clearco",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "koho",
+   "name": "KOHO",
+   "adapter": "ashby",
+   "board": "koho",
+   "cities": [
+    "Toronto",
+    "Canada",
+    "CAN"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "hopper",
+   "name": "Hopper",
+   "adapter": "ashby",
+   "board": "hopper",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "faire",
+   "name": "Faire",
+   "adapter": "greenhouse",
+   "board": "faire",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "tier": 2,
+   "enabled": true
+  },
+  {
+   "key": "instacart",
+   "name": "Instacart",
+   "adapter": "greenhouse",
+   "board": "instacart",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 2,
+   "enabled": true
+  },
+  {
+   "key": "stackadapt",
+   "name": "StackAdapt",
+   "adapter": "greenhouse",
+   "board": "stackadapt",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "d2l",
+   "name": "D2L",
+   "adapter": "greenhouse",
+   "board": "d2l",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "pine",
+   "name": "Pine",
+   "adapter": "greenhouse",
+   "board": "pine",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "ada",
+   "name": "Ada",
+   "adapter": "greenhouse",
+   "board": "ada18",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "league",
+   "name": "League",
+   "adapter": "greenhouse",
+   "board": "leagueinc",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "shakudo",
+   "name": "Shakudo",
+   "adapter": "lever",
+   "site": "shakudo",
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "wave",
+   "name": "Wave",
+   "adapter": "lever",
+   "site": "waveapps",
+   "cities": [
+    "Toronto",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "pointclickcare",
+   "name": "PointClickCare",
+   "adapter": "lever",
+   "site": "pointclickcare",
+   "cities": [
+    "Toronto",
+    "Mississauga",
+    "Canada"
+   ],
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "bell",
+   "name": "Bell",
+   "adapter": "phenom",
+   "base": "https://jobs.bell.ca",
+   "path": "ca/en",
+   "lang": "en_ca",
+   "country": "ca",
+   "pageId": "page11",
+   "cities": [
+    "Toronto"
+   ],
+   "keywords": [
+    ""
+   ],
+   "maxPages": 3,
+   "group": "tech",
+   "tier": 3,
+   "$comment": "2027 Graduate Program postings live here",
+   "enabled": true
+  },
+  {
+   "key": "rogers",
+   "name": "Rogers",
+   "adapter": "successfactors",
+   "base": "https://jobs.rogers.com",
+   "path": "",
+   "cities": [
+    "Toronto"
+   ],
+   "keywords": [
+    ""
+   ],
+   "maxPages": 10,
+   "group": "tech",
+   "tier": 3,
+   "enabled": true
+  },
+  {
+   "key": "drw",
+   "name": "DRW",
+   "adapter": "greenhouse",
+   "board": "drweng",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "imc",
+   "name": "IMC Trading",
+   "adapter": "greenhouse",
+   "board": "imc",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "jump",
+   "name": "Jump Trading",
+   "adapter": "greenhouse",
+   "board": "jumptrading",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "optiver",
+   "name": "Optiver",
+   "adapter": "greenhouse",
+   "board": "optiverus",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "tower",
+   "name": "Tower Research",
+   "adapter": "greenhouse",
+   "board": "towerresearchcapital",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "hrt",
+   "name": "Hudson River Trading",
+   "adapter": "greenhouse",
+   "board": "wehrtyou",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "virtu",
+   "name": "Virtu Financial",
+   "adapter": "greenhouse",
+   "board": "virtu",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
+   "enabled": true
+  },
+  {
+   "key": "akuna",
+   "name": "Akuna Capital",
+   "adapter": "greenhouse",
+   "board": "akunacapital",
+   "cities": [
+    "New York",
+    "Chicago",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "tier": 1,
    "enabled": true
   },
   {
