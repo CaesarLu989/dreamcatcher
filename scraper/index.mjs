@@ -10,7 +10,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildMatcher } from "./match.mjs";
+import { buildMatcher, buildSignals } from "./match.mjs";
 import { scoreJobs } from "./score.mjs";
 import { job as normalizeJob, guessType, parseRequirements, matchesCity, sleep } from "./lib.mjs";
 import * as goldman from "./adapters/goldman.mjs";
@@ -101,7 +101,8 @@ async function main() {
   const prevById = new Map((prev.jobs || []).map((j) => [j.id, j]));
   const scores = readJson(SCORES_FILE, {});
   const details = readJson(DETAILS_FILE, {});
-  const match = buildMatcher(config.profile);
+  const match = buildMatcher(config.profile, config.companies);
+  const signals = buildSignals(config.profile); // dimension / résumé-keyword scan of description text
   const today = new Date().toISOString();
   const aliases = config.profile.cityAliases || {};
 
@@ -129,10 +130,11 @@ async function main() {
       } else jobs = await fn(c);
       // company-level location filter (rows with unknown locations are resolved later through fetchDetail)
       const before = jobs.length;
+      const warnings = jobs.warnings || undefined; // adapters attach notes to the array; filter() below would drop them
       if (c.cities && c.cities.length) jobs = jobs.filter((j) => j.locationsUnknown || matchesCity(j.locations, c.cities, aliases));
       okCount++;
-      sources[c.key] = { name: c.name, group: c.group || null, ok: true, count: jobs.length, fetchedAt: today, ms: Date.now() - t0, warnings: jobs.warnings || undefined, filteredFrom: before !== jobs.length ? before : undefined };
-      log(`${c.key}: ${jobs.length} postings${before !== jobs.length ? ` (of ${before} fetched)` : ""} (${Date.now() - t0} ms)${jobs.warnings ? " warnings: " + jobs.warnings.join(" | ") : ""}`);
+      sources[c.key] = { name: c.name, group: c.group || null, ok: true, count: jobs.length, fetchedAt: today, ms: Date.now() - t0, warnings, filteredFrom: before !== jobs.length ? before : undefined };
+      log(`${c.key}: ${jobs.length} postings${before !== jobs.length ? ` (of ${before} fetched)` : ""} (${Date.now() - t0} ms)${warnings ? " warnings: " + warnings.join(" | ") : ""}`);
       fetched.push(...jobs);
     } catch (e) {
       // keep last good data for this company so the page never goes blank
@@ -156,6 +158,7 @@ async function main() {
   for (const j of fetched) {
     if (j.stale && j.match) continue;
     j.req = j.description || j.requirements ? reqOf(j) : parseRequirements(j.title + "\n" + (j.snippet || ""));
+    if (j.description || j.requirements) { const sig = signals([j.requirements, j.description].filter(Boolean).join("\n")); j.textDims = sig.dims; j.textHits = sig.hits; j.textEntry = sig.entry; }
     j.match = match(j);
   }
 
@@ -171,7 +174,8 @@ async function main() {
     return j.match.tier !== "dropped" && j.match.score >= dc.minScore;
   };
   const retryAfter = 3 * 86400000;
-  const candidates = fetched.filter((j) => wantDetail(j) && (!details[j.id] || (!details[j.id].ok && Date.now() - new Date(details[j.id].at || 0).getTime() > retryAfter)));
+  // (re)fetch when: never fetched · failed more than 3 days ago · fetched by an older version without the signal scan
+  const candidates = fetched.filter((j) => wantDetail(j) && (!details[j.id] || (details[j.id].ok && !details[j.id].sig) || (!details[j.id].ok && Date.now() - new Date(details[j.id].at || 0).getTime() > retryAfter)));
   const toFetch = candidates.sort((a, b) => (b.locationsUnknown ? 1 : 0) - (a.locationsUnknown ? 1 : 0) || b.match.score - a.match.score).slice(0, dc.maxPerRun);
   if (toFetch.length) log(`fetching ${toFetch.length} job descriptions (${candidates.length} candidates, cache has ${Object.keys(details).length})…`);
   let fetchedDetails = 0;
@@ -179,7 +183,8 @@ async function main() {
     const c = byKey.get(j.companyKey);
     try {
       const d = await ADAPTERS[c.adapter].fetchDetail(c, j);
-      details[j.id] = { req: d && d.description ? parseRequirements(d.description) : null, locations: d && d.locations && d.locations.length ? d.locations : undefined, postedAt: d && d.postedAt ? d.postedAt : undefined, at: today, ok: !!d };
+      const sig = d && d.description ? signals(d.description) : null;
+      details[j.id] = { req: d && d.description ? parseRequirements(d.description) : null, sig: sig ? { dims: sig.dims, hits: sig.hits, entry: sig.entry || undefined } : { dims: {}, hits: [] }, locations: d && d.locations && d.locations.length ? d.locations : undefined, postedAt: d && d.postedAt ? d.postedAt : undefined, at: today, ok: !!d };
       fetchedDetails++;
       await sleep(150);
     } catch (e) {
@@ -199,6 +204,7 @@ async function main() {
         delete j.locationsUnknown;
       }
       if (d.postedAt && !j.postedAt) j.postedAt = d.postedAt;
+      if (d.sig) { j.textDims = { ...(j.textDims || {}), ...(d.sig.dims || {}) }; j.textHits = [...new Set([...(j.textHits || []), ...(d.sig.hits || [])])]; if (d.sig.entry) j.textEntry = true; }
       if (d.req) {
         // merge: listing-level requirements first, description-level wins when it says more
         const lr = j.req || {};
@@ -271,12 +277,15 @@ async function main() {
   const groups = config.groups || {};
   const companyGroup = {};
   for (const c of config.companies || []) if (c.name && c.group) companyGroup[c.name] = c.group;
+  const resumeTags = {};
+  for (const it of ((config.profile.resumeKeywords || {}).items || [])) if (it.tag) resumeTags[it.tag] = it.en || it.tag;
   const out = {
     generatedAt: today,
-    version: 3,
+    version: 4,
     profileCities: config.profile.cities,
     groups,
     companyGroup,
+    resumeTags, // 命中 tag → English label (the page shows the English one in EN mode)
     sources,
     counts,
     jobs: jobs.map((j) => ({

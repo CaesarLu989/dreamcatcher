@@ -19,8 +19,33 @@ const rx = (arr) =>
     "i"
   );
 
-export function buildMatcher(profile) {
+const DIM_KEYS = ["ai", "finance", "consulting", "management"];
+const ENTRY_TEXT = /(new grad|new graduate|recent graduate|recent grads?|fresh graduate|graduating (students|seniors)|class of 20\d\d|entry[- ]level|early[- ]career|\b0\s*[-–to]+\s*[12]\s*years?|no (prior )?experience (required|necessary)|campus hire|university hire|应届|校招|毕业生|零经验)/i;
+
+/** Compile the dimension / resume-keyword dictionaries once; textSignals() then scans any text (title, snippet, description). */
+export function buildSignals(profile) {
+  const dims = {};
+  for (const k of DIM_KEYS) {
+    const d = (profile.dimensions || {})[k] || {};
+    dims[k] = { strong: d.strong && d.strong.length ? rx(d.strong) : null, weak: d.weak && d.weak.length ? rx(d.weak) : null };
+  }
+  const kws = ((profile.resumeKeywords || {}).items || []).map((it) => ({ tag: it.tag, en: it.en || it.tag, re: rx(it.terms || []) }));
+  return function textSignals(text) {
+    const t = String(text || "");
+    const out = { dims: {}, hits: [] };
+    for (const k of DIM_KEYS) out.dims[k] = dims[k].strong && dims[k].strong.test(t) ? 2 : dims[k].weak && dims[k].weak.test(t) ? 1 : 0;
+    for (const kw of kws) if (kw.re.test(t)) out.hits.push(kw.tag);
+    out.entry = ENTRY_TEXT.test(t);
+    return out;
+  };
+}
+
+export function buildMatcher(profile, companies) {
   const P = profile;
+  const signals = buildSignals(P);
+  const tiers = {};
+  for (const c of companies || []) if (c.key) tiers[c.key] = Number(c.tier) || 2;
+  const O = { tierBase: { 1: 18, 2: 38, 3: 52 }, localCities: ["Toronto"], chineseCities: ["Hong Kong", "Shenzhen", "Beijing", "Shanghai"], visaCities: ["New York", "Chicago", "San Francisco", "Boston", "Jersey City", "Purchase"], mandarinTag: "中英双语", ...(P.odds || {}) };
   const cityIndex = [];
   for (const [tier, list] of [["target", P.cities.target], ["secondary", P.cities.secondary || []]]) {
     for (const c of list) {
@@ -164,18 +189,74 @@ export function buildMatcher(profile) {
       else if ((req.credsSoft || []).some((c) => limCreds.has(String(c).toUpperCase()))) { score -= 4; reasons.push("cred-pref"); }
     }
 
+    // ---- multi-dimension fit: AI / 金融 / 咨询 / 管理 (keywords) + 应届 (how open to a new graduate)
+    // title hits count most, then the description (index.mjs attaches j.textDims / j.textHits from the cached text),
+    // then the division / snippet.
+    const sigTitle = signals(title), sigRest = signals(rest), textDims = j.textDims || {}, textHits = j.textHits || [];
+    const dims = {};
+    for (const k of DIM_KEYS) {
+      const t = sigTitle.dims[k], d = textDims[k] || 0, r = sigRest.dims[k];
+      dims[k] = Math.max(t === 2 ? 100 : t === 1 ? 62 : 0, d === 2 ? 72 : d === 1 ? 38 : 0, r === 2 ? 70 : r === 1 ? 35 : 0, 8);
+    }
+    const level = reasons[0] || "";
+    let entry = level === "program" ? 95 : level === "entry-level" ? 85 : level === "associate" ? 55 : level === "level-unknown" ? 55 : level === "senior-analyst" ? 45 : level === "mba-track" ? 40 : 50;
+    if (req) {
+      if (req.maxYears != null && req.maxYears <= lim.maxYears) entry = Math.max(entry, 88);
+      if (req.minYears != null && req.minYears > 0 && req.minYears <= lim.maxYears && !req.yearsSoft) entry = Math.min(entry, 72);
+      if (req.minYears != null && req.minYears > lim.maxYears && req.yearsSoft) entry = Math.min(entry, 45);
+    }
+    if (sigTitle.entry || sigRest.entry || j.textEntry) entry = Math.max(entry, 90);
+    dims.entry = entry;
+    const hits = [...new Set([...sigTitle.hits, ...sigRest.hits, ...textHits])];
+    const best = Math.max(dims.ai, dims.finance, dims.consulting, dims.management);
+    // nudge the overall score toward Caesar's directions and résumé — small on purpose, the fingerprint carries the detail
+    if (best >= 90) { score += 6; reasons.push("fit:" + DIM_KEYS.find((k) => dims[k] === best)); } else if (best >= 70) { score += 3; reasons.push("fit:" + DIM_KEYS.find((k) => dims[k] === best)); }
+    if (hits.length >= 3) { score += 4; reasons.push("resume:" + hits.length); } else if (hits.length) { score += 2; reasons.push("resume:" + hits.length); }
+    if (entry >= 85) score += 3; else if (entry <= 45) { score -= 6; reasons.push("not-entry"); }
+
+    // ---- 胜算: a rough chance of getting an interview / offer (heuristic — public signals only)
+    const odds = oddsOf(j, { tier: tiers[j.companyKey] || 2, entry, best, hits, matchedCity, level, req });
+
     // ---- events: informational, never "strong"
     if (isEvent) {
       const t = cityTier ? "event" : "dropped";
       const sc = Math.max(0, Math.min(score, 45));
-      return { score: sc, tier: t, heat: heatBand(sc), reasons: ["event", ...reasons], excluded: false, matchedCity };
+      return { score: sc, tier: t, heat: heatBand(sc), reasons: ["event", ...reasons], excluded: false, matchedCity, dims, hits, odds };
     }
-    if (excluded) return { score: 0, tier: "dropped", reasons, excluded: true, matchedCity, req: reqOut || undefined };
+    if (excluded) return { score: 0, tier: "dropped", reasons, excluded: true, matchedCity, req: reqOut || undefined, dims, hits, odds };
 
     score = Math.max(0, Math.min(100, score));
     const tier = score >= 65 ? "strong" : score >= 40 ? "possible" : score >= 20 ? "weak" : "dropped";
-    return { score, tier, heat: heatBand(score), reasons, excluded: false, matchedCity, req: reqOut || undefined };
+    return { score, tier, heat: heatBand(score), reasons, excluded: false, matchedCity, req: reqOut || undefined, dims, hits, odds };
   };
+
+  function oddsOf(j, x) {
+    const parts = []; // [token, weight]
+    const base = O.tierBase[x.tier] ?? 45;
+    parts.push(["tier:" + x.tier, 0]);
+    let v = base;
+    const e = Math.round((x.entry - 50) * 0.4); v += e; if (Math.abs(e) >= 5) parts.push([e > 0 ? "entry" : "not-entry", e]);
+    if (x.best >= 90) { v += 8; parts.push(["fit", 8]); } else if (x.best >= 70) { v += 4; parts.push(["fit", 4]); }
+    const h = Math.min(10, Math.round(2.5 * x.hits.length)); if (h) { v += h; parts.push(["hits:" + x.hits.length, h]); }
+    if (x.hits.includes(O.mandarinTag)) { v += 8; parts.push(["mandarin", 8]); }
+    if (x.matchedCity) {
+      if (O.localCities.includes(x.matchedCity)) { v += 6; parts.push(["local", 6]); }
+      else if (O.chineseCities.includes(x.matchedCity)) { v += 4; parts.push(["cn-city", 4]); }
+      else if (O.visaCities.includes(x.matchedCity)) { v -= 5; parts.push(["visa", -5]); }
+      else { v -= 2; parts.push(["far", -2]); }
+    }
+    if (x.tier >= 2 && ["graduate", "campus"].includes(j.type)) { v += 5; parts.push(["program", 5]); }
+    if (x.level === "senior-analyst") { v -= 8; parts.push(["senior-analyst", -8]); }
+    if (x.req) {
+      if (x.req.minYears != null && x.req.minYears > lim.maxYears && x.req.yearsSoft) { v -= 6; parts.push(["years-pref", -6]); }
+      if ((x.req.credsSoft || []).some((c) => limCreds.has(String(c).toUpperCase()))) { v -= 5; parts.push(["cred-pref", -5]); }
+    }
+    if (j.postedAt && !j.closesAt && Date.now() - new Date(j.postedAt).getTime() > 45 * 86400000) { v -= 5; parts.push(["stale", -5]); }
+    v = Math.max(3, Math.min(92, Math.round(v))); // never 0 or 100 — it is an estimate
+    const band = v >= 70 ? "A" : v >= 50 ? "B" : v >= 30 ? "C" : "D";
+    const why = parts.filter((p) => p[1] !== 0).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 3).map((p) => p[0]);
+    return { v, band, why: ["tier:" + x.tier, ...why] };
+  }
 }
 
 /** Heat band ("敏感度"): colour temperature from red (best) down to blue. 0 = hottest. */
