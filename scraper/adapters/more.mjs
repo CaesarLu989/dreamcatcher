@@ -36,7 +36,7 @@ export async function phenom(cfg) {
             postedAt: j.postedDate || null,
             type: guessType(j.title, j.category || ""),
             snippet: (j.descriptionTeaser || "").slice(0, 200),
-            extra: { division: j.category || null, applyUrl: j.applyUrl || null },
+            extra: { division: j.category || null, applyUrl: j.applyUrl || null, description: j.description ? htmlToText(j.description).slice(0, 12000) : undefined },
           })
         );
       }
@@ -126,9 +126,11 @@ function usDate(s) {
 export async function jibe(cfg) {
   const base = cfg.base.replace(/\/$/, "");
   const seen = new Map();
-  for (const city of cfg.cities || [""]) {
+  // cfg.locations overrides the location strings sent to the API (some sites want "Toronto, Ontario, Canada");
+  // accept-language matters: without it the API answers with an empty language set (ZS).
+  for (const city of cfg.locations || cfg.cities || [""]) {
     for (let page = 1; page <= (cfg.maxPages || 40); page++) {
-      const res = await getJson(`${base}/api/jobs?location=${encodeURIComponent(city)}&page=${page}&sortBy=relevance&descending=false&internal=false`, { headers: { accept: "application/json", referer: `${base}/jobs` } });
+      const res = await getJson(`${base}/api/jobs?location=${encodeURIComponent(city)}&page=${page}&sortBy=relevance&descending=false&internal=false`, { headers: { accept: "application/json, text/plain, */*", "accept-language": "en-US,en;q=0.9", referer: `${base}/jobs` } });
       const list = res.jobs || [];
       for (const row of list) {
         const d = row.data || row;

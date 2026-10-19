@@ -81,7 +81,7 @@ export async function workday(cfg) {
           // some tenants (Accenture, Thomson Reuters) send no locationsText — the location then sits in bulletFields
           // ("Ontario - Toronto", "Frisco; Toronto; Eagan; New York") or in the URL path (/job/Ontario---Toronto/…)
           const locText = j.locationsText || wdLocFromBullets(j.bulletFields) || wdLocFromPath(j.externalPath) || "";
-          const multi = /^\d+\s+locations?$/i.test(locText);
+          const multi = /^\d+\s*(locations?|個地點|个地点|lieux|standorte)$/i.test(locText);
           seen.set(
             id,
             job({
