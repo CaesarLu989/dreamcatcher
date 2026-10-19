@@ -40,7 +40,20 @@
     "group.buyside": ["资管 · 养老金 · PE · 对冲基金", "Buy side · pensions · PE · HF"], "group.vc": ["VC", "VC"], "group.tech": ["科技 · AI · 大厂", "Tech · AI"], "group.cn": ["中国券商 · 科技", "China securities · tech"],
     "chips.more": ["更多 {n} 家 ▾", "{n} more ▾"], "chips.less": ["收起 ▴", "Fewer ▴"],
     "req.years": ["经验 {y} 年", "{y} yrs exp"], "req.soft": ["（偏好）", " (preferred)"], "req.cred": ["偏好 {c}", "{c} preferred"],
-    "reason.yearspref": ["偏好经验 ", "prefers "], "reason.credpref": ["偏好证书", "credential preferred"]
+    "reason.yearspref": ["偏好经验 ", "prefers "], "reason.credpref": ["偏好证书", "credential preferred"],
+    "reason.fit": ["方向匹配 ", "direction: "], "reason.resume": ["简历命中 {n} 项", "résumé hits: {n}"], "reason.notentry": ["非应届向", "not entry-level"],
+    "dim.ai": ["AI", "AI"], "dim.finance": ["金融", "Finance"], "dim.consulting": ["咨询", "Consulting"], "dim.management": ["管理", "Mgmt"], "dim.entry": ["应届", "New grad"],
+    "dir.title": ["方向", "Direction"], "hits.k": ["命中", "Hits"],
+    "picks.title": ["今日待投", "Today's picks"], "picks.sub": ["新岗位 × 高匹配 × 临近截止 · 投完点「已投」就会让位给下一条", "new × high fit × closing soon · mark applied to make room for the next"],
+    "picks.n": ["{n} 条", "{n}"], "picks.closes": ["{d} 天后截止", "closes in {d} d"], "picks.today": ["今天截止", "closes today"], "picks.new": ["新", "NEW"],
+    "picks.go": ["去投 →", "Apply →"], "picks.done": ["已投", "Applied"],
+    "odds.label": ["胜算", "Odds"], "odds.A": ["高把握", "Likely"], "odds.B": ["有戏", "Good shot"], "odds.C": ["冲刺", "Reach"], "odds.D": ["远冲", "Long shot"],
+    "odds.tile": ["高把握岗位", "Likely postings"], "odds.tile.on": [" · 只看这些", " · showing only these"],
+    "odds.why.tier:1": ["顶级公司·竞争最激烈", "elite firm"], "odds.why.tier:2": ["强公司", "strong firm"], "odds.why.tier:3": ["中型/本地公司", "mid-size / local firm"],
+    "odds.why.entry": ["应届友好", "new-grad friendly"], "odds.why.not-entry": ["非应届向", "not entry-level"], "odds.why.fit": ["方向对口", "right area"], "odds.why.mandarin": ["要中文", "Mandarin asked"],
+    "odds.why.local": ["多伦多本地", "local (Toronto)"], "odds.why.cn-city": ["中文市场", "Chinese market"], "odds.why.visa": ["需签证", "needs visa"], "odds.why.far": ["异地", "far city"],
+    "odds.why.program": ["校招项目", "graduate program"], "odds.why.senior-analyst": ["资深分析师", "senior analyst"], "odds.why.years-pref": ["偏好更多经验", "prefers experience"], "odds.why.cred-pref": ["偏好证书", "prefers credential"], "odds.why.stale": ["挂了很久", "posted long ago"],
+    "odds.why.hits": ["简历命中 {n} 项", "{n} résumé hits"]
   };
   function T(key, vars) {
     var v = STR[key]; if (!v) return key;
@@ -55,7 +68,7 @@
   var SKIP = { SCRIPT: 1, STYLE: 1, CANVAS: 1, SVG: 1 };
   function walk(root, fn) {
     var it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
-      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-heat, #rl-meta, #rl-groups, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-lang")) return NodeFilter.FILTER_REJECT;
+      var p = n.parentNode; if (!p || SKIP[p.nodeName.toUpperCase()] || p.closest("#rl-list, #rl-status, #rl-sources, #rl-picks, #rl-heat, #rl-meta, #rl-odds, #rl-dirs, #rl-groups, #rl-companies, #rl-cities, #rl-types, #rl-more, #rl-foot, #dc-ctl")) return NodeFilter.FILTER_REJECT;
       return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP; } });
     var n, list = []; while ((n = it.nextNode())) list.push(n); list.forEach(fn);
   }
@@ -93,10 +106,21 @@
 
   // ---- the switch, top-right
   function mount() {
+    var ctl = document.createElement("div"); ctl.id = "dc-ctl";
+    // theme: black by default, light on request (kept in localStorage dc.theme; build.py applies it before first paint)
+    var th = document.createElement("div"); th.id = "dc-theme"; th.setAttribute("role", "group"); th.setAttribute("aria-label", "Theme");
+    th.innerHTML = '<button type="button" data-theme-btn title="Light / Dark">◐</button>';
+    th.addEventListener("click", function () {
+      var light = document.documentElement.getAttribute("data-theme") === "light";
+      document.documentElement.setAttribute("data-theme", light ? "dark" : "light");
+      try { localStorage.setItem("dc.theme", light ? "dark" : "light"); } catch (e) {}
+      window.dispatchEvent(new Event("dc:theme"));
+    });
     var box = document.createElement("div"); box.id = "dc-lang"; box.setAttribute("role", "group"); box.setAttribute("aria-label", "Language");
     box.innerHTML = '<button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button>';
     box.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setLang(b.getAttribute("data-lang")); });
-    document.body.appendChild(box);
+    ctl.appendChild(th); ctl.appendChild(box);
+    document.body.appendChild(ctl);
     apply(document.body);
   }
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);

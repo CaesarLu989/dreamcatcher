@@ -12,14 +12,14 @@
 #radar-live .rl-dot.stale { background: var(--warn); animation: none; }
 @keyframes rlPulse { 0% { box-shadow: 0 0 0 0 rgba(14,122,84,.45); } 70% { box-shadow: 0 0 0 7px rgba(14,122,84,0); } 100% { box-shadow: 0 0 0 0 rgba(14,122,84,0); } }
 #radar-live button.rl-link { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; font: inherit; font-weight: 600; }
-#radar-live .rl-sources { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 16px; font-size: 12.5px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px 18px; box-shadow: var(--shadow); }
+#radar-live .rl-sources { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; margin: 0 0 16px; font-size: 12.5px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px 18px; box-shadow: var(--shadow); }
 #radar-live .rl-sources div { display: flex; justify-content: space-between; gap: 10px; color: var(--ink-2); }
 #radar-live .rl-sources .err { color: var(--closed); }
 
 /* heat tiles */
 #radar-live .rl-heat { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 0 0 10px; }
-#radar-live .rl-tile { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px 9px; box-shadow: var(--shadow); cursor: pointer; user-select: none; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
-#radar-live .rl-tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c); }
+#radar-live .rl-tile { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px 9px; box-shadow: var(--shadow); cursor: pointer; user-select: none; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+#radar-live .rl-tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); }
 #radar-live .rl-tile.off { opacity: .45; }
 #radar-live .rl-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
 #radar-live .rl-tile b { display: block; font-size: 24px; line-height: 1.15; font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--c); }
@@ -33,24 +33,24 @@
 /* controls */
 #radar-live .rl-controls { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin: 0 0 16px; }
 #radar-live .rl-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-#radar-live .rl-chip { font-size: 12.5px; background: var(--card); color: var(--ink-2); border: 1px solid var(--line); border-radius: 99px; padding: 3px 11px; cursor: pointer; user-select: none; transition: background .2s ease, color .2s ease, transform .15s ease; }
+#radar-live .rl-chip { font-size: 12.5px; background: var(--card); color: var(--ink-2); border: 1px solid var(--line); border-radius: 4px; padding: 3px 10px; cursor: pointer; user-select: none; transition: background .2s ease, color .2s ease, transform .15s ease; }
 #radar-live .rl-chip:hover { transform: translateY(-1px); }
 #radar-live .rl-chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 #radar-live .rl-chip .n { opacity: .7; margin-left: 4px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11.5px; }
 #radar-live .rl-sep { width: 1px; height: 20px; background: var(--line); }
-#radar-live input.rl-q { flex: 1 1 180px; min-width: 150px; font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--card); color: var(--ink); transition: box-shadow .2s ease; }
+#radar-live input.rl-q { flex: 1 1 180px; min-width: 150px; font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); color: var(--ink); transition: box-shadow .2s ease; }
 #radar-live input.rl-q:focus { outline: none; box-shadow: 0 0 0 3px var(--accent-soft); border-color: var(--accent); }
 #radar-live label.rl-toggle { font-size: 12.5px; color: var(--ink-2); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
 @media (max-width: 600px) { #radar-live .rl-sep { display: none; } }
 
 /* cards (reuse .role from the curated sections + heat accents) */
-#radar-live .role { border-left: 4px solid var(--c, var(--line)); animation: rlRise .5s cubic-bezier(.2,.8,.3,1) both; animation-delay: calc(var(--i, 0) * 45ms); }
+#radar-live .role { border-left: 3px solid var(--c, var(--line)); animation: rlRise .5s cubic-bezier(.2,.8,.3,1) both; animation-delay: calc(var(--i, 0) * 45ms); }
 #radar-live .role.h0 { --c: var(--h0); } #radar-live .role.h1 { --c: var(--h1); } #radar-live .role.h2 { --c: var(--h2); } #radar-live .role.h3 { --c: var(--h3); } #radar-live .role.h4 { --c: var(--h4); } #radar-live .role.h5 { --c: var(--h5); }
 #radar-live .role:hover { border-color: var(--c); border-left-color: var(--c); }
 #radar-live .role.dismissed { opacity: .45; }
 #radar-live .role.applied { background: linear-gradient(180deg, var(--open-bg) 0, var(--card) 70px); }
 @keyframes rlRise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-#radar-live .heat { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 99px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); white-space: nowrap; }
+#radar-live .heat { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 3px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); white-space: nowrap; }
 #radar-live .heat i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
 #radar-live .heat .s { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 600; }
 #radar-live .pill.new { background: var(--accent); color: #fff; }
@@ -58,18 +58,18 @@
 #radar-live .pill.stale { background: var(--warn-bg); color: var(--warn); font-weight: 500; }
 #radar-live .rl-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-3); margin-top: auto; padding-top: 4px; }
 #radar-live .rl-line a { margin-top: 0; }
-#radar-live .rl-bar { display: inline-block; width: 64px; height: 5px; border-radius: 3px; background: var(--line); vertical-align: middle; margin-right: 6px; overflow: hidden; }
+#radar-live .rl-bar { display: inline-block; width: 64px; height: 3px; border-radius: 0; background: var(--line); vertical-align: middle; margin-right: 6px; overflow: hidden; }
 #radar-live .rl-bar i { display: block; height: 100%; background: var(--c); width: var(--w); transition: width .9s cubic-bezier(.2,.8,.3,1); }
 #radar-live .rl-score { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; color: var(--c); font-weight: 600; }
 #radar-live .rl-btns { display: inline-flex; gap: 6px; margin-left: 8px; }
-#radar-live button.rl-b { background: none; border: 1px solid var(--line); color: var(--ink-3); border-radius: 5px; padding: 1px 8px; font: inherit; font-size: 11.5px; cursor: pointer; transition: all .15s ease; }
+#radar-live button.rl-b { background: none; border: 1px solid var(--line-2); color: var(--ink-3); border-radius: 3px; padding: 1px 8px; font: inherit; font-size: 11.5px; cursor: pointer; transition: all .15s ease; }
 #radar-live button.rl-b:hover { color: var(--ink); border-color: var(--ink-3); }
 #radar-live button.rl-b.on { background: var(--open); border-color: var(--open); color: #fff; }
 #radar-live .fit .v { font-weight: 700; margin-right: 6px; }
 #radar-live .fit .v.apply { color: var(--open); } #radar-live .fit .v.consider { color: var(--warn); } #radar-live .fit .v.skip { color: var(--closed); }
 #radar-live .fit .zh { display: block; color: var(--ink-3); font-size: 12.5px; }
 #radar-live .rl-more { text-align: center; margin: 16px 0 0; }
-#radar-live button.rl-morebtn { font: inherit; font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--line); border-radius: 99px; padding: 7px 20px; cursor: pointer; transition: transform .15s ease; }
+#radar-live button.rl-morebtn { font: inherit; font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--line-2); border-radius: 4px; padding: 7px 20px; cursor: pointer; transition: transform .15s ease; }
 #radar-live button.rl-morebtn:hover { transform: translateY(-1px); }
 #radar-live .rl-empty { color: var(--ink-3); text-align: center; padding: 28px 0; }
 #radar-live .rl-foot { font-size: 12px; color: var(--ink-3); margin-top: 14px; }
@@ -77,13 +77,74 @@
 #radar-live .rl-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; background: var(--c); }
 #radar-live .rl-legend .h0 { --c: var(--h0); } #radar-live .rl-legend .h1 { --c: var(--h1); } #radar-live .rl-legend .h2 { --c: var(--h2); } #radar-live .rl-legend .h3 { --c: var(--h3); } #radar-live .rl-legend .h4 { --c: var(--h4); } #radar-live .rl-legend .h5 { --c: var(--h5); }
 /* skeleton while loading */
-#radar-live .sk { height: 92px; border-radius: 8px; background: linear-gradient(90deg, var(--line) 25%, var(--card) 50%, var(--line) 75%); background-size: 200% 100%; animation: rlShimmer 1.4s linear infinite; }
+#radar-live .sk { height: 92px; border-radius: var(--radius); background: linear-gradient(90deg, var(--line) 25%, var(--card) 50%, var(--line) 75%); background-size: 200% 100%; animation: rlShimmer 1.4s linear infinite; }
 @keyframes rlShimmer { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { #radar-live .radar::before, #radar-live .radar::after, #radar-live .rl-dot, #radar-live .role, #radar-live .sk { animation: none !important; } }
 
 /* industry group chips + collapsible company list (Oct 2026) */
-#radar-live .rl-groups .rl-chip { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+#radar-live .rl-groups .rl-chip { background: var(--accent-soft); border-color: transparent; color: var(--accent-2); font-weight: 600; }
 #radar-live .rl-groups .rl-chip.on { background: var(--accent); color: #fff; }
 #radar-live .rl-chip.more { border-style: dashed; color: var(--ink-2); }
-#radar-live .role .req { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-family: "IBM Plex Mono", ui-monospace, monospace; }
-#radar-live .role .req.warn { background: rgba(245,166,35,.14); color: #B26A00; }
+#radar-live .role .req { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 7px; border-radius: 3px; background: var(--accent-soft); color: var(--accent-2); font-family: "IBM Plex Mono", ui-monospace, monospace; }
+#radar-live .role .req.warn { background: var(--warn-bg); color: var(--warn); }
+
+/* ---------- v4 (Oct 2026): direction chips · fingerprint · résumé hits · 今日待投 ---------- */
+#radar-live .rl-dirs .rl-chip { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 600; letter-spacing: .04em; border-color: var(--line-2); }
+#radar-live .rl-dirs .rl-chip::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; background: var(--accent); transform: rotate(45deg); vertical-align: 1px; }
+#radar-live .rl-dirs .rl-chip.on::before { background: #fff; }
+/* five-dimension fingerprint: AI · 金融 · 咨询 · 管理 · 应届 */
+#radar-live .fp { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 2px; }
+#radar-live .fp-i { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+#radar-live .fp-i i { display: block; height: 3px; background: var(--line-2); position: relative; overflow: hidden; }
+#radar-live .fp-i i::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v, 0) * 1%); background: var(--accent); transition: width .8s cubic-bezier(.2,.8,.3,1); }
+#radar-live .fp-i.hi i::after { background: linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow: 0 0 8px rgba(76,125,255,.6); }
+#radar-live .fp-i b { font: 600 10px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .06em; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#radar-live .fp-i.hi b { color: var(--ink-2); }
+#radar-live .fp-i:last-child i::after { background: var(--open); box-shadow: none; }
+#radar-live .fp-i:last-child.hi i::after { box-shadow: 0 0 8px rgba(62,213,152,.5); }
+:root[data-theme="light"] #radar-live .fp-i.hi i::after { box-shadow: none; }
+/* résumé hits */
+#radar-live .hits { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+#radar-live .hits-k { font: 600 10px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .14em; color: var(--accent); margin-right: 4px; text-transform: uppercase; }
+#radar-live .hit { font-size: 11px; padding: 1px 6px; border: 1px solid var(--line-2); border-radius: 3px; color: var(--ink-2); background: var(--card-2); }
+#radar-live .hit.more { color: var(--ink-3); border-style: dashed; }
+/* 今日待投 strip */
+#radar-live .rl-picks { margin: 0 0 18px; padding: 14px 0 6px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; }
+#radar-live .rl-picks::before { content: ""; position: absolute; left: 0; top: -1px; width: 120px; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); }
+#radar-live .rl-picks-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+#radar-live .rl-picks-title { font: 700 13px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .18em; color: var(--ink); text-transform: uppercase; }
+#radar-live .rl-picks-title::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--h0); margin-right: 8px; box-shadow: 0 0 10px var(--h0); animation: rlPulseDot 2s ease-in-out infinite; }
+@keyframes rlPulseDot { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+#radar-live .rl-picks-sub { font-size: 12px; color: var(--ink-3); }
+#radar-live .rl-picks-n { margin-left: auto; font: 600 11.5px/1 "IBM Plex Mono", ui-monospace, monospace; color: var(--ink-3); }
+#radar-live .rl-picks-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(250px, 1fr); gap: 10px; overflow-x: auto; padding: 2px 2px 10px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+#radar-live .pk { background: var(--card); border: 1px solid var(--line); border-top: 2px solid var(--c, var(--accent)); border-radius: var(--radius); padding: 11px 13px 10px; display: flex; flex-direction: column; gap: 7px; scroll-snap-align: start; min-width: 0; animation: rlRise .5s cubic-bezier(.2,.8,.3,1) both; animation-delay: calc(var(--i, 0) * 60ms); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+#radar-live .pk:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+#radar-live .pk.h0 { --c: var(--h0); } #radar-live .pk.h1 { --c: var(--h1); }
+#radar-live .pk-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+#radar-live .pk h4 { font-size: 14px; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+#radar-live .pk-meta { font-size: 11.5px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#radar-live .pk-badge { font: 600 10.5px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .06em; padding: 3px 6px; border-radius: 3px; white-space: nowrap; }
+#radar-live .pk-badge.new { background: var(--klein); color: #fff; }
+#radar-live .pk-badge.ddl { background: var(--warn-bg); color: var(--warn); }
+#radar-live .pk-badge.ddl.hot { background: var(--closed-bg); color: var(--closed); }
+#radar-live .pk-line { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; padding-top: 2px; flex-wrap: wrap; }
+#radar-live .pk-go, #radar-live .pk .rl-b { white-space: nowrap; }
+#radar-live .pk-btns { display: inline-flex; gap: 6px; align-items: center; }
+#radar-live .pk-go { font-size: 12px; font-weight: 700; color: #fff; background: var(--klein); padding: 3px 9px; border-radius: 3px; text-decoration: none; transition: background .2s ease, box-shadow .2s ease; }
+#radar-live .pk-go:hover { background: var(--accent); box-shadow: 0 0 14px rgba(76,125,255,.5); text-decoration: none; }
+@media (max-width: 720px) { #radar-live .rl-picks-row { grid-auto-columns: minmax(230px, 85%); } }
+
+/* ---------- v5 (Oct 2026): 胜算 — odds of an interview / offer (estimate) ---------- */
+#radar-live .odds { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 3px; color: var(--oc); background: color-mix(in srgb, var(--oc) 14%, transparent); white-space: nowrap; max-width: 100%; }
+#radar-live .odds i { width: 7px; height: 7px; background: var(--oc); transform: rotate(45deg); box-shadow: 0 0 8px var(--oc); flex: 0 0 auto; }
+#radar-live .odds .s { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 600; }
+#radar-live .odds small { font-weight: 500; font-size: 11px; color: var(--ink-2); white-space: normal; }
+#radar-live .odds.bA { --oc: var(--open); } #radar-live .odds.bB { --oc: var(--accent-2); } #radar-live .odds.bC { --oc: var(--warn); } #radar-live .odds.bD { --oc: var(--ink-3); }
+:root[data-theme="light"] #radar-live .odds.bB { --oc: var(--accent); }
+#radar-live .odds-row { display: flex; }
+#radar-live .pk-badges { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+#radar-live .rl-meta .rl-tile.odds { --c: var(--open); }
+#radar-live .rl-odds .rl-chip i { display: inline-block; width: 7px; height: 7px; margin-right: 6px; background: var(--oc); transform: rotate(45deg); vertical-align: 1px; }
+#radar-live .rl-odds .rl-chip.bA { --oc: var(--open); } #radar-live .rl-odds .rl-chip.bB { --oc: var(--accent-2); } #radar-live .rl-odds .rl-chip.bC { --oc: var(--warn); } #radar-live .rl-odds .rl-chip.bD { --oc: var(--ink-3); }
+#radar-live .rl-odds .rl-chip.on i { background: #fff; }

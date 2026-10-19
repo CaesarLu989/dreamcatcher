@@ -19,6 +19,8 @@
     heat: new Set(LS.get("heat", DEFAULT_HEAT)),
     companies: new Set(LS.get("companies", [])),
     groups: new Set(LS.get("groups", [])), moreCompanies: false,
+    dirs: new Set(LS.get("dirs", [])),
+    odds: new Set(LS.get("odds", ["A", "B", "C", "D"])),
     cities: new Set(LS.get("cities", [])),
     types: new Set(LS.get("types", [])),
     q: "", onlyNew: false, onlyApplied: false, showHidden: false, expanded: false, showEvents: LS.get("events", false), hideApplied: LS.get("hideApplied", true),
@@ -49,7 +51,26 @@
   var HEAT, TYPE, RZ, OTHER;
   function strings() { HEAT = T("heat"); TYPE = T("type"); RZ = T("reason"); OTHER = T("city.other"); }
   strings();
-  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); if (r.indexOf("years-pref:") === 0) return T("reason.yearspref") + r.slice(11); if (r === "cred-pref") return T("reason.credpref"); return r; }
+  function reasonZh(r) { if (RZ[r]) return RZ[r]; if (r.indexOf("domain:") === 0) return T("reason.domain") + r.slice(7); if (r.indexOf("neg:") === 0) return T("reason.neg") + r.slice(4); if (r.indexOf("senior:") === 0) return T("reason.senior") + r.slice(7); if (r.indexOf("years-pref:") === 0) return T("reason.yearspref") + r.slice(11); if (r === "cred-pref") return T("reason.credpref"); if (r.indexOf("fit:") === 0) return T("reason.fit") + T("dim." + r.slice(4)); if (r.indexOf("resume:") === 0) return T("reason.resume", { n: r.slice(7) }); if (r === "not-entry") return T("reason.notentry"); return r; }
+  var DIMS = ["ai", "finance", "consulting", "management", "entry"];
+  var DIR_MIN = 60;   // a posting counts for a direction chip when that dimension scores at least this
+  function fingerprint(m) {
+    var dm = m && m.dims; if (!dm) return "";
+    return '<div class="fp" aria-label="fit">' + DIMS.map(function (k) { var v = Math.max(0, Math.min(100, Math.round(dm[k] || 0))); return '<span class="fp-i' + (v >= DIR_MIN ? " hi" : "") + '" style="--v:' + v + '" title="' + T("dim." + k) + ' ' + v + '"><i></i><b>' + T("dim." + k) + '</b></span>'; }).join("") + '</div>';
+  }
+  function hitsRow(m, d) {
+    var h = (m && m.hits) || []; if (!h.length) return "";
+    var en = window.dcLang && window.dcLang() === "en", tags = (d && d.resumeTags) || {};
+    return '<div class="hits"><span class="hits-k">' + T("hits.k") + '</span>' + h.slice(0, 5).map(function (t) { return '<span class="hit">' + esc(en && tags[t] ? tags[t] : t) + '</span>'; }).join("") + (h.length > 5 ? '<span class="hit more">+' + (h.length - 5) + '</span>' : "") + '</div>';
+  }
+  var daysLeft = function (j) { if (!j.closesAt) return null; return Math.ceil((new Date(j.closesAt).getTime() - Date.now()) / 86400000); };
+  var BANDS = ["A", "B", "C", "D"];
+  var oddsOf = function (j) { return (j.match && j.match.odds) || null; };
+  function oddsWhy(o) { return (o && o.why || []).map(function (w) { if (w.indexOf("hits:") === 0) return T("odds.why.hits", { n: w.slice(5) }); var k = "odds.why." + w; var v = T(k); return v === k ? w : v; }); }
+  function oddsBadge(o, full) {
+    if (!o) return "";
+    return '<span class="odds b' + o.band + '" title="' + esc(T("odds.label") + " " + o.v + " · " + oddsWhy(o).join(" · ")) + '"><i></i>' + T("odds." + o.band) + ' <span class="s">' + o.v + '</span>' + (full ? '<small>' + esc(oddsWhy(o).slice(0, 3).join(" · ")) + '</small>' : "") + '</span>';
+  }
 
   function load() {
     var urls = [DATA_URL, "data/jobs.json"].filter(Boolean), i = 0;
@@ -90,16 +111,49 @@
     var newCount = visible.filter(function (j) { return isNew(j) && heatOf(j) <= 2; }).length;
     var appliedCount = jobs.filter(function (j) { return S.applied[j.id]; }).length;
     var eventCount = jobs.filter(function (j) { return j.type === "event" && !S.hidden.has(j.id); }).length;
+    var likelyCount = visible.filter(function (j) { var o = oddsOf(j); return j.type !== "event" && o && o.band === "A"; }).length;
+    var oddsOnlyA = S.odds.size === 1 && S.odds.has("A");
     $("rl-meta").innerHTML = '<div class="rl-tile new" data-meta="new"' + (S.onlyNew ? "" : ' style="opacity:.85"') + '><b data-n="' + newCount + '">0</b><small>' + T("tile.new") + (S.onlyNew ? T("tile.filtering") : '') + '</small></div>' +
       '<div class="rl-tile applied" data-meta="applied"><b data-n="' + appliedCount + '">0</b><small>' + T("tile.applied") + (S.onlyApplied ? T("tile.filtering") : (appliedCount && S.hideApplied ? T("tile.collapsed") : '')) + '</small></div>' +
-      '<div class="rl-tile event' + (S.showEvents ? "" : " off") + '" data-meta="events"><b data-n="' + eventCount + '">0</b><small>' + T("tile.events") + '</small></div>';
+      '<div class="rl-tile event' + (S.showEvents ? "" : " off") + '" data-meta="events"><b data-n="' + eventCount + '">0</b><small>' + T("tile.events") + '</small></div>' +
+      (likelyCount ? '<div class="rl-tile odds" data-meta="odds"><b data-n="' + likelyCount + '">0</b><small>' + T("odds.tile") + (oddsOnlyA ? T("odds.tile.on") : "") + '</small></div>' : "");
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-tile b[data-n]"), function (b) { countUp(b, +b.getAttribute("data-n")); });
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-tile[data-heat]"), function (el) { el.onclick = function () { var h = +el.getAttribute("data-heat"); S.heat.has(h) ? S.heat.delete(h) : S.heat.add(h); LS.set("heat", Array.from(S.heat)); render(); }; });
     Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-tile[data-meta]"), function (el) { el.onclick = function () { var m = el.getAttribute("data-meta");
       if (m === "new") { S.onlyNew = !S.onlyNew; $("rl-onlynew").checked = S.onlyNew; }
       if (m === "applied") { S.onlyApplied = !S.onlyApplied; $("rl-onlyapplied").checked = S.onlyApplied; }
       if (m === "events") { S.showEvents = !S.showEvents; LS.set("events", S.showEvents); }
+      if (m === "odds") { S.odds = (S.odds.size === 1 && S.odds.has("A")) ? new Set(BANDS) : new Set(["A"]); LS.set("odds", Array.from(S.odds)); }
       render(); }; });
+
+    // 今日待投 — new × high fit × closing soon, never applied / hidden; marking applied frees the slot
+    var picks = visible.filter(function (j) { if (j.type === "event" || S.applied[j.id] || heatOf(j) > 1) return false; var dl = daysLeft(j); return isNew(j) || (dl != null && dl >= 0 && dl <= 14); })
+      .sort(function (a, b) { var da = daysLeft(a), db = daysLeft(b); var sa = da != null && da <= 14 ? da : 99, sb = db != null && db <= 14 ? db : 99; var ra = a.match.score * 0.6 + ((oddsOf(a) || {}).v || 0) * 0.4, rb = b.match.score * 0.6 + ((oddsOf(b) || {}).v || 0) * 0.4; return (sa - sb) || (rb - ra) || ((b.firstSeen || "") > (a.firstSeen || "") ? 1 : -1); }).slice(0, 6);
+    $("rl-picks").hidden = !picks.length;
+    if (picks.length) {
+      var ph = $("rl-picks").querySelector(".rl-picks-head");
+      ph.querySelector(".rl-picks-title").textContent = T("picks.title"); ph.querySelector(".rl-picks-sub").textContent = T("picks.sub"); ph.querySelector(".rl-picks-n").textContent = T("picks.n", { n: picks.length });
+      $("rl-picks-row").innerHTML = picks.map(function (j, i) { var m = j.match, h = heatOf(j), dl = daysLeft(j);
+        var badge = dl != null && dl <= 14 ? '<span class="pk-badge ddl' + (dl <= 3 ? " hot" : "") + '">' + (dl <= 0 ? T("picks.today") : T("picks.closes", { d: dl })) + '</span>' : '<span class="pk-badge new">' + T("picks.new") + '</span>';
+        return '<div class="pk h' + h + '" style="--i:' + i + '"><div class="pk-top"><span class="firm">' + esc(j.company) + '</span>' + badge + '</div><h4>' + esc(j.title) + '</h4>' +
+          '<div class="pk-meta">' + esc((j.locations || []).slice(0, 2).join(" · ")) + '</div>' + fingerprint(m) +
+          '<div class="pk-line"><span class="pk-badges"><span class="heat"><i></i>' + HEAT[h][0] + ' <span class="s">' + m.score + '</span></span>' + oddsBadge(oddsOf(j)) + '</span><span class="pk-btns"><a class="pk-go" href="' + esc(j.url) + '" target="_blank" rel="noopener">' + T("picks.go") + '</a><button class="rl-b" data-apply="' + esc(j.id) + '">' + T("btn.apply") + '</button></span></div></div>'; }).join("");
+    }
+
+    // 胜算 chips (A 高把握 / B 有戏 / C 冲刺 / D 远冲) — all on by default, click to narrow
+    var byBand = {}; visible.forEach(function (j) { var o = oddsOf(j); if (o && j.type !== "event") byBand[o.band] = (byBand[o.band] || 0) + 1; });
+    var allBands = S.odds.size === 0 || S.odds.size >= BANDS.length;
+    var oddsHtml = BANDS.filter(function (b) { return byBand[b]; }).map(function (b) { return '<span class="rl-chip b' + b + (!allBands && S.odds.has(b) ? " on" : "") + '" data-group="odds" data-key="' + b + '"><i></i>' + T("odds." + b) + '<span class="n">' + byBand[b] + '</span></span>'; }).join("");
+    $("rl-odds").innerHTML = oddsHtml;
+    $("rl-odds").style.display = oddsHtml ? "" : "none";
+    if ($("rl-odds").nextElementSibling) $("rl-odds").nextElementSibling.style.display = oddsHtml ? "" : "none";
+
+    // direction chips (AI / 金融 / 咨询 / 管理): a posting counts when that dimension ≥ DIR_MIN
+    var byDir = {}; visible.forEach(function (j) { var dm = j.match && j.match.dims; if (!dm) return; DIMS.slice(0, 4).forEach(function (k) { if ((dm[k] || 0) >= DIR_MIN) byDir[k] = (byDir[k] || 0) + 1; }); });
+    var dirHtml = DIMS.slice(0, 4).filter(function (k) { return byDir[k]; }).map(function (k) { return chip("dirs", k, T("dim." + k), byDir[k], S.dirs.has(k)); }).join("");
+    $("rl-dirs").innerHTML = dirHtml;
+    $("rl-dirs").style.display = dirHtml ? "" : "none";
+    if ($("rl-dirs").nextElementSibling) $("rl-dirs").nextElementSibling.style.display = dirHtml ? "" : "none";
 
     // chips
     var byCompany = {}, byCity = {}, byType = {};
@@ -121,7 +175,12 @@
     if (byCity[OTHER]) cityOrder.push(OTHER);
     $("rl-cities").innerHTML = cityOrder.map(function (c) { return chip("cities", c, c, byCity[c], S.cities.has(c)); }).join("");
     $("rl-types").innerHTML = Object.keys(TYPE).filter(function (t) { return byType[t]; }).map(function (t) { return chip("types", t, TYPE[t], byType[t], S.types.has(t)); }).join("");
-    Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip[data-group]"), function (el) { el.onclick = function () { var set = S[el.getAttribute("data-group")], key = el.getAttribute("data-key"); set.has(key) ? set.delete(key) : set.add(key); LS.set(el.getAttribute("data-group"), Array.from(set)); render(); }; });
+    Array.prototype.forEach.call(document.querySelectorAll("#radar-live .rl-chip[data-group]"), function (el) { el.onclick = function () { var g = el.getAttribute("data-group"), set = S[g], key = el.getAttribute("data-key");
+      if (g === "odds") { // all on → pick just this band; toggling the last one off → back to all
+        if (set.size === 0 || set.size >= BANDS.length) set = new Set([key]); else { set.has(key) ? set.delete(key) : set.add(key); if (!set.size) set = new Set(BANDS); }
+        S.odds = set;
+      } else { set.has(key) ? set.delete(key) : set.add(key); }
+      LS.set(g, Array.from(set)); render(); }; });
 
     // list
     var q = S.q.trim().toLowerCase();
@@ -129,6 +188,8 @@
       return (j.type === "event" || S.heat.has(heatOf(j))) &&
         (!S.companies.size || S.companies.has(j.company)) &&
         (!S.groups.size || S.groups.has(CG[j.company] || "other")) &&
+        (!S.dirs.size || Array.from(S.dirs).some(function (k) { return ((j.match && j.match.dims) || {})[k] >= DIR_MIN; })) &&
+        (j.type === "event" || !oddsOf(j) || S.odds.size === 0 || S.odds.size === BANDS.length || S.odds.has(oddsOf(j).band)) &&
         (!S.cities.size || S.cities.has(cityOf(j) || OTHER)) &&
         (!S.types.size || S.types.has(j.type)) &&
         (!S.onlyNew || isNew(j)) &&
@@ -167,7 +228,7 @@
     return '<div class="role h' + h + (dismissed ? " dismissed" : "") + (applied ? " applied" : "") + '" style="--i:' + Math.min(i, 14) + '">' +
       '<div class="role-top"><span class="firm">' + esc(j.company) + '</span><span>' + (isNew(j) ? '<span class="pill new">NEW</span> ' : "") + (applied ? '<span class="pill applied">' + T("card.applied") + esc(applied) + '</span> ' : "") + (j.stale ? '<span class="pill stale">' + T("card.stale") + '</span> ' : "") + '<span class="heat"><i></i>' + HEAT[h][0] + ' <span class="s">' + m.score + '</span></span></span></div>' +
       '<h3>' + esc(j.title) + '</h3>' +
-      '<div class="meta">' + chips.join("") + '</div>' + ddl + fit +
+      '<div class="meta">' + chips.join("") + '</div>' + fingerprint(m) + (oddsOf(j) ? '<div class="odds-row">' + oddsBadge(oddsOf(j), true) + '</div>' : "") + hitsRow(m, S.data) + ddl + fit +
       '<div class="rl-line"><a href="' + esc(j.url) + '" target="_blank" rel="noopener">' + T("card.link") + '</a><span><span class="rl-bar"><i style="--w:' + Math.max(3, m.score) + '%"></i></span><span class="rl-score">' + m.score + '</span><span class="rl-btns"><button class="rl-b' + (applied ? " on" : "") + '" data-apply="' + esc(j.id) + '">' + (applied ? T("btn.applied") : T("btn.apply")) + '</button><button class="rl-b" data-hide="' + esc(j.id) + '">' + (dismissed ? T("btn.restore") : T("btn.hide")) + '</button></span></span></div>' +
       '</div>';
   }

@@ -23,7 +23,7 @@ assert "<h1>2027 求职雷达</h1>" in body
 
 # ---- brand header: logo + wordmark, original copy untouched ----
 brand = ('<div class="brand"><div id="dc-brand-logo" aria-hidden="true" title="重放开机动画"></div>'
-         '<div><h1>DreamCatcher</h1><div class="sub-title">2027 求职雷达<small>梦捕手 · Job Radar</small></div></div></div>')
+         '<div><h1>Dream<b>Catcher</b></h1><div class="sub-title"><span>2027 求职雷达</span><small>Job Radar</small></div></div></div>')
 body = body.replace("<h1>2027 求职雷达</h1>", brand, 1)
 
 # ---- live section before ① ----
@@ -56,15 +56,16 @@ def page(embed_json=None):
     # hosted page: manifest + icon files (assets/); embedded/app page: favicon inlined so it works from file://
     icons = ('<link rel="icon" href="' + _icon_inline + '">\n') if (embed_json and _icon_inline) else (
         '<link rel="manifest" href="manifest.webmanifest">\n<link rel="icon" href="assets/icon-64.png">\n'
-        '<link rel="apple-touch-icon" href="assets/icon-192.png">\n<meta name="theme-color" content="#002FA7">\n')
+        '<link rel="apple-touch-icon" href="assets/icon-192.png">\n<meta name="theme-color" content="#050607">\n')
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
+<script>try{{var t=localStorage.getItem("dc.theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark");}}catch(e){{document.documentElement.setAttribute("data-theme","dark");}}</script>
 <title>DreamCatcher · 2027 求职雷达</title>
-{icons}<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap">
+{icons}<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
 {theme_tokens}
 {css_components}

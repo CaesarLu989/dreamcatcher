@@ -1,17 +1,14 @@
 {
   "$comment": "zh → en for every static text node of the page (Caesar's curated sections, header, live-section labels). Keys are the trimmed Chinese text; missing keys stay untouched. Attribute values (placeholder / title) are looked up the same way.",
-
   "Caesar · 2027 届 · 金融 × AI": "Caesar · Class of 2027 · Finance × AI",
-  "2027 求职雷达": "2027 Job Radar",
+  "2027 求职雷达": "Class of 2027",
   "梦捕手 · Job Radar": "Dream Catcher · Job Radar",
   "梦捕手 · 2027 求职雷达": "Dream Catcher · 2027 Job Radar",
   "重放开机动画": "Replay the opening",
   "DreamCatcher · 2027 求职雷达": "DreamCatcher · 2027 Job Radar",
-
   "高盛 / J.P. Morgan / Morgan Stanley / Barclays / 麦肯锡 + 中国券商与 AI 上市公司，六城（香港 · 多伦多 · 纽约 · 芝加哥 · 深圳 · 北京），目标 2027 年春/秋入职。按\"现在就投 → 核实后投 → 盯开放 → 已关下轮\"排序。": "Goldman Sachs / J.P. Morgan / Morgan Stanley / Barclays / McKinsey + Chinese securities firms and listed AI companies, six cities (Hong Kong · Toronto · New York · Chicago · Shenzhen · Beijing), targeting a spring/fall 2027 start. Ordered as “apply now → verify then apply → watch for opening → closed, next round”.",
   "信息核实于": "Verified on",
   "，全部来自官方招聘页或近期一手信息；投递前请以官网为准。标注\"估计\"的日期基于往届节奏推算。": ", all from official careers pages or recent first-hand information; check the official site before applying. Dates marked “est.” are projected from previous cycles.",
-
   "MS 香港 Industrial Placement 截止（23:55 HKT）": "MS Hong Kong Industrial Placement closes (23:55 HKT)",
   "腾讯校招首批截止 · JPM 香港 Markets 暑期截止": "Tencent campus round 1 closes · JPM Hong Kong Markets summer closes",
   "高盛 APAC 全职+暑期截止 · 阿里校招截止": "Goldman APAC full-time + summer close · Alibaba campus closes",
@@ -20,7 +17,6 @@
   "地平线机器人网申截止": "Horizon Robotics application closes",
   "滚动录取": "Rolling",
   "GS 美洲全职 · JPM 纽约 Markets 全职 · Barclays 港 S&T——早投早审": "GS Americas full-time · JPM New York Markets full-time · Barclays HK S&T — apply early, reviewed early",
-
   "① 现在就投": "① Apply now",
   "毕业窗口已核实匹配（你：2026.12–2027 中毕业）· 按推荐顺序": "Graduation window verified (you: Dec 2026 – mid 2027) · in recommended order",
   "开放中": "Open",
@@ -71,7 +67,6 @@
   "讯飞未列截止 · 地平线 2026-10-30 截止": "iFlytek lists no deadline · Horizon closes 2026-10-30",
   "备选梯队：讯飞\"飞凡计划\"接受 2025.6–2027.8 毕业；地平线业务拓展类岗位少但含金量高（智驾 AI 上市公司）。": "Backup tier: iFlytek's “Feifan Program” accepts Jun 2025 – Aug 2027 graduates; Horizon has few business-development roles but they carry weight (a listed autonomous-driving AI company).",
   "讯飞入口 →": "iFlytek portal →",
-
   "② 开放中，先核实资格再投": "② Open — verify eligibility, then apply",
   "多为 2027 暑期实习——通常要求 2027.9–2028 年中毕业（即\"届时仍在读\"）": "Mostly 2027 summer internships — usually require Sep 2027 – mid-2028 graduation (i.e. “still enrolled at the time”)",
   "开放 · 资格存疑": "Open · eligibility unclear",
@@ -97,7 +92,6 @@
   "8 月刚发布 · 滚动": "Just posted in August · rolling",
   "多伦多唯一在招的投行暑期岗；页面未写毕业窗口，值得直接问清——若接受 2027 届，这就是留加选项里的优先级第一。": "The only investment-banking summer role open in Toronto; the page gives no graduation window, so ask directly — if the class of 2027 is accepted, this is priority one among the stay-in-Canada options.",
   "检索\"2027\" →": "Search “2027” →",
-
   "③ 盯紧：预计 9 月开闸": "③ Watch closely: expected to open in September",
   "中国券商 2027 届秋招 · 每周查一次官网/公众号": "Chinese securities firms' class-of-2027 fall recruiting · check the site / WeChat account weekly",
   "中金公司 CICC": "CICC",
@@ -121,7 +115,6 @@
   "MS 中国仅挂 2026 暑期周期；JPM 亚太 FT 以实习转正为主，秋季偶有直招": "MS China only lists the 2026 summer cycle; JPM APAC FT is mostly intern conversion, with occasional direct fall hiring",
   "10–11 月复查一轮；JPM 另有中国区 6 个月兼职实习计划（滚动，表现好可转正），作为后备路径。": "Re-check in Oct–Nov; JPM also runs a 6-month part-time internship program in China (rolling, convertible on good performance) as a fallback path.",
   "JPM China 项目页 →": "JPM China program page →",
-
   "④ 本轮已关，记下一轮": "④ Closed this round — note the next one",
   "含麦肯锡——刚刚错过，下轮时间明确写进日历": "Including McKinsey — just missed; put the next round's dates in the calendar",
   "已截止": "Closed",
@@ -140,7 +133,6 @@
   "MS 2-15 截 · JPM 美国 7 月截 · Barclays 美国已关": "MS closed 2-15 · JPM US closed in July · Barclays US closed",
   "2028 暑期周期（读二硕时你恰好是\"在读硕士\"）预计 2026 年 12 月–2027 年 2 月陆续开放：Barclays 约 12 月、MS 约 1 月、JPM 约 2 月——这是二硕路线下的主战役，届时提前把 HireVue 练好。": "The 2028 summer cycle (when, on the second master's, you are exactly an “enrolled master's student”) is expected to open between Dec 2026 and Feb 2027: Barclays around December, MS around January, JPM around February — the main battle on the second-master's route, so have HireVue practised well in advance.",
   "周期参考（第三方跟踪）→": "Cycle reference (third-party tracker) →",
-
   "策略笔记": "Strategy notes",
   "你的身份决定主战场": "Your status decides the main battlefield",
   "你是 2027 届（2026.12–2027 中毕业），所以": "You are class of 2027 (graduating Dec 2026 – mid 2027), so ",
@@ -153,7 +145,6 @@
   "GS/JPM 全职分析师培训体系 > 券商总部投行部 > S&T 交易台 > AI 大厂产品/战略岗": "GS/JPM full-time analyst training programs > securities-firm HQ investment banking > S&T trading desks > product/strategy roles at big AI companies",
   "。若首要目标是三年后的选择权，优先顺序建议：GS APAC → JPM NY Markets → 中金回流 → Barclays 港 S&T → GS off-cycle（春季进场）→ 腾讯/阿里 AI 岗。麦肯锡本轮已关，把它整体挪到 2027 年年中的日历上。": ". If the primary goal is optionality three years out, the suggested order is: GS APAC → JPM NY Markets → return to CICC → Barclays HK S&T → GS off-cycle (spring entry) → Tencent / Alibaba AI roles. McKinsey is closed this round — move it as a whole to the mid-2027 calendar.",
   "数据截至 2026-08-30，由官方招聘页与近期一手信息核实汇总；\"估计\"字样均为按往届节奏的推算。招聘窗口变动频繁，投递前以各官网为准。链接均指向官方或注明的来源页。": "Data as of 2026-08-30, verified and compiled from official careers pages and recent first-hand information; anything marked “est.” is projected from previous cycles. Recruiting windows change often — check each official site before applying. All links point to official or cited source pages.",
-
   "⚡ 实时雷达": "⚡ Live Radar",
   "每 3 小时自动抓官网 · 只看全职 · 规则筛选零 tokens · AI 只评新岗位": "Career sites scanned every 3 h · full-time only · rule filter, zero tokens · AI reviews new postings only",
   "加载中…": "Loading…",
@@ -169,5 +160,7 @@
   "只看已投": "Applied only",
   "显示已忽略": "Show hidden",
   "已投自动收起": "Auto-collapse applied",
-  "标记已投后从主列表收起，点“已投递”或“只看已投”随时查看": "Applied postings leave the main list — open them any time via the Applied tile or “Applied only”"
+  "标记已投后从主列表收起，点“已投递”或“只看已投”随时查看": "Applied postings leave the main list — open them any time via the Applied tile or “Applied only”",
+  "点击色块筛选 · 分数 = 级别 + 届别 + 城市 + 方向 + 优先公司 + 简历匹配": "Click a tile to filter · score = level + class year + city + area + priority firm + résumé match",
+  "点击色块筛选 · 分数 = 级别 + 届别 + 城市 + 方向 + 优先公司 + 简历匹配 · 胜算 = 公司竞争档 + 应届友好 + 对口 + 命中 + 城市（估算）": "Click a tile to filter · score = level + class year + city + area + priority firm + résumé match · odds = firm tier + new-grad friendliness + fit + hits + city (estimate)"
 }

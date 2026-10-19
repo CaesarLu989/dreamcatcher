@@ -2,7 +2,7 @@
 (function () {
   var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) return;
-  var isDark = function () { var t = document.documentElement.getAttribute("data-theme"); return t === "dark" || (t !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches); };
+  var isDark = function () { return document.documentElement.getAttribute("data-theme") !== "light"; };
 
   /* ---------- 1. starfield canvas behind the header (parallax on scroll + mouse) ---------- */
   var sky = document.createElement("canvas");
@@ -35,7 +35,7 @@
         var s = stars[i], tw = 0.55 + 0.45 * Math.sin(t * s.s + s.p);
         var a = (dark ? 0.75 : 0.28) * tw * fade;
         ctx.beginPath(); ctx.arc(s.x + ox * s.d, s.y + oy * s.d - sy * 0.15 * s.d, s.r, 0, 6.283);
-        ctx.fillStyle = dark ? "rgba(214,224,255," + a + ")" : "rgba(0,47,167," + a + ")";
+        ctx.fillStyle = dark ? "rgba(185,203,255," + a + ")" : "rgba(0,47,167," + a + ")";
         ctx.fill();
       }
       if (now > nextMeteor && document.visibilityState === "visible") spawnMeteor(now);
@@ -45,16 +45,16 @@
         var px = m.x + m.vx * age * m.life / 1000, py = m.y + m.vy * age * m.life / 1000;
         var len = 140 * Math.sin(age * Math.PI), al = (dark ? 0.9 : 0.55) * Math.sin(age * Math.PI) * fade;
         var lg = ctx.createLinearGradient(px, py, px - m.vx / 800 * len, py - m.vy / 800 * len);
-        lg.addColorStop(0, (dark ? "rgba(255,244,214," : "rgba(0,47,167,") + al + ")");
-        lg.addColorStop(1, (dark ? "rgba(255,244,214,0)" : "rgba(0,47,167,0)"));
+        lg.addColorStop(0, (dark ? "rgba(235,241,255," : "rgba(0,47,167,") + al + ")");
+        lg.addColorStop(1, (dark ? "rgba(127,160,255,0)" : "rgba(0,47,167,0)"));
         ctx.strokeStyle = lg; ctx.lineWidth = dark ? 1.6 : 1.3; ctx.lineCap = "round";
         ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px - m.vx / 800 * len, py - m.vy / 800 * len); ctx.stroke();
-        ctx.beginPath(); ctx.arc(px, py, 1.8, 0, 6.283); ctx.fillStyle = (dark ? "rgba(255,250,235," : "rgba(0,47,167,") + al + ")"; ctx.fill();
+        ctx.beginPath(); ctx.arc(px, py, 1.8, 0, 6.283); ctx.fillStyle = (dark ? "rgba(255,255,255," : "rgba(0,47,167,") + al + ")"; ctx.fill();
       }
-      // soft moon glow in the top-right
-      var g = ctx.createRadialGradient(W * 0.86 + ox, 110 + oy, 0, W * 0.86 + ox, 110 + oy, 260);
-      g.addColorStop(0, dark ? "rgba(245,214,122," + 0.16 * fade + ")" : "rgba(245,214,122," + 0.22 * fade + ")");
-      g.addColorStop(1, "rgba(245,214,122,0)");
+      // a cold Klein-blue glow in the top-right
+      var g = ctx.createRadialGradient(W * 0.86 + ox, 110 + oy, 0, W * 0.86 + ox, 110 + oy, 300);
+      g.addColorStop(0, dark ? "rgba(0,47,167," + 0.28 * fade + ")" : "rgba(0,47,167," + 0.10 * fade + ")");
+      g.addColorStop(1, "rgba(0,47,167,0)");
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     }
     requestAnimationFrame(draw);

@@ -56,7 +56,7 @@ def make_icns(png, icns):
         im.resize((s, s), Image.LANCZOS).save(root / "assets" / f"icon-{s}.png")   # PWA manifest + favicon
     (root / "manifest.webmanifest").write_text(json.dumps({
         "name": "DreamCatcher · 2027 求职雷达", "short_name": "DreamCatcher", "start_url": "./index.html",
-        "display": "standalone", "background_color": "#070C1F", "theme_color": "#002FA7", "lang": "zh-CN",
+        "display": "standalone", "background_color": "#050607", "theme_color": "#050607", "lang": "zh-CN",
         "icons": [{"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
                   {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]
     }, ensure_ascii=False, indent=2))

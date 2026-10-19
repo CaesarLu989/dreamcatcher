@@ -1,51 +1,42 @@
 /* ===== DreamCatcher boot sequence + header logo + scroll reveal =====
-   Full sequence (once a day, ~8.5 s): night sky fades up from black, the stars drift, a meteor crosses,
-   a spark traces the hoop, the web is woven ring by ring, the moon rises with two halo ripples, stars and
-   feathers arrive, fireflies drift, the wordmark rises with a gold hairline — then the logo flies into the
-   header and the page reveals beneath it. Short sequence (~2 s) the rest of the day; skip always available. */
+   Full sequence (once a day, ≈4.2 s): a scan line crosses the black screen, the hoop is drawn by a spark, the
+   radar web assembles spoke by spoke and ring by ring, the sweep makes its first turn, the Klein crescent snaps
+   in, the threads drop, the wordmark is revealed left-to-right behind a cursor and tightens — then the logo
+   flies into the header and the page appears beneath it. Short sequence (≈1.7 s) the rest of the day; skip always available. */
 (function () {
   var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var brand = document.getElementById("dc-brand-logo");
-  if (brand) brand.innerHTML = dcLogo(104, "dcH", { animate: false });
+  if (brand) brand.innerHTML = dcLogo(96, "dcH", { animate: false });
 
   function rnd(a, b) { return a + Math.random() * (b - a); }
 
   function fill(boot, mode) {
     boot.className = mode === "short" ? "short" : "";
-    boot.innerHTML = '<div class="bg"></div><div class="aurora"><i></i><i></i></div><div class="stars"></div><div class="meteors"></div>' +
-      '<div class="veil"></div><div class="halo"></div><div class="fireflies"></div><div class="logo"></div>' +
-      '<div class="word"><div class="w"></div><div class="line"></div><div class="t">' + (window.dcT ? window.dcT("boot.tagline") : "梦捕手 · 2027 求职雷达") + '</div></div>' +
-      '<button class="skip" type="button">跳过 SKIP</button>';
-    // star field: 110 stars, each with its own twinkle phase; a few bigger ones glow
+    boot.innerHTML = '<div class="bg"></div><div class="stars"></div><div class="meteors"></div><div class="scan"></div>' +
+      '<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>' +
+      '<div class="logo"></div>' +
+      '<div class="word"><div class="w">Dream<b>Catcher</b><i class="cursor"></i></div><div class="line"></div></div>' +
+      '<button class="skip" type="button">SKIP</button>';
+    // sparse star field: 44 points, a few brighter
     var stars = boot.querySelector(".stars"), frag = document.createDocumentFragment();
-    for (var i = 0; i < 110; i++) {
+    for (var i = 0; i < 44; i++) {
       var s = document.createElement("i");
       s.style.left = rnd(0, 100) + "%"; s.style.top = rnd(0, 100) + "%";
-      s.style.setProperty("--d", rnd(0, 3.6).toFixed(2) + "s"); s.style.setProperty("--o", rnd(0.35, 1).toFixed(2));
-      s.style.setProperty("--in", rnd(0, 1.6).toFixed(2) + "s");
-      if (Math.random() < 0.16) s.className = "big";
+      s.style.setProperty("--d", rnd(0, 3.6).toFixed(2) + "s"); s.style.setProperty("--o", rnd(0.3, 0.9).toFixed(2));
+      s.style.setProperty("--in", rnd(0, 1.4).toFixed(2) + "s");
+      if (Math.random() < 0.18) s.className = "big";
       frag.appendChild(s);
     }
     stars.appendChild(frag);
-    // meteors: three in the full sequence, one in the short one
-    var met = boot.querySelector(".meteors"), delays = mode === "short" ? [0.35] : [1.05, 4.9, 7.1];
-    delays.forEach(function (d, k) {
+    // one thin meteor in the full sequence
+    var met = boot.querySelector(".meteors"), delays = mode === "short" ? [] : [1.9];
+    delays.forEach(function (d) {
       var m = document.createElement("i");
-      m.style.left = rnd(45, 88) + "%"; m.style.top = rnd(6, 28) + "%";
-      m.style.setProperty("--d", d + "s"); m.style.setProperty("--len", Math.round(rnd(110, 190)) + "px");
+      m.style.left = rnd(55, 85) + "%"; m.style.top = rnd(10, 26) + "%";
+      m.style.setProperty("--d", d + "s"); m.style.setProperty("--len", Math.round(rnd(120, 200)) + "px");
       met.appendChild(m);
     });
-    // fireflies drifting up around the logo
-    var ff = boot.querySelector(".fireflies");
-    for (var f = 0; f < 10; f++) {
-      var e = document.createElement("i");
-      e.style.setProperty("--x", rnd(34, 66).toFixed(1) + "%"); e.style.setProperty("--y", rnd(32, 70).toFixed(1) + "%");
-      e.style.setProperty("--dx", rnd(-28, 28).toFixed(0) + "px"); e.style.setProperty("--t", rnd(4.5, 7.5).toFixed(2) + "s");
-      e.style.setProperty("--d", (mode === "short" ? rnd(0.3, 1.2) : rnd(5.2, 7.4)).toFixed(2) + "s");
-      ff.appendChild(e);
-    }
-    boot.querySelector(".logo").innerHTML = dcLogo(mode === "short" ? 150 : 210, "dcB", { animate: mode === "full" });
-    boot.querySelector(".w").innerHTML = "DreamCatcher".split("").map(function (ch, i) { return '<span style="--i:' + i + '">' + ch + '</span>'; }).join("");
+    boot.querySelector(".logo").innerHTML = dcLogo(mode === "short" ? 150 : 200, "dcB", { animate: mode === "full" });
   }
 
   /* play(mode) — mode: "full" | "short". Resolves through onDone when the overlay starts handing off. */
@@ -64,16 +55,16 @@
         // FLIP: fly the boot logo onto the header logo while the sky dissolves
         var s = h.width / a.width, dx = (h.left + h.width / 2) - (a.left + a.width / 2), dy = (h.top + h.height / 2) - (a.top + a.height / 2);
         bl.style.transformOrigin = "50% 50%";
-        bl.style.transition = "transform .95s cubic-bezier(.7,0,.22,1)";
+        bl.style.transition = "transform .8s cubic-bezier(.7,0,.22,1)";
         bl.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
-        boot.classList.add("fly"); wait = 960;
+        boot.classList.add("fly"); wait = 820;
       } else { boot.classList.add("out"); }
       onDone && onDone();
       setTimeout(function () { boot.remove(); if (brand) brand.style.visibility = ""; document.body.classList.remove("dc-booting"); }, wait);
     }
     boot.querySelector(".skip").onclick = function () { finish(true); };
     boot.addEventListener("click", function (e) { if (e.target === boot || e.target.className === "bg") finish(true); });
-    setTimeout(function () { finish(false); }, mode === "short" ? 2050 : 8350);
+    setTimeout(function () { finish(false); }, mode === "short" ? 1750 : 4300);
     return finish;
   }
   window.dcBootPlay = play;
