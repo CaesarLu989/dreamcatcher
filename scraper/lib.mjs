@@ -6,22 +6,53 @@ export const UA =
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Hosts that rate-limit by client address get one lane each: requests to the same lane are spaced out, and a 429
+// pauses the whole lane (Retry-After if the server sends it) instead of letting other tenants keep knocking.
+// If the host keeps refusing, the lane gives up for the rest of the run, so one stubborn host can never eat the
+// whole time budget of a scan — those sources fail fast and keep their previous postings.
+const LANES = [{ re: /\.myworkdayjobs\.com$/i, gap: 650, tail: Promise.resolve(), until: 0, waited: 0, gaveUp: 0, closed: false }];
+const laneOf = (url) => { try { const h = new URL(url).hostname; return LANES.find((l) => l.re.test(h)) || null; } catch { return null; } };
+async function turn(lane) {
+  const prev = lane.tail;
+  let release;
+  lane.tail = new Promise((r) => (release = r));
+  await prev;
+  const wait = Math.max(0, lane.until - Date.now());
+  if (wait) await sleep(wait);
+  lane.until = Date.now() + lane.gap + Math.floor(Math.random() * 250);
+  release();
+}
+
 /** fetch with timeout + retry. Throws on final failure. */
 export async function request(url, opts = {}, { retries = 2, timeoutMs = 30000 } = {}) {
   let lastErr;
-  for (let attempt = 0; attempt <= retries; attempt++) {
+  const lane = laneOf(url), max = lane ? Math.max(retries, 3) : retries;
+  for (let attempt = 0; attempt <= max; attempt++) {
+    if (lane && lane.closed) throw new Error(`HTTP 429 ${url} (this host kept rate-limiting earlier in the run; skipped until the next scan)`);
+    if (lane) await turn(lane);
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
       const headers = { "user-agent": UA, accept: "application/json, text/html;q=0.9, */*;q=0.8", "accept-language": "en-US,en;q=0.9", ...(opts.headers || {}) };
       const res = await fetch(url, { ...opts, headers, signal: ctrl.signal });
       clearTimeout(t);
-      if (res.status === 429 || res.status >= 500) throw new Error(`HTTP ${res.status} ${url}`);
+      if (res.status === 429 || res.status >= 500) {
+        const err = new Error(`HTTP ${res.status} ${url}`);
+        if (lane && res.status === 429) {
+          const ra = Number(res.headers.get("retry-after")), back = Math.min(60000, ra > 0 ? ra * 1000 : [10000, 25000, 60000][Math.min(attempt, 2)]);
+          lane.until = Math.max(lane.until, Date.now() + back); // the next turn() waits it out, for every tenant on the lane
+          lane.waited += back;
+          if (attempt === max) lane.gaveUp++;
+          if (lane.waited > 240000 || lane.gaveUp >= 3) lane.closed = true;
+          err.back = 0;
+        }
+        throw err;
+      }
       return res;
     } catch (e) {
       clearTimeout(t);
       lastErr = e;
-      if (attempt < retries) await sleep(1500 * (attempt + 1));
+      if (attempt < max) await sleep(e.back ?? 1500 * (attempt + 1));
     }
   }
   throw lastErr;
@@ -162,7 +193,7 @@ export function htmlToText(html = "") {
 }
 
 const WORD_NUM = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, 一: 1, 两: 2, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 十: 10 };
-const SOFT = /\b(preferred|an asset|a plus|nice[- ]to[- ]have|ideally|bonus|desirable|would be|is a plus|advantage|or equivalent|or (?:a |an )?(?:master|graduate|advanced|mba))\b|优先|加分|为佳|者优先/i;
+const SOFT = /\b(preferred|an asset|a plus|nice[- ]to[- ]have|ideally|bonus|desirable|would be|is a plus|advantage|beneficial|helpful|desired|pursu(?:e|ing)|on track to|working towards?|progress(?:ing)? towards?|in progress|enrol+ed in|or equivalent|or (?:a |an )?(?:master|graduate|advanced|mba))\b|优先|加分|为佳|者优先/i;
 
 /**
  * Pull hard requirements out of a job description: minimum years of experience and required credentials.

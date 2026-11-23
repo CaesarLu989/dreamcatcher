@@ -20,7 +20,7 @@ const rx = (arr) =>
   );
 
 const DIM_KEYS = ["ai", "finance", "consulting", "management"];
-const ENTRY_TEXT = /(new grad|new graduate|recent graduate|recent grads?|fresh graduate|graduating (students|seniors)|class of 20\d\d|entry[- ]level|early[- ]career|\b0\s*[-–to]+\s*[12]\s*years?|no (prior )?experience (required|necessary)|campus hire|university hire|应届|校招|毕业生|零经验)/i;
+const ENTRY_TEXT = /(new grad|new graduate|recent graduate|recent grads?|recent (and|or) upcoming graduates?|upcoming graduates?|future graduates?|fresh graduate|graduating (students|seniors)|students? graduating|graduating (between|in|by) |class of 20\d\d|entry[- ]level|early[- ]career|\b0\s*[-–to]+\s*[12]\s*years?|no (prior )?experience (required|necessary)|campus hire|university hire|应届|校招|毕业生|零经验)/i;
 
 /** Compile the dimension / resume-keyword dictionaries once; textSignals() then scans any text (title, snippet, description). */
 export function buildSignals(profile) {

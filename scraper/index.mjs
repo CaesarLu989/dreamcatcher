@@ -12,6 +12,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildMatcher, buildSignals } from "./match.mjs";
 import { scoreJobs } from "./score.mjs";
+import { buildRadar } from "./v6.mjs";
 import { job as normalizeJob, guessType, parseRequirements, matchesCity, sleep } from "./lib.mjs";
 import * as goldman from "./adapters/goldman.mjs";
 import * as jpmorgan from "./adapters/jpmorgan.mjs";
@@ -28,6 +29,7 @@ const DATA = path.join(ROOT, "data");
 const JOBS_FILE = path.join(DATA, "jobs.json");
 const SCORES_FILE = path.join(DATA, "scores.json");
 const DETAILS_FILE = path.join(DATA, "details.json");
+const RADAR_FILE = path.join(DATA, "radar.json");
 
 const ADAPTERS = {
   goldman: goldman.fetchJobs,
@@ -48,6 +50,7 @@ const ADAPTERS = {
   eightfold: more.eightfold,
   amazon: more.amazon,
   avature: more.avature,
+  brassring: more.brassring,
 };
 
 const args = Object.fromEntries(process.argv.slice(2).map((a) => (a.startsWith("--") ? a.slice(2).split("=") : [a, true])).map(([k, v]) => [k, v ?? true]));
@@ -174,8 +177,8 @@ async function main() {
     return j.match.tier !== "dropped" && j.match.score >= dc.minScore;
   };
   const retryAfter = 3 * 86400000;
-  // (re)fetch when: never fetched · failed more than 3 days ago · fetched by an older version without the signal scan
-  const candidates = fetched.filter((j) => wantDetail(j) && (!details[j.id] || (details[j.id].ok && !details[j.id].sig) || (!details[j.id].ok && Date.now() - new Date(details[j.id].at || 0).getTime() > retryAfter)));
+  // (re)fetch when: never fetched · failed more than 3 days ago · fetched by an older version without the signal scan · parsed by the old credential rule ("is beneficial" read as required)
+  const candidates = fetched.filter((j) => wantDetail(j) && (!details[j.id] || (details[j.id].ok && !details[j.id].sig) || (details[j.id].ok && details[j.id].v !== 2 && (details[j.id].req?.creds || []).length > 0) || (!details[j.id].ok && Date.now() - new Date(details[j.id].at || 0).getTime() > retryAfter)));
   const toFetch = candidates.sort((a, b) => (b.locationsUnknown ? 1 : 0) - (a.locationsUnknown ? 1 : 0) || b.match.score - a.match.score).slice(0, dc.maxPerRun);
   if (toFetch.length) log(`fetching ${toFetch.length} job descriptions (${candidates.length} candidates, cache has ${Object.keys(details).length})…`);
   let fetchedDetails = 0;
@@ -184,7 +187,7 @@ async function main() {
     try {
       const d = await ADAPTERS[c.adapter].fetchDetail(c, j);
       const sig = d && d.description ? signals(d.description) : null;
-      details[j.id] = { req: d && d.description ? parseRequirements(d.description) : null, sig: sig ? { dims: sig.dims, hits: sig.hits, entry: sig.entry || undefined } : { dims: {}, hits: [] }, locations: d && d.locations && d.locations.length ? d.locations : undefined, postedAt: d && d.postedAt ? d.postedAt : undefined, at: today, ok: !!d };
+      details[j.id] = { req: d && d.description ? parseRequirements(d.description) : null, sig: sig ? { dims: sig.dims, hits: sig.hits, entry: sig.entry || undefined } : { dims: {}, hits: [] }, locations: d && d.locations && d.locations.length ? d.locations : undefined, postedAt: d && d.postedAt ? d.postedAt : undefined, at: today, ok: !!d, v: 2 };
       fetchedDetails++;
       await sleep(150);
     } catch (e) {
@@ -295,6 +298,15 @@ async function main() {
     })),
   };
   fs.writeFileSync(JOBS_FILE, JSON.stringify(out, null, 1));
+  // ---- 7. v6 radar: region → role family → level → hard gates → fit → odds → priority (see scraper/v6.mjs)
+  try {
+    const slim = (j) => ({ id: j.id, companyKey: j.companyKey, company: j.company, title: j.title, url: j.url, location: j.location, locations: j.locations, postedAt: j.postedAt, closesAt: j.closesAt, type: j.type, snippet: j.snippet, match: j.match, firstSeen: j.firstSeen });
+    const radar = buildRadar({ jobs: out.jobs, dropped: jobsAfter.filter((j) => j.match?.tier === "dropped").map(slim), sources, counts, config, now: new Date(today), generatedAt: today });
+    fs.writeFileSync(RADAR_FILE, JSON.stringify(radar));
+    log(`wrote ${RADAR_FILE}: ${radar.funnel.map((x) => x.n).join(" → ")} · ${radar.counts.focus} to look at first · ${radar.counts.blocked} blocked with a reason`);
+  } catch (e) {
+    log(`radar FAILED — ${e.stack || e.message} (data/jobs.json is unaffected)`);
+  }
   log(`wrote ${JOBS_FILE}: ${counts.kept} kept / ${counts.dropped} dropped (${counts.droppedHard} on hard requirements) / ${counts.new} new — tiers ${JSON.stringify(counts.byTier)}`);
 }
 
