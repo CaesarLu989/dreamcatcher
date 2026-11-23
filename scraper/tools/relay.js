@@ -10,7 +10,8 @@
 // In the tab, once per tenant:
 //   (0, eval)(await (await fetch("https://caesarlu989.github.io/dreamcatcher/scraper/tools/relay.js", { cache: "no-cache" })).text()); await DC.read("td")
 // DC.plan()    → [[key, "https://…/robots.txt"], …] every Workday firm worth reading, in order
-// DC.read(key) → reads one firm; returns one status line (never the data)
+// DC.read(key) → reads one firm; returns one status line (never the data). At most 160 descriptions per call:
+//                when the line says some are "left for next time", call it again and it carries on from there
 // DC.status()  → what has been read so far
 // DC.finish()  → builds the file, keeps it in window.name and opens GitHub's upload page for data/
 // On that page the caller stages it (see RELAY in the README) and commits. Nothing here needs a password or a token.
@@ -75,7 +76,7 @@
     let jobs = [...rows.values()].filter((j) => j.locationsUnknown || REGION.test(where(j)));
     for (const j of jobs) { j.req = L.parseRequirements(j.title + "\n" + (j.snippet || "")); j.match = match(j); }
     // the same rule as the scanner: read a description when the cities are not in the listing, or the posting looks promising
-    const dc = { minScore: 52, ...(config.details || {}) }, now = new Date().toISOString(), old = (prev && prev.firms[key] && prev.firms[key].details) || {}, details = {}, need = [];
+    const dc = { minScore: 52, ...(config.details || {}) }, now = new Date().toISOString(), old = { ...((prev && prev.firms[key] && prev.firms[key].details) || {}), ...((state().firms[key] || {}).details || {}) }, details = {}, need = []; // descriptions already read: last published relay, and earlier in this tab
     for (const j of jobs) { if (!(j.locationsUnknown || (j.match.tier !== "dropped" && j.match.score >= dc.minScore))) continue; const d = old[tail(j)]; if (d && d.ok && d.v === 2) details[tail(j)] = d; else need.push(j); }
     let fresh = 0, failed = 0;
     await pool(need.slice(0, 160), 4, async (j) => {
