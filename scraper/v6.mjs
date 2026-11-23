@@ -176,13 +176,16 @@ export function buildRadar({ jobs = [], dropped = [], sources = {}, counts = {},
   const core = roles.filter((r) => !r.st), inScope = new Set(["ib", "consulting", "cabank", "buyside", "cn"]);
   // every firm that is tracked for these regions, with what happened to its postings — the page's company filter reads this
   const firms = (config.companies || []).filter((c) => c.adapter && c.enabled !== false && !String(c.key).startsWith("_") && (tally.has(c.key) || (inScope.has(c.group) && !(V.paused || PAUSED).includes(c.key))))
-    .map((c) => ({ key: c.key, name: c.name, group: c.group || null, tier: c.tier || 2, ...(tally.get(c.key) || { n: 0, ok: 0, st: 0, bl: 0 }), err: sources[c.key]?.ok === false || undefined, seen: sources[c.key] ? undefined : false, paused: (V.paused || PAUSED).includes(c.key) || undefined, probation: c.probation || undefined }));
-  const fetched = counts.fetched ?? jobs.length + dropped.length, src = Object.entries(sources).map(([k, v]) => ({ key: k, name: v.name, group: v.group, ok: v.ok !== false, count: v.count ?? 0, kept: core.filter((r) => r.key === k).length, error: v.ok === false ? String(v.error || "").slice(0, 140) : undefined, at: v.fetchedAt || v.failedAt || null, probation: comp[k]?.probation || undefined }));
+    .map((c) => ({ key: c.key, name: c.name, group: c.group || null, tier: c.tier || 2, ...(tally.get(c.key) || { n: 0, ok: 0, st: 0, bl: 0 }), err: sources[c.key]?.ok === false || undefined, relay: (sources[c.key]?.ok === false && sources[c.key]?.relay) || undefined, seen: sources[c.key] ? undefined : false, paused: (V.paused || PAUSED).includes(c.key) || undefined, probation: c.probation || undefined }));
+  // a relayed firm: the browser counted every posting in range, the engine only saw the ones worth sending
+  for (const f of firms) { const inR = sources[f.key]?.ok === false ? sources[f.key]?.relayInRegion : null; if (inR > f.n) { f.n = inR; f.bl = f.n - f.ok - f.st; } }
+  const relayed = Object.values(sources).filter((s) => s.ok === false && s.relay).map((s) => s.relay).sort();
+  const fetched = counts.fetched ?? jobs.length + dropped.length, src = Object.entries(sources).map(([k, v]) => ({ key: k, name: v.name, group: v.group, ok: v.ok !== false, count: v.count ?? 0, kept: core.filter((r) => r.key === k).length, error: v.ok === false ? String(v.error || "").slice(0, 140) : undefined, relay: (v.ok === false && v.relay) || undefined, at: v.fetchedAt || v.failedAt || null, probation: comp[k]?.probation || undefined }));
   return {
     version: 6, generatedAt: generatedAt || now.toISOString(), focusMin, freshDays, soonDays, staleDays, tags: Object.fromEntries(((P.resumeKeywords || {}).items || []).filter((x) => x.tag).map((x) => [x.tag, x.en || x.tag])), sectors: SECTORS, regions: REGIONS.map((r) => r.k), groups: config.groups || {}, heat: HEAT, archetypes: Object.fromEntries(Object.entries(ARCH).map(([k, a]) => [k, { name: a.name, en: a.en, w: a.w, base: a.base }])),
     funnel: [{ n: fetched }, { n: n.region, drop: fetched - n.region }, { n: n.family, drop: out.family }, { n: n.eligible, drop: out.level }, { n: core.length, drop: n.eligible - core.length }],
     counts: { fetched, roles: core.length, stretch: roles.length - core.length, focus: core.filter((r) => r.pr >= focusMin).length, fresh: core.filter((r) => r.fresh).length, soon: core.filter((r) => r.soon).length, blocked: blockedAll, blockedListed: blocked.length, sources: src.length, sourceErrors: src.filter((x) => !x.ok).length, sourceEmpty: src.filter((x) => x.ok && !x.count).length },
-    roles, blocked, firms, sources: src,
+    roles, blocked, firms, sources: src, note: relayed.length ? { relay: relayed[relayed.length - 1], firms: relayed.length } : undefined,
   };
 }
 

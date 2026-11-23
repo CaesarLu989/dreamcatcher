@@ -30,6 +30,7 @@ const JOBS_FILE = path.join(DATA, "jobs.json");
 const SCORES_FILE = path.join(DATA, "scores.json");
 const DETAILS_FILE = path.join(DATA, "details.json");
 const RADAR_FILE = path.join(DATA, "radar.json");
+const RELAY_FILE = path.join(DATA, "relay.json"); // postings read through a browser for sources that refuse the runner (see main)
 
 const ADAPTERS = {
   goldman: goldman.fetchJobs,
@@ -112,6 +113,9 @@ async function main() {
   const companies = (config.companies || []).filter((c) => c.enabled !== false && c.adapter && !String(c.key).startsWith("_") && (!only || only.includes(c.key)));
   const byKey = new Map(companies.map((c) => [c.key, c]));
   const sources = { ...(prev.sources || {}) };
+  // Browser relay: postings read through a real browser for sources that refuse the runner's address (Workday answers
+  // HTTP 429 to GitHub's servers most of the time). Only used when the direct read fails; ignored once it is 3 weeks old.
+  const relayRaw = readJson(RELAY_FILE, null), relay = relayRaw && relayRaw.firms && Date.now() - new Date(relayRaw.readAt || 0).getTime() < 21 * 86400000 ? relayRaw : null;
   const fetched = [];
   let okCount = 0;
 
@@ -141,10 +145,26 @@ async function main() {
       fetched.push(...jobs);
     } catch (e) {
       // keep last good data for this company so the page never goes blank
-      const keep = (prev.jobs || []).filter((j) => j.companyKey === c.key).map((j) => ({ ...j, stale: true }));
-      sources[c.key] = { ...(sources[c.key] || {}), name: c.name, group: c.group || null, ok: false, error: String(e.message || e).slice(0, 300), failedAt: today, count: keep.length, lastOkAt: sources[c.key]?.fetchedAt };
-      log(`${c.key}: FAILED — ${e.message} (keeping ${keep.length} previous postings)`);
-      fetched.push(...keep);
+      let keep = (prev.jobs || []).filter((j) => j.companyKey === c.key).map((j) => ({ ...j, stale: true }));
+      // …and, when a browser has read this source more recently than the runner could (data/relay.json), add what it saw
+      const R = relay && c.adapter === "workday" ? relay.firms[c.key] : null, extra = [];
+      if (R) {
+        const gone = new Set((R.gone || []).map((id) => `${c.key}:${id}`));
+        keep = keep.filter((j) => !gone.has(j.id));
+        const have = new Set(keep.map((j) => j.id)), host = `https://${c.tenant}.${c.wd || "wd5"}.myworkdayjobs.com`, sites = c.sites || [c.site];
+        for (const p of R.postings || []) {
+          const id = String(p.path || "").split("/").pop(), full = `${c.key}:${id}`, site = sites[p.site || 0];
+          if (!id || !site || have.has(full)) continue;
+          have.add(full);
+          extra.push(normalizeJob({ companyKey: c.key, company: c.name, id, title: p.title, url: `${host}/${c.lang || "en-US"}/${site}${p.path}`, locations: p.locations || [], postedAt: p.postedAt || null, type: guessType(p.title), snippet: "", extra: { wdPath: p.path, wdSite: site } }));
+          // the relay's reading of the description stands in when there is none, a failed one, or one parsed by the old credential rule
+          const d0 = details[full];
+          if (p.detail && (!d0 || !d0.ok || (d0.v !== 2 && (d0.req?.creds || []).length > 0))) details[full] = { ...p.detail, at: relay.readAt, ok: true, v: 2, relay: true };
+        }
+      }
+      sources[c.key] = { ...(sources[c.key] || {}), name: c.name, group: c.group || null, ok: false, error: String(e.message || e).slice(0, 300), failedAt: today, count: keep.length + extra.length, lastOkAt: sources[c.key]?.lastOkAt || sources[c.key]?.fetchedAt, relay: R ? relay.readAt : undefined, relayInRegion: R ? R.inRegion : undefined };
+      log(`${c.key}: FAILED — ${e.message} (keeping ${keep.length} previous postings${R ? `, ${extra.length} more from the browser relay of ${String(relay.readAt).slice(0, 10)}` : ""})`);
+      fetched.push(...keep, ...extra);
     }
   });
   if (companies.length && okCount === 0) throw new Error("every source failed — check network / endpoints");
@@ -191,7 +211,8 @@ async function main() {
       fetchedDetails++;
       await sleep(150);
     } catch (e) {
-      details[j.id] = { req: null, at: today, ok: false, error: String(e.message || e).slice(0, 120) };
+      // a failed refresh never replaces a description that was read before
+      if (!(details[j.id] && details[j.id].ok)) details[j.id] = { req: null, at: today, ok: false, error: String(e.message || e).slice(0, 120) };
     }
   });
   if (fetchedDetails) log(`fetched ${fetchedDetails} descriptions`);
