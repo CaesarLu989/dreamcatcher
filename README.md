@@ -73,6 +73,19 @@ sites return nothing for Toronto: Raymond James, Northern Trust, Franklin Temple
 * *Blocked list.* Every stopped posting is counted; when there are more than 2,500 the page gets the most telling
   ones first (level, language, credential, status), then "no track", then the out-of-scope families.
 
+**Workday and GitHub's servers (2026-11-23).** The first scan with the fixed adapter showed the real state of things:
+every Workday tenant (the Canadian banks, the pension funds, Brookfield, most of the new firms) answers HTTP 429 to
+GitHub's runners almost all the time, whatever the pacing. Two things follow:
+
+* *Lanes per host* (`lib.mjs`). Each Workday host is paced and backed off on its own; a host that keeps refusing is
+  closed for the run, the others still get their chance. Which tenant answers a shared runner address is largely luck.
+* *Browser relay* (`data/relay.json`). Postings read through a real browser — a home connection is not rate-limited —
+  are kept in the repository. When the scanner's own read of a Workday firm fails, it keeps that firm's previous
+  postings and adds what the relay saw (with the requirements and résumé hits already parsed from the description),
+  and drops the ones the relay found closed. A relay older than three weeks is ignored. The Engine screen marks
+  these sources "browser read" and says which day the read was made; the firm tallies use the relay's count of
+  postings in range. The file is refreshed by reading the sites again in a browser — it does not update itself.
+
 ## Sources (115 companies, 7 groups — the 101 below were verified in the live sites, Sep–Oct 2026)
 
 Every company in `config.json` carries a `group` (the tinted chips above the company chips on the page) and,
@@ -162,6 +175,7 @@ scraper/adapters/*.mjs      one file per site; generic.mjs = Greenhouse/Lever/As
                             SuccessFactors, Jibe, Radancy, Eightfold, Amazon, Avature, BrassRing (+ description fetchers)
 data/jobs.json              everything the base filter kept (version 4)
 data/radar.json             what the page shows (version 6): roles, blocked (with the gate), funnel, sources
+data/relay.json             postings read through a browser for Workday firms that refuse GitHub's servers (see above)
 data/details.json           cache of fetched job descriptions → parsed requirements / resolved locations
 data/scores.json            memory of Claude scores (so a posting is scored once)
 index.html                  the page, one self-contained file (built — edit the sources, not this)
