@@ -1,6 +1,6 @@
 // Generic adapters for the ATS platforms most tech / AI companies use.
 // Add a company in config.json with "adapter": "greenhouse" | "lever" | "ashby" | "workday".
-import { getJson, postJson, job, guessType, sleep, htmlToText, toDate } from "../lib.mjs";
+import { getJson, postJson, job, guessType, sleep, htmlToText, toDate, UA } from "../lib.mjs";
 
 // ---- Greenhouse: {"adapter":"greenhouse","board":"openai"} -> https://boards.greenhouse.io/openai
 export async function greenhouse(cfg) {
@@ -89,6 +89,26 @@ export function workdayDetail(res) {
   const locations = [i.location, ...(i.additionalLocations || [])].filter(Boolean);
   return { description: htmlToText(i.jobDescription || ""), locations, postedAt: toDate(i.startDate), timeType: i.timeType || null };
 }
+// A browser opens the career site first and brings its cookies to the API. The scanner does the same: one page per
+// host per run. `page` keeps what that page answered, so a failure can say how far the refusal goes.
+const wdSessions = new Map();
+function wdSession(host, site, lang) {
+  if (!wdSessions.has(host)) wdSessions.set(host, (async () => {
+    const out = { cookie: "", page: 0 };
+    try {
+      const ctrl = new AbortController(), t = setTimeout(() => ctrl.abort(), 15000);
+      const res = await fetch(`${host}/${lang || "en-US"}/${site}`, { headers: { "user-agent": UA, accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8", "accept-language": "en-US,en;q=0.9" }, signal: ctrl.signal });
+      clearTimeout(t);
+      out.page = res.status;
+      out.cookie = (typeof res.headers.getSetCookie === "function" ? res.headers.getSetCookie() : []).map((c) => c.split(";")[0]).filter(Boolean).join("; ");
+      await res.arrayBuffer().catch(() => {});
+    } catch (e) { out.page = String(e.name || "error"); }
+    return out;
+  })());
+  return wdSessions.get(host);
+}
+const wdHeaders = (host, site, s) => ({ accept: "application/json", referer: `${host}/${site}`, origin: host, ...(s && s.cookie ? { cookie: s.cookie } : {}) });
+
 export async function workday(cfg) {
   const host = `https://${cfg.tenant}.${cfg.wd || "wd5"}.myworkdayjobs.com`;
   const sites = cfg.sites || [cfg.site];
@@ -96,13 +116,15 @@ export async function workday(cfg) {
   const limit = 20;
   const maxPages = cfg.maxPages || 10;
   const seen = new Map();
+  const session = await wdSession(host, sites[0], cfg.lang);
+  try {
   for (const site of sites) {
     const api = `${host}/wday/cxs/${cfg.tenant}/${site}/jobs`;
     for (const q of queries) {
       // Workday sends `total` with the first page only (later pages say 0): remember it, or the loop ends after two pages
       let total = 0;
       for (let p = 0; p < maxPages; p++) {
-        const res = await postJson(api, { appliedFacets: cfg.facets || {}, limit, offset: p * limit, searchText: q }, { headers: { accept: "application/json", referer: `${host}/${site}` } });
+        const res = await postJson(api, { appliedFacets: cfg.facets || {}, limit, offset: p * limit, searchText: q }, { headers: wdHeaders(host, site, session) });
         const list = res.jobPostings || [];
         for (const j of list) {
           const row = workdayRow(cfg, site, j), id = row.id.slice(cfg.key.length + 1);
@@ -114,13 +136,20 @@ export async function workday(cfg) {
       }
     }
   }
+  } catch (e) {
+    // say how far the refusal goes: the page a person would open, and robots.txt
+    let robots = 0;
+    try { const r = await fetch(`${host}/robots.txt`, { headers: { "user-agent": UA } }); robots = r.status; await r.arrayBuffer().catch(() => {}); } catch (x) { robots = String(x.name || "error"); }
+    e.message = `${e.message} [career page HTTP ${session.page}, ${session.cookie ? session.cookie.split("; ").length : 0} cookies; robots.txt HTTP ${robots}]`;
+    throw e;
+  }
   return [...seen.values()];
 }
 workday.fetchDetail = async function (cfg, j) {
   const host = `https://${cfg.tenant}.${cfg.wd || "wd5"}.myworkdayjobs.com`;
   const site = j.wdSite || cfg.site || (cfg.sites || [])[0];
   if (!j.wdPath) return null;
-  const res = await getJson(`${host}/wday/cxs/${cfg.tenant}/${site}${j.wdPath}`, { headers: { accept: "application/json", referer: `${host}/${site}` } });
+  const res = await getJson(`${host}/wday/cxs/${cfg.tenant}/${site}${j.wdPath}`, { headers: wdHeaders(host, site, await wdSession(host, site, cfg.lang)) });
   return workdayDetail(res);
 };
 
