@@ -1,12 +1,15 @@
 {
   "name": "dreamcatcher",
-  "version": "5.0.0",
+  "version": "6.1.0",
   "private": true,
-  "description": "DreamCatcher — zero-token job radar: scrapes career sites on a schedule, rule-filters postings, optionally lets Claude score new ones.",
+  "description": "DreamCatcher — zero-token job radar: scrapes career sites on a schedule, runs every posting down one judgement line (region, role family, level, hard gates, fit, interview odds, priority) and shows the result on a dial.",
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {
     "scan": "node scraper/index.mjs",
-    "scan:rules-only": "node scraper/index.mjs --no-score"
+    "scan:rules-only": "node scraper/index.mjs --no-score",
+    "radar": "node scraper/v6.mjs --list",
+    "build": "node scraper/tools/dc6/build.mjs",
+    "build:app": "python3 scraper/tools/dc6/build_app.py"
   }
 }

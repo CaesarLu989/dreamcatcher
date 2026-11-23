@@ -866,6 +866,43 @@
   "maxPerRun": 40,
   "batchSize": 10
  },
+ "v6": {
+  "$comment": "v6 judgement line (scraper/v6.mjs → data/radar.json): region → role family → level → hard gates → fit → interview odds → priority. Regions are Toronto and Hong Kong for every firm, mainland China only for the firms in `mainland`. Nothing is capped; priority only orders. `paused` firms are still fetched but never pushed. `edges` lifts the odds at a firm where you have a real connection (x = multiplier; the note is shown on the role). `eligible` lists posting ids of group-restricted programmes you do qualify for. Work authorization, applications and rejections are NOT kept in this public file — the page asks and keeps them in your own browser. Companies marked `probation` were checked in a browser on the day shown but have not yet run from GitHub Actions; the Engine screen shows how each one did.",
+  "mainland": [
+   "guosen",
+   "csc108",
+   "cicc"
+  ],
+  "paused": [
+   "janestreet",
+   "squarepoint",
+   "drw",
+   "imc",
+   "jump",
+   "optiver",
+   "tower",
+   "hrt",
+   "virtu",
+   "akuna",
+   "point72"
+  ],
+  "freshDays": 6,
+  "soonDays": 14,
+  "staleDays": 45,
+  "focusMin": 66,
+  "edges": {
+   "cibc": {
+    "x": 1.2,
+    "note": "做过 CIBC 的咨询项目",
+    "noteEn": "You have done a consulting engagement with CIBC"
+   }
+  },
+  "eligible": [],
+  "signals": {
+   "grades": 0.5,
+   "hook": 0.6
+  }
+ },
  "companies": [
   {
    "key": "goldman",
@@ -989,7 +1026,7 @@
    ],
    "group": "cabank",
    "enabled": true,
-   "maxPages": 40,
+   "maxPages": 45,
    "tier": 2
   },
   {
@@ -2513,6 +2550,285 @@
    "enabled": true
   },
   {
+   "key": "ubs",
+   "name": "UBS",
+   "adapter": "brassring",
+   "base": "https://jobs.ubs.com",
+   "partnerId": "25008",
+   "siteId": "5012",
+   "queries": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 1,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "bofa",
+   "name": "Bank of America",
+   "adapter": "workday",
+   "tenant": "ghr",
+   "wd": "wd1",
+   "sites": [
+    "Lateral-Canada",
+    "Lateral-APAC"
+   ],
+   "queries": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 1,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "db",
+   "name": "Deutsche Bank",
+   "adapter": "workday",
+   "tenant": "db",
+   "wd": "wd3",
+   "site": "DBWebsite",
+   "queries": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 2,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "mizuho",
+   "name": "Mizuho · Greenhill",
+   "adapter": "workday",
+   "tenant": "mizuho",
+   "wd": "wd1",
+   "site": "mizuhoamericas",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 2,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "mufg",
+   "name": "MUFG",
+   "adapter": "workday",
+   "tenant": "mufgub",
+   "wd": "wd3",
+   "site": "MUFG-Careers",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 2,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "canaccord",
+   "name": "Canaccord Genuity",
+   "adapter": "workday",
+   "tenant": "cgf",
+   "wd": "wd10",
+   "site": "cg",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "ib",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 3,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "desjardins",
+   "name": "Desjardins",
+   "adapter": "workday",
+   "tenant": "desjardins",
+   "wd": "wd10",
+   "site": "Desjardins",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "cabank",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 3,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "capitalone",
+   "name": "Capital One Canada",
+   "adapter": "workday",
+   "tenant": "capitalone",
+   "wd": "wd12",
+   "site": "Capital_One",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "cabank",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 2,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "statestreet",
+   "name": "State Street",
+   "adapter": "workday",
+   "tenant": "statestreet",
+   "wd": "wd1",
+   "site": "Global",
+   "queries": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 3,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "invesco",
+   "name": "Invesco",
+   "adapter": "workday",
+   "tenant": "invesco",
+   "wd": "wd1",
+   "site": "IVZ",
+   "queries": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "cities": [
+    "Toronto",
+    "Hong Kong"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 3,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "fidelity",
+   "name": "Fidelity Canada",
+   "adapter": "workday",
+   "tenant": "fil",
+   "wd": "wd3",
+   "site": "fidelitycanada",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 8,
+   "tier": 2,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "ci",
+   "name": "CI Financial",
+   "adapter": "workday",
+   "tenant": "ci",
+   "wd": "wd3",
+   "site": "CI_FINANCIAL_EXTERNAL_CAREER-SITE",
+   "queries": [
+    ""
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 6,
+   "tier": 3,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "intact",
+   "name": "Intact Financial",
+   "adapter": "workday",
+   "tenant": "intactfc",
+   "wd": "wd3",
+   "site": "intactfc",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "buyside",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 3,
+   "probation": "2026-11-17"
+  },
+  {
+   "key": "mastercard",
+   "name": "Mastercard",
+   "adapter": "workday",
+   "tenant": "mastercard",
+   "wd": "wd1",
+   "site": "CorporateCareers",
+   "queries": [
+    "Toronto"
+   ],
+   "cities": [
+    "Toronto"
+   ],
+   "group": "tech",
+   "enabled": true,
+   "maxPages": 4,
+   "tier": 2,
+   "probation": "2026-11-17"
+  },
+  {
    "key": "_manual",
    "adapter": null,
    "enabled": false,
@@ -2522,7 +2838,7 @@
  "concurrency": 4,
  "details": {
   "minScore": 52,
-  "maxPerRun": 600,
+  "maxPerRun": 300,
   "concurrency": 4,
   "$comment": "job descriptions are fetched (once, cached in data/details.json) for postings scoring >= minScore so hard requirements can be checked; maxPerRun caps one run (the cache fills up over a few runs)"
  },

@@ -1,15 +1,79 @@
-# DreamCatcher — 2027 求职雷达 · live feed
+# DreamCatcher — 2027 求职雷达 · v6
 
-DreamCatcher is a zero-dependency scraper + a single-page radar. Every 3 hours GitHub Actions checks the
-career sites you care about, keeps **full-time** postings only, scores them with plain rules into a six-band
-heat scale (red = best fit → blue), optionally lets Claude judge the *new* ones, and writes `data/jobs.json`
-for the page (`index.html`).
+DreamCatcher is a zero-dependency scraper and a single-page radar. Every 3 hours GitHub Actions reads the career
+sites of 115 firms, keeps full-time postings, and runs each one down the same judgement line:
 
-**No AI tokens are used for scanning.** Fetching and filtering is plain code. Claude is only
-called for postings that are new *and* already passed the rule filter — and only if you add an
-API key. Without a key everything still works, just rule-based.
+    region → role family → level and status → seven hard gates → fit → interview odds → priority
 
-## Sources (101 companies, 7 groups — endpoints verified in the live sites, Sep–Oct 2026)
+Whatever clears the line is listed — there is no daily cap; priority only sets the order. Whatever is stopped
+stays searchable with the gate that stopped it. The scan writes `data/jobs.json` (everything the base filter kept)
+and `data/radar.json` (what the page shows).
+
+**No AI tokens are used for scanning.** Fetching, filtering, fit, odds and priority are plain rules. Claude is
+only called for postings that are new *and* already passed the rule filter, and only if you add an API key.
+
+## v6 — the Compass
+
+**Scope.** Finance and consulting, entry level. Toronto and Hong Kong for every firm; mainland China only for the
+Chinese brokers (`config.json → v6.mainland`). Engineering, quant, audit / tax / actuarial, legal and compliance,
+branch sales and advisors, operations and support, HR / marketing are never pushed. Big Four and digital-consulting
+firms pass when the title is a consulting or advisory role. Quant shops are fetched but paused (`v6.paused`).
+
+**The line** (`scraper/v6.mjs`, no network, no model):
+
+| Step | What it checks |
+|---|---|
+| Region | the posting's location text against the three regions |
+| Role family | eight tracks — investment banking, research & ratings, asset & wealth, buy side, strategy consulting, Big Four & digital, rotational, credit / risk / markets |
+| Level & status | new-grad and entry-level full-time pass. One notch above entry — "Senior Analyst", "Sr. Associate", "Senior Consultant", a bare "Associate" at banks / PE / strategy firms — is kept as a **stretch** (够一够): listed, counted separately, always ranked under what fits the level. Managerial grades, interns, co-ops, contracts, events, talent pools and expired postings stop here |
+| Hard gates | language, work authorization, licences, group-restricted programmes, duplicates (the same role posted in several cities is merged) |
+| Fit | family match, entry-level signals, résumé hits, the base rule score |
+| Interview odds | a range, from six résumé signals weighted the way each of eight recruiter types screens (`ARCH` in `v6.mjs`) |
+| Priority | fit<sup>0.45</sup> × odds<sup>0.35</sup> × timeliness<sup>0.20</sup>, plus up to 8 points for `profile.companyBoost` firms; 66+ goes into "look at these first" |
+
+Re-derive the radar from the last scan without touching the network: `node scraper/v6.mjs --list`.
+
+**The page** (`index.html`, built from `scraper/tools/dc6/`): the chosen design, Compass「晕」— a fluted silver bezel
+with two gold lines, a dark sunburst dial inside a deep-blue ring of light, Klein blue as the main colour. Every
+role is a moon: sector = track, distance from the centre = fit, the fuller the moon the higher the priority,
+blue-lit moons first. Tonight's real moon phase rides the bezel as the hand and shows how far the 3-hour scan cycle
+has run. Dark and light themes, 中文 / EN.
+
+* **Today** — the dial, the roles to look at first, today's filter funnel, the pipeline, examples of what was kept out.
+* **Roles** — every qualifying role plus the stretch ones. Filter by **location**, **firm type** and **firm** (chips with
+  live counts; a tracked firm with nothing right now stays listed and says why), by track, new-only, with or without
+  stretch; group by region, firm or track; sort; bring back dismissed ones. Under any filter, one click lists the
+  postings that same filter kept out, each with the gate that stopped it.
+* **Pipeline** — what you applied to, by stage; a rejection puts the same firm and track on hold for 12 months.
+* **Engine** — how the line works, the recruiter weights, your work-authorization answers, a search over everything
+  that was stopped ("which gate stopped it?"), and the health of every source.
+* **Keys** — `J` `K` move, `↵` open, `A` applied, `X` not for me, `⌘K` or `/` search and commands, `1`–`4` screens, `T` theme, `Esc` close.
+
+**Where your marks live.** Applied / dismissed / pipeline stage / work authorization / theme / language are kept in
+the browser (`localStorage`, the same `dc.*` keys as before — earlier marks carry over) and are never written to
+this public repository.
+
+**New in the scan.** A UBS adapter (`brassring` in `scraper/adapters/more.mjs`) and 13 more firms with Toronto
+or Hong Kong desks: Bank of America, Deutsche Bank, Mizuho · Greenhill, MUFG, Canaccord Genuity, Desjardins,
+Capital One Canada, State Street, Invesco, Fidelity Canada, CI Financial, Intact, Mastercard. Their endpoints were
+checked in a browser on 2026-11-17; they stay marked `"probation"` in `config.json` until a few scans from GitHub
+Actions confirm them, and the Engine screen shows each one's result. (Tried and left out because their career
+sites return nothing for Toronto: Raymond James, Northern Trust, Franklin Templeton, PSP Investments.) All Workday tenants now share one polite lane in `scraper/lib.mjs`
+(spaced requests, Retry-After aware back-off) because Workday started answering HTTP 429 to bursts.
+
+**Fixed on 2026-11-22** (found while reading the banks' sites directly in a browser):
+
+* *Workday paging.* Many tenants now send `total` with the first page only; the adapter read that as "done" after two
+  pages, so a query never returned more than 40 postings. TD lists about 860 for Toronto, BMO 260, CIBC 140,
+  Brookfield 63 — most of it had never been read. The adapter now remembers the first total (`adapters/generic.mjs`).
+* *Soft wording read as a requirement.* "Completion of a CPA or CFA is beneficial", "on track to complete … to pursue
+  their CPA" were parsed as a required credential and the posting was dropped. Those phrasings are now soft
+  (`SOFT` in `lib.mjs`); cached descriptions parsed the old way are fetched again.
+* *"Consultant, X" at a bank* is a grade, not consulting: it no longer puts a posting in the consulting track.
+* *Blocked list.* Every stopped posting is counted; when there are more than 2,500 the page gets the most telling
+  ones first (level, language, credential, status), then "no track", then the out-of-scope families.
+
+## Sources (115 companies, 7 groups — the 101 below were verified in the live sites, Sep–Oct 2026)
 
 Every company in `config.json` carries a `group` (the tinted chips above the company chips on the page) and,
 where the firm hires everywhere, a `cities` list — only postings in those cities survive (Toronto / New York /
@@ -75,34 +139,36 @@ The engine now reads the posting text and drops what Caesar cannot apply for:
 1. Create a new **public** GitHub repository (e.g. `dreamcatcher`) and push this folder to it
    (`git init && git add . && git commit -m "job radar" && git branch -M main && git remote add origin … && git push -u origin main`).
 2. **Settings → Pages → Build and deployment**: Source = *Deploy from a branch*, Branch = `main`, folder = `/ (root)`.
-   Your radar is now at `https://CaesarLu989.github.io/dreamcatcher/` and reads `data/jobs.json` from the same place.
+   Your radar is now at `https://CaesarLu989.github.io/dreamcatcher/` and reads `data/radar.json` from the same place.
 3. **Actions tab → "DreamCatcher scan" → Run workflow** once to seed the data. It then runs every 3 hours by itself.
 4. *(Optional)* **Settings → Secrets and variables → Actions → New repository secret**:
    name `ANTHROPIC_API_KEY`, value = a key from console.anthropic.com. From the next run on, Claude
    scores new postings (verdict + one-line reason, EN/中文). Cost is a few cents per month with Haiku.
 
-If you'd rather keep hosting the page on Netlify Drop: set `DATA_URL` inside `index.html` (search for `DATA_URL`) to
-`https://raw.githubusercontent.com/CaesarLu989/dreamcatcher/main/data/jobs.json` — raw GitHub URLs allow
-cross-origin reads, so the page works from any host.
+If you'd rather host the page somewhere else (Netlify Drop, a local file): open it as
+`index.html?data=https://caesarlu989.github.io/dreamcatcher/data/radar.json` — GitHub Pages allows cross-origin
+reads, so the page works from any host.
 
 ## Files
 
 ```
-config.json                 your profile, cities, keyword rules, company list, scoring settings
-scraper/index.mjs           orchestrator (fetch → rules → diff → optional Claude → data/jobs.json)
-scraper/lib.mjs             fetch/parse helpers shared by adapters
-scraper/match.mjs           rule-based scoring (0–100 → strong / possible / weak)
+config.json                 your profile, cities, keyword rules, company list, scoring settings, the `v6` block
+scraper/index.mjs           orchestrator (fetch → rules → diff → optional Claude → data/jobs.json → data/radar.json)
+scraper/v6.mjs              the v6 judgement line (jobs.json → radar.json); also runs alone, offline
+scraper/lib.mjs             fetch/parse helpers shared by adapters, the Workday lane
+scraper/match.mjs           base rule filter and score (0–100 → strong / possible / weak)
 scraper/score.mjs           Claude scoring for new postings (optional)
 scraper/adapters/*.mjs      one file per site; generic.mjs = Greenhouse/Lever/Ashby/Workday, more.mjs = Phenom,
-                            SuccessFactors, Jibe, Radancy, Eightfold, Amazon, Avature (+ description fetchers)
-data/jobs.json              output the page reads (version 4: + groups, companyGroup, resumeTags, match.req / dims / hits)
+                            SuccessFactors, Jibe, Radancy, Eightfold, Amazon, Avature, BrassRing (+ description fetchers)
+data/jobs.json              everything the base filter kept (version 4)
+data/radar.json             what the page shows (version 6): roles, blocked (with the gate), funnel, sources
 data/details.json           cache of fetched job descriptions → parsed requirements / resolved locations
 data/scores.json            memory of Claude scores (so a posting is scored once)
-index.html                  DreamCatcher page = the original 2027 求职雷达 (verbatim copy) + Klein-blue skin + boot + ⚡ live section
-scraper/tools/dc/           page sources: theme.css, live.css/html/js, logo.js, boot.js, motion.js, i18n.js + i18n_curated.json, build.py (assembles index.html)
-scraper/tools/dc/build_app.py + icon.html   DreamCatcher.app builder (icon → .icns, launcher, bundle, zip)
+index.html                  the page, one self-contained file (built — edit the sources, not this)
+scraper/tools/dc6/          page sources: core.js (mark, moon phases), theme.js, dial.js, i18n.js, views.js, app.js,
+                            base.css + app.css, fonts.css (Outfit + DM Mono, OFL), page.html, build.mjs, build_app.py
 assets/ + manifest.webmanifest   icons for the hosted page / Chrome "Install as app"
-scraper/tools/original_radar.html   the curated content, untouched
+scraper/tools/dc/ + scraper/tools/original_radar.html   the v5 page sources, kept for reference; no longer built
 .github/workflows/radar.yml the schedule
 ```
 
@@ -139,58 +205,39 @@ scraper/tools/original_radar.html   the curated content, untouched
 
 ## The page
 
-`python3 scraper/tools/dc/build.py` assembles `index.html` from `scraper/tools/original_radar.html` (the
-curated content — edit it there) and the DreamCatcher layer in `scraper/tools/dc/`. `--embed` also writes
-`DreamCatcher_PREVIEW.html` with the current `data/jobs.json` inlined.
+`node scraper/tools/dc6/build.mjs` assembles `index.html` from the parts in `scraper/tools/dc6/` (plain scripts
+concatenated in one scope, no bundler, no dependencies). `--embed --out FILE` writes one file with the current
+`data/radar.json` inside it. The page reads `data/radar.json` next to it, or the URL in `?data=…`, re-checks every
+five minutes, and falls back to the embedded copy when offline.
 
-* **Heat scale** — rule score → band: 极高 90+ (red) · 高 78–89 (orange) · 中高 66–77 (amber) · 中 52–65
-  (green) · 偏低 38–51 (teal) · 低 <38 (blue). Score = level (校招项目 35 / 入门级 28) + 2027 (20) + city
-  (`cityWeights`) + business area (title 15 / division 8 / adjacent 4) + priority firm (`companyBoost`) −
-  negatives (35). Tune all of it in `config.json → profile`.
-* **Full-time only** — `profile.excludeTypes: ["internship"]` drops summer / off-cycle / placement / 实习 postings.
-* **标记已投 / 忽略** — stored in the browser (localStorage); "已投" tile filters to what you applied for.
-* **Boot animation** — full sequence (≈8.5 s: sky fades up, meteors, a spark traces the hoop, the web is
-  woven, the moon rises with halo ripples, stars, feathers, fireflies, wordmark, then the logo flies into the
-  header) once per day, a 2-second version afterwards; `跳过` skips; clicking the header logo replays it;
-  honours `prefers-reduced-motion`.
-* **中文 / EN** — the switch in the top-right corner flips the whole page (Caesar's curated sections via the
-  zh→en table in `scraper/tools/dc/i18n_curated.json`, the live feed via `i18n.js`); the choice is remembered.
-* **已投自动收起** — postings you mark as applied leave the main list (the 已投递 tile / 只看已投 shows them);
-  untick the box to keep them inline. The app cannot see your applications by itself — marking is manual.
-* **Black theme (v4)** — the page is black with International Klein Blue accents by default; the ◐ button next to
-  中文 / EN switches to the light set (kept in `localStorage dc.theme`). Logo v2: a hoop with a 12-spoke radar web, a
-  rotating sweep, a Klein-blue crescent and three threads (`logo.js`); the boot is a 4-second scan-line + self-draw
-  sequence straight to the "DreamCatcher" wordmark (1.7 s the rest of the day).
-* **今日待投 (v4)** — the strip above the heat tiles: up to six postings that are new (or close within 14 days), score
-  ≥ 78 and are not yet marked applied — sorted by deadline, then score. Marking one applied frees the slot.
-* **Group chips** (v3) — 投行 / 咨询 / 加拿大五大行 / 资管 / VC / 科技 / 中国 filter the company chips and the
-  list; the company row shows the 12 busiest firms and a `更多 N 家 ▾` toggle for the rest. Cards carry a
-  requirement badge (`经验 ≤2 年`, `经验 3+ 年（偏好）`, `偏好 MBA`) when the posting text states one.
+* **Heat** — priority → moon phase: 极高 90+ (full) · 高 78+ · 较高 66+ · 中 52+ · 较低 38+.
+* **Bands** — interview odds: 高把握 ≥35 % · 有戏 20–35 % · 冲刺 8–20 % · 远冲 <8 %. They are estimates, not promises.
+* **Motion** — the hand makes one turn when the page opens and the moons light up as it passes; the ring of light
+  breathes; new roles ripple; closing ones glow. Everything stops under `prefers-reduced-motion`.
+* **Settings that change the list** — `config.json → v6` (thresholds, mainland firms, paused firms, `edges` for a
+  firm where you have a real connection) and, in the page, the work-authorization answers on the Engine screen.
 
 ## Updating a live repo
 
-Unzip `dreamcatcher-update-N.zip` and drop its contents on the repository root (GitHub → *Add file → Upload files*,
-drag the folders in, *Commit changes*). It carries `config.json`, `index.html`, `scraper/`, `README.md` and the
-workflow — **never `data/`**, so the postings and your applied-marks stay untouched. Then *Actions → DreamCatcher
-scan → Run workflow* once; the page picks up the new `data/jobs.json` on its next load.
+Upload the changed files to the same paths on GitHub (*Add file → Upload files*, one folder at a time), commit,
+then *Actions → DreamCatcher scan → Run workflow* once. Do not upload `data/jobs.json`, `data/details.json` or
+`data/scores.json` — the scan owns them. `data/radar.json` is rewritten by every scan.
 
 ## Desktop app (macOS)
 
-`python3 scraper/tools/dc/build_app.py` builds `dist/DreamCatcher.app` (+ `DreamCatcher.app.zip`): a one-click
-launcher with the moon logo as its icon. Inside: `Contents/MacOS/DreamCatcher` (a 20-line bash launcher),
-`Contents/Resources/DreamCatcher.html` (the page with the latest captured data embedded, so it works offline),
-`AppIcon.icns` (rendered from `scraper/tools/dc/icon.html`) and `config.sh`.
+`python3 scraper/tools/dc6/build_app.py` rebuilds the page, draws the white icon (`assets/icon-*.png`,
+`AppIcon.icns`) from the same code the page uses, and writes `dist/DreamCatcher.app` (+ `DreamCatcher.app.zip`).
+Inside: a 20-line bash launcher, `DreamCatcher.html` (the page with the data of the build day, so it opens
+offline), `AppIcon.icns` and `config.sh`.
 
 * Double-click → the radar opens in a chromeless Chrome window with its own profile (falls back to the default
-  browser when Chrome / Edge / Brave / Arc is not installed).
-* **Keep it live** — open `DreamCatcher.app` → right-click → *Show Package Contents* → `Contents/Resources/config.sh`
-  and set `SITE_URL="https://CaesarLu989.github.io/dreamcatcher/"` (opens the hosted page) **or**
-  `DATA_URL="https://raw.githubusercontent.com/CaesarLu989/dreamcatcher/main/data/jobs.json"` (keeps the built-in
-  page, fetches fresh data every launch). Or rebuild: `build_app.py --site-url … --data-url …`.
+  browser when Chrome / Edge / Brave / Arc is not installed). The profile is the one earlier versions used, so
+  applied and dismissed marks are still there.
+* **It stays live** — `config.sh` ships with `DATA_URL="https://caesarlu989.github.io/dreamcatcher/data/radar.json"`:
+  the built-in page fetches fresh data at launch and every five minutes. Set `SITE_URL` instead to open the hosted page.
 * **Gatekeeper** — the app is unsigned. If macOS refuses to open it: System Settings → Privacy & Security →
   scroll down → *Open Anyway* (once). On older macOS: right-click → Open.
-* **Alternative without a bundle** — once the site is on GitHub Pages, Chrome ⋮ → *Cast, save and share* →
-  *Install page as app*. `manifest.webmanifest` + `assets/icon-*.png` give that install the same icon.
+* **Alternative without a bundle** — Chrome ⋮ → *Cast, save and share* → *Install page as app* on the hosted page.
 
 ## How "new" works
 

@@ -3,8 +3,8 @@
   "short_name": "DreamCatcher",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#070C1F",
-  "theme_color": "#002FA7",
+  "background_color": "#10141F",
+  "theme_color": "#10141F",
   "lang": "zh-CN",
   "icons": [
     {
@@ -15,8 +15,7 @@
     {
       "src": "assets/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
