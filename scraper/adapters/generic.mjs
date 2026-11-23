@@ -62,6 +62,33 @@ export async function ashby(cfg) {
 // ---- Workday: {"adapter":"workday","tenant":"nvidia","wd":"wd5","site":"NVIDIAExternalCareerSite","queries":["new college grad","analyst"]}
 //      optional: "sites":["search","campus"] (several career sites on one tenant), "facets":{"locationCountry":["…"]},
 //      "cities":["Toronto"] (post-filter on the location text; "N Locations" rows are resolved through fetchDetail by index.mjs)
+/** One row of a Workday listing → the normalized posting. Shared with the browser relay (scraper/tools/relay.js). */
+export function workdayRow(cfg, site, j) {
+  const host = `https://${cfg.tenant}.${cfg.wd || "wd5"}.myworkdayjobs.com`;
+  const id = (j.externalPath || "").split("/").pop() || j.title;
+  // some tenants (Accenture, Thomson Reuters) send no locationsText — the location then sits in bulletFields
+  // ("Ontario - Toronto", "Frisco; Toronto; Eagan; New York") or in the URL path (/job/Ontario---Toronto/…)
+  const locText = j.locationsText || wdLocFromBullets(j.bulletFields) || wdLocFromPath(j.externalPath) || "";
+  const multi = /^\d+\s*(locations?|個地點|个地点|lieux|standorte)$/i.test(locText);
+  return job({
+    companyKey: cfg.key,
+    company: cfg.name,
+    id,
+    title: j.title,
+    url: `${host}/${cfg.lang || "en-US"}/${site}${j.externalPath}`,
+    locations: multi ? [] : locText.split(/\s*;\s*/).filter(Boolean),
+    postedAt: workdayPosted(j.postedOn),
+    type: guessType(j.title),
+    snippet: (j.bulletFields || []).join(" · "),
+    extra: { wdPath: j.externalPath, wdSite: site, locationsUnknown: multi || undefined, locationsHint: multi ? locText : undefined },
+  });
+}
+/** A posting's detail response → what the scanner keeps of it. Shared with the browser relay. */
+export function workdayDetail(res) {
+  const i = (res && res.jobPostingInfo) || {};
+  const locations = [i.location, ...(i.additionalLocations || [])].filter(Boolean);
+  return { description: htmlToText(i.jobDescription || ""), locations, postedAt: toDate(i.startDate), timeType: i.timeType || null };
+}
 export async function workday(cfg) {
   const host = `https://${cfg.tenant}.${cfg.wd || "wd5"}.myworkdayjobs.com`;
   const sites = cfg.sites || [cfg.site];
@@ -78,27 +105,8 @@ export async function workday(cfg) {
         const res = await postJson(api, { appliedFacets: cfg.facets || {}, limit, offset: p * limit, searchText: q }, { headers: { accept: "application/json", referer: `${host}/${site}` } });
         const list = res.jobPostings || [];
         for (const j of list) {
-          const id = (j.externalPath || "").split("/").pop() || j.title;
-          if (seen.has(id)) continue;
-          // some tenants (Accenture, Thomson Reuters) send no locationsText — the location then sits in bulletFields
-          // ("Ontario - Toronto", "Frisco; Toronto; Eagan; New York") or in the URL path (/job/Ontario---Toronto/…)
-          const locText = j.locationsText || wdLocFromBullets(j.bulletFields) || wdLocFromPath(j.externalPath) || "";
-          const multi = /^\d+\s*(locations?|個地點|个地点|lieux|standorte)$/i.test(locText);
-          seen.set(
-            id,
-            job({
-              companyKey: cfg.key,
-              company: cfg.name,
-              id,
-              title: j.title,
-              url: `${host}/${cfg.lang || "en-US"}/${site}${j.externalPath}`,
-              locations: multi ? [] : locText.split(/\s*;\s*/).filter(Boolean),
-              postedAt: workdayPosted(j.postedOn),
-              type: guessType(j.title),
-              snippet: (j.bulletFields || []).join(" · "),
-              extra: { wdPath: j.externalPath, wdSite: site, locationsUnknown: multi || undefined, locationsHint: multi ? locText : undefined },
-            })
-          );
+          const row = workdayRow(cfg, site, j), id = row.id.slice(cfg.key.length + 1);
+          if (!seen.has(id)) seen.set(id, row);
         }
         if (res.total) total = res.total;
         if (!list.length || list.length < limit || (total && (p + 1) * limit >= total)) break;
@@ -113,9 +121,7 @@ workday.fetchDetail = async function (cfg, j) {
   const site = j.wdSite || cfg.site || (cfg.sites || [])[0];
   if (!j.wdPath) return null;
   const res = await getJson(`${host}/wday/cxs/${cfg.tenant}/${site}${j.wdPath}`, { headers: { accept: "application/json", referer: `${host}/${site}` } });
-  const i = res.jobPostingInfo || {};
-  const locations = [i.location, ...(i.additionalLocations || [])].filter(Boolean);
-  return { description: htmlToText(i.jobDescription || ""), locations, postedAt: toDate(i.startDate), timeType: i.timeType || null };
+  return workdayDetail(res);
 };
 
 // first bulletField that is not a requisition id ("R00344122", "JREQ204608"), a time type or a bare number
