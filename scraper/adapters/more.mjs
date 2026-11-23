@@ -3,7 +3,7 @@
 //   fetchDetail(cfg, j)?      -> { description, locations? }  (optional; index.mjs calls it lazily, cached)
 // The ATS behind each site was verified in a browser on 2026-10-18; endpoints are the same ones the
 // public careers pages call, no login, no bot bypass.
-import { getJson, getText, postJson, job, guessType, sleep, stripTags, matchAll, toDate, htmlToText, decodeEntities, UA } from "../lib.mjs";
+import { getJson, getText, postJson, request, job, guessType, sleep, stripTags, matchAll, toDate, htmlToText, decodeEntities, UA } from "../lib.mjs";
 
 // ───────────────────────── Phenom People (BCG, …) ─────────────────────────
 // cfg: { base: "https://careers.bcg.com", lang: "en_global", country: "global", pageId: "page35-ds",
@@ -308,4 +308,57 @@ export async function leverFull(cfg) {
 export async function ashbyFull(cfg) {
   const res = await getJson(`https://api.ashbyhq.com/posting-api/job-board/${cfg.board}?includeCompensation=false`);
   return (res.jobs || []).map((j) => job({ companyKey: cfg.key, company: cfg.name, id: j.id, title: j.title, url: j.jobUrl || j.applyUrl, locations: [j.location, ...(j.secondaryLocations || []).map((l) => l.location)].filter(Boolean), postedAt: j.publishedAt || null, type: guessType(j.title, j.employmentType || ""), snippet: [j.department, j.team, j.employmentType].filter(Boolean).join(" · "), extra: { division: j.department || null, description: htmlToText(j.descriptionHtml || j.descriptionPlain || "").slice(0, 12000) } }));
+}
+
+// ---- BrassRing "TGnewUI" (UBS): {"adapter":"brassring","base":"https://jobs.ubs.com","partnerId":"25008","siteId":"5012","queries":["Toronto","Hong Kong"]}
+// The search page hands out an anti-forgery token, an encrypted session value and session cookies; the JSON search
+// (MatchedJobs, then ProcessSortAndShowMoreJobs for page 2+) wants all three back. `queries` are location searches.
+export async function brassring(cfg) {
+  const base = String(cfg.base || "").replace(/\/$/, ""), pid = String(cfg.partnerId), sid = String(cfg.siteId);
+  const home = await request(`${base}/TGnewUI/Search/Home/Home?partnerid=${pid}&siteid=${sid}`, { headers: { accept: "text/html" } }, { timeoutMs: 45000 });
+  const html = await home.text();
+  const cookie = (home.headers.getSetCookie ? home.headers.getSetCookie() : []).map((c) => c.split(";")[0]).join("; ");
+  const pick = (id) => {
+    const m = html.match(new RegExp(`(?:id|name)="${id}"[^>]*value="([^"]*)"`)) || html.match(new RegExp(`value="([^"]*)"[^>]*(?:id|name)="${id}"`));
+    return m ? decodeEntities(m[1]) : null;
+  };
+  const rft = pick("__RequestVerificationToken"), session = pick("CookieValue");
+  if (!rft || !session) throw new Error(`BrassRing: no search token on ${base} (HTTP ${home.status}, ${html.length} bytes) — the site may be showing a browser check`);
+  const kw = cfg.keywordFields || "FORMTEXT2,FORMTEXT21,AutoReq,Department,JobTitle", lf = cfg.locationFields || "FORMTEXT2,FORMTEXT23,Location";
+  const headers = { "content-type": "application/json; charset=utf-8", accept: "application/json, text/plain, */*", RFT: rft, "x-requested-with": "XMLHttpRequest", referer: `${base}/TGnewUI/Search/Home/Home?partnerid=${pid}&siteid=${sid}`, ...(cookie ? { cookie } : {}) };
+  const post = (path, body) => getJson(`${base}${path}`, { method: "POST", headers, body: JSON.stringify(body) });
+  const seen = new Map();
+  for (const q of cfg.queries || [""]) {
+    for (let page = 1; page <= (cfg.maxPages || 6); page++) {
+      const res = page === 1
+        ? await post("/TgNewUI/Search/Ajax/MatchedJobs", { PartnerId: pid, SiteId: sid, Keyword: "", Location: q, KeywordCustomSolrFields: kw, LocationCustomSolrFields: lf, FacetFilterFields: null, TurnOffHttps: false, Latitude: 0, Longitude: 0, PowerSearchOptions: { PowerSearchOption: [] }, encryptedsessionvalue: session })
+        : await post("/TgNewUI/Search/Ajax/ProcessSortAndShowMoreJobs", { partnerId: pid, siteId: sid, keyword: "", location: q, keywordCustomSolrFields: kw, locationCustomSolrFields: lf, linkId: "", Latitude: 0, Longitude: 0, facetfilterfields: { Facet: [] }, powersearchoptions: { PowerSearchOption: [] }, SortType: "LastUpdated", pageNumber: page, encryptedSessionValue: session });
+      const list = res?.Jobs?.Job || [];
+      for (const row of list) {
+        const f = Object.fromEntries((row.Questions || []).map((x) => [String(x.QuestionName || "").toLowerCase(), x.Value]));
+        const id = f.reqid || f.autoreq;
+        if (!id || seen.has(id)) continue;
+        // the location text is often just "Canada - Ontario": keep the city that was searched for next to it
+        const loc = decodeEntities(String(f.formtext23 || f.location || "")).trim();
+        const locations = loc.split(/\s*,\s*(?=[A-Z])/).filter(Boolean);
+        if (q && !new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(loc)) locations.push(q);
+        const title = decodeEntities(String(f.jobtitle || ""));
+        seen.set(id, job({
+          companyKey: cfg.key, company: cfg.name, id, title,
+          url: row.Link || `${base}/TGnewUI/Search/home/HomeWithPreLoad?partnerid=${pid}&siteid=${sid}&PageType=JobDetails&jobid=${id}`,
+          locations, postedAt: brDate(f.lastupdated), type: guessType(title),
+          snippet: htmlToText(String(f.jobdescription || "")),
+          extra: { division: decodeEntities(String(f.department || "")).trim() || null, description: htmlToText(String(f.jobdescription || "")) || undefined },
+        }));
+      }
+      if (list.length < 50 || seen.size >= (res.JobsCount || 0)) break;
+      await sleep(400);
+    }
+  }
+  return [...seen.values()];
+}
+// "17-Nov-2026" → "2026-11-17"
+function brDate(v) {
+  const m = String(v || "").match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/), mon = m ? "janfebmaraprmayjunjulaugsepoctnovdec".indexOf(m[2].toLowerCase()) / 3 : -1;
+  return m && mon >= 0 && Number.isInteger(mon) ? `${m[3]}-${String(mon + 1).padStart(2, "0")}-${m[1].padStart(2, "0")}` : null;
 }

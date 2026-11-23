@@ -72,6 +72,8 @@ export async function workday(cfg) {
   for (const site of sites) {
     const api = `${host}/wday/cxs/${cfg.tenant}/${site}/jobs`;
     for (const q of queries) {
+      // Workday sends `total` with the first page only (later pages say 0): remember it, or the loop ends after two pages
+      let total = 0;
       for (let p = 0; p < maxPages; p++) {
         const res = await postJson(api, { appliedFacets: cfg.facets || {}, limit, offset: p * limit, searchText: q }, { headers: { accept: "application/json", referer: `${host}/${site}` } });
         const list = res.jobPostings || [];
@@ -98,8 +100,8 @@ export async function workday(cfg) {
             })
           );
         }
-        const total = res.total || 0;
-        if (!list.length || (p + 1) * limit >= total) break;
+        if (res.total) total = res.total;
+        if (!list.length || list.length < limit || (total && (p + 1) * limit >= total)) break;
         await sleep(300);
       }
     }
