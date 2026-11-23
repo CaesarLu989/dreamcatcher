@@ -1,0 +1,2307 @@
+{
+ "version": 1,
+ "readAt": "2026-11-22T21:30:00Z",
+ "by": "browser",
+ "about": "Postings read through a real browser for Workday sources that answer HTTP 429 to GitHub's servers. scraper/index.mjs uses a firm's entry only when its own read of that firm fails, and ignores the file once readAt is three weeks old. postings = what looked worth judging in Toronto / Hong Kong (not every posting); inRegion = how many postings the firm had in range; gone = ids that had closed; detail = what the scanner would have parsed from the description (requirements, résumé hits).",
+ "firms": {
+  "td": {
+   "inRegion": 237,
+   "gone": [
+    "Modelling-Forecasting-Analyst_R_1501804-1"
+   ],
+   "postings": [
+    {
+     "title": "Risk Analyst, Collateral Analytics (5841)",
+     "path": "/job/Toronto-Ontario/Risk-Analyst--Collateral-Analytics--5841-_R_1523478",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-20",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "FRM"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "Python / SQL",
+        "数据分析",
+        "产品 / 平台",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Canadian Commercial Banking Associate",
+     "path": "/job/Toronto-Ontario/Canadian-Commercial-Banking-Associate_R_1522377-1",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-18",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "行业研究",
+        "产品 / 平台"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Treasury Funding Analyst",
+     "path": "/job/Toronto-Ontario/Senior-Treasury-Funding-Analyst_R_1519258",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-17",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数据分析",
+        "产品 / 平台",
+        "Excel / PPT",
+        "Bloomberg / CapIQ",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Treasury Analyst",
+     "path": "/job/Toronto-Ontario/Senior-Treasury-Analyst_R_1519154",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-10",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "数字化咨询",
+        "数据分析",
+        "产品 / 平台"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Treasury Asset and Liability Management Analyst",
+     "path": "/job/Toronto-Ontario/Senior-Treasury-Asset-and-Liability-Management-Analyst_R_1519771",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-10",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "MBA",
+        "FRM"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "数字化咨询",
+        "AI / 大模型",
+        "Python / SQL",
+        "数据分析",
+        "产品 / 平台",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Modelling/Forecasting Senior Analyst",
+     "path": "/job/Toronto-Ontario/Modelling-Forecasting-Senior-Analyst_R_1507755",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-09",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "FRM"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 2
+       },
+       "hits": [
+        "AI / 大模型",
+        "数据分析",
+        "产品 / 平台"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Finance Analyst",
+     "path": "/job/Toronto-Ontario/Senior-Finance-Analyst_R_1521393-1",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-10",
+     "detail": {
+      "req": {
+       "minYears": 5,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "5+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "MBA",
+        "CFA",
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "数字化咨询",
+        "数据分析",
+        "产品 / 平台",
+        "Excel / PPT"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "rbc": {
+   "inRegion": 173,
+   "gone": [
+    "Fund-Analyst_R-0000192672-1",
+    "Fixed-Income-Strategist_R-0000192181",
+    "Associate--Global-Investment-Banking---Debt-Capital-Markets--DCM-_R-0000191981-1"
+   ],
+   "postings": [
+    {
+     "title": "Associate, Alternate Finance – Private Credit",
+     "path": "/job/TORONTO-Ontario-Canada/Associate--Alternate-Finance---Private-Credit_R-0000191928-1",
+     "locations": [
+      "TORONTO, Ontario, Canada"
+     ],
+     "postedAt": "2026-11-17",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "AI / 大模型",
+        "Python / SQL",
+        "数据分析",
+        "产品 / 平台",
+        "金融科技",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Analyst - Credit and Transaction Management (CTM)",
+     "path": "/job/TORONTO-Ontario-Canada/Analyst---Credit-and-Transaction-Management--CTM-_R-0000190704-1",
+     "locations": [
+      "TORONTO, Ontario, Canada"
+     ],
+     "postedAt": "2026-11-17",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "MBA",
+        "CPA",
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "AI / 大模型",
+        "产品 / 平台",
+        "Excel / PPT",
+        "金融 / 经济学位",
+        "健康医疗"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "bmo": {
+   "inRegion": 258,
+   "postings": [
+    {
+     "title": "Business Banking Relationship Manager Trainee",
+     "path": "/job/Toronto-ON-CAN/Business-Banking-Relationship-Manager-Trainee_R260027945",
+     "locations": [
+      "Toronto, ON, CAN"
+     ],
+     "postedAt": "2026-11-19",
+     "detail": {
+      "req": {
+       "minYears": 4,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "4+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "数字化咨询"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Associate, Corporate Banking, North American Power, Utilities and Infrastructure",
+     "path": "/job/Toronto-ON-CAN/Associate--Corporate-Banking--North-American-Power--Utilities-and-Infrastructure_R260031720",
+     "locations": [
+      "Toronto, ON, CAN"
+     ],
+     "postedAt": "2026-11-19",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "行业研究",
+        "数据分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Portfolio Analyst",
+     "path": "/job/Toronto-ON-CAN/Portfolio-Analyst_R260030421",
+     "locations": [
+      "Toronto, ON, CAN"
+     ],
+     "postedAt": "2026-11-04",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "1+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "数据分析"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Associate, Global Markets Corporate Banking",
+     "path": "/job/Toronto-ON-CAN/Associate--Global-Markets-Corporate-Banking_R260027062",
+     "locations": [
+      "Toronto, ON, CAN"
+     ],
+     "postedAt": "2026-09-30",
+     "detail": {
+      "req": {
+       "minYears": 3,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "3+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "Excel / PPT",
+        "Bloomberg / CapIQ",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Analyst, Global Markets Corporate Banking",
+     "path": "/job/Toronto-ON-CAN/Analyst--Global-Markets-Corporate-Banking_R260027057",
+     "locations": [
+      "Toronto, ON, CAN"
+     ],
+     "postedAt": "2026-09-30",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "Excel / PPT",
+        "Bloomberg / CapIQ",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Investment Banking Analyst, Merger and Acquisitions (M&A)",
+     "path": "/job/Toronto-ON-CAN/Investment-Banking-Analyst--Merger-and-Acquisitions--M-A-_R260024682",
+     "locations": [
+      "Toronto, ON, CAN"
+     ],
+     "postedAt": "2026-09-30",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "行业研究",
+        "AI / 大模型",
+        "Excel / PPT",
+        "Bloomberg / CapIQ",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "cibc": {
+   "inRegion": 127,
+   "postings": [
+    {
+     "title": "Business Analyst, Credit Risk Solutions",
+     "path": "/job/Toronto-ON/Business-Analyst--Credit-Risk-Solutions_2623598",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-18",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "数字化咨询",
+        "AI / 大模型"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Analyst, Mergers & Acquisitions (Global Investment Banking)",
+     "path": "/job/Toronto-ON/Analyst--Global-Investment-Banking_2619733",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-10-28",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA",
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "AI / 大模型",
+        "Excel / PPT",
+        "Bloomberg / CapIQ"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Associate, Mergers & Acquisitions (Global Investment Banking)",
+     "path": "/job/Toronto-ON/Associate--Global-Investment-Banking_2619741",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-10-28",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA",
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "AI / 大模型",
+        "Excel / PPT",
+        "Bloomberg / CapIQ"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Associate, Leveraged Finance",
+     "path": "/job/Toronto-ON/Associate--Leveraged-Finance_2623243",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-16",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "MBA",
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "AI / 大模型"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Sr. Financial Analyst, Product Control",
+     "path": "/job/Toronto-ON/Sr-Financial-Analyst--Product-Control_2620787",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-16",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "MBA",
+        "FRM"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "数字化咨询",
+        "AI / 大模型",
+        "Excel / PPT"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "citi": {
+   "inRegion": 128,
+   "postings": []
+  },
+  "pwc": {
+   "inRegion": 49,
+   "postings": [
+    {
+     "title": "Performance & Restructuring, Senior Associate",
+     "path": "/job/Toronto/Performance---Restructuring--Senior-Associate_758326WD-1",
+     "locations": [
+      "Toronto"
+     ],
+     "postedAt": "2026-11-17",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "行业研究",
+        "数字化咨询",
+        "AI / 大模型"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Financial Instruments Valuation and Market Risk Senior Associate",
+     "path": "/job/Toronto/Financial-Instruments-Valuation-and-Market-Risk-Manager_746097WD-1",
+     "locations": [
+      "Toronto"
+     ],
+     "postedAt": "2026-11-16",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "行业研究",
+        "数字化咨询",
+        "AI / 大模型",
+        "Python / SQL"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Data Management and Strategy, Senior Associate",
+     "path": "/job/Toronto/Data-Management-and-Governance--Senior-Associate_747794WD",
+     "locations": [
+      "Toronto"
+     ],
+     "postedAt": "2026-11-18",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 2
+       },
+       "hits": [
+        "估值建模",
+        "行业研究",
+        "数字化咨询",
+        "AI / 大模型",
+        "数据分析",
+        "产品 / 平台"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "omers": {
+   "inRegion": 43,
+   "gone": [
+    "JR-8304-Business-Analyst--Program-Management-and-Delivery_JR-8296"
+   ],
+   "postings": [
+    {
+     "title": "Analyst/Senior Analyst, Valuations",
+     "path": "/job/Toronto-Ontario/Analyst-Senior-Analyst--Valuations_JR-8575",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-18",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CPA",
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "AI / 大模型",
+        "数据分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Analyst, Financial Planning & Analysis",
+     "path": "/job/Toronto-Ontario/Senior-Analyst--Financial-Planning---Analysis_JR-8280",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-08-04",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA",
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "数字化咨询",
+        "AI / 大模型",
+        "数据分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "manulife": {
+   "inRegion": 125,
+   "gone": [
+    "Senior-Business-Analyst_JR26110582-1"
+   ],
+   "postings": [
+    {
+     "title": "Client Portfolio Analyst, Fixed Income",
+     "path": "/job/Hong-Kong/Client-Portfolio-Analyst--Fixed-Income_JR26110645",
+     "locations": [
+      "Hong Kong"
+     ],
+     "postedAt": "2026-11-16",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CPA",
+        "CFA",
+        "CAIA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "AI / 大模型",
+        "数据分析",
+        "Excel / PPT",
+        "中英双语",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Sustainability Analyst",
+     "path": "/job/Hong-Kong/Sustainability-Analyst_JR26101552-1",
+     "locations": [
+      "Hong Kong"
+     ],
+     "postedAt": "2026-11-09",
+     "detail": {
+      "req": {
+       "minYears": 5,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "5+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "行业研究",
+        "中英双语"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Financial Analyst, Financial Processes & Transformation",
+     "path": "/job/Waterloo-Ontario/Senior-Financial-Analyst--Financial-Processes---Transformation_JR26100459-1",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-12",
+     "detail": {
+      "req": {
+       "minYears": 3,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "3+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 1,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "AI / 大模型",
+        "数据分析"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "sunlife": {
+   "inRegion": 72,
+   "postings": [
+    {
+     "title": "Senior Associate, Global Investment Portfolio Reporting & Analysis - SLC Management",
+     "path": "/job/Waterloo-Ontario/Senior-Associate--Global-Investment-Portfolio-Reporting---Analysis---SLC-Management_JR00129419-1",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-09",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "AI / 大模型",
+        "Excel / PPT",
+        "Bloomberg / CapIQ"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Assistant Manager, Investment Strategy and ALM Risk Management",
+     "path": "/job/Hunghom-Kowloon-Hong-Kong/Actuarial-Analyst_JR00127852",
+     "locations": [
+      "Hunghom, Kowloon, Hong Kong"
+     ],
+     "postedAt": "2026-10-09",
+     "detail": {
+      "req": {
+       "minYears": 4,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "4+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "数字化咨询",
+        "数据分析",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "tmx": {
+   "inRegion": 57,
+   "postings": []
+  },
+  "blackrock": {
+   "inRegion": 5,
+   "postings": []
+  },
+  "carlyle": {
+   "inRegion": 4,
+   "postings": []
+  },
+  "interac": {
+   "inRegion": 46,
+   "postings": []
+  },
+  "accenture": {
+   "inRegion": 22,
+   "postings": []
+  },
+  "optrust": {
+   "inRegion": 2,
+   "gone": [
+    "Business-Analyst_R1267-1"
+   ],
+   "postings": []
+  },
+  "morningstar": {
+   "inRegion": 20,
+   "gone": [
+    "Senior-Analyst--Project-Finance---Infrastructure-Ratings_REQ-059033"
+   ],
+   "postings": []
+  },
+  "otpp": {
+   "inRegion": 30,
+   "postings": []
+  },
+  "mercer": {
+   "inRegion": 23,
+   "postings": []
+  },
+  "oliverwyman": {
+   "inRegion": 11,
+   "postings": []
+  },
+  "cpp": {
+   "inRegion": 27,
+   "postings": []
+  },
+  "hoopp": {
+   "inRegion": 28,
+   "postings": []
+  },
+  "blackstone": {
+   "inRegion": 4,
+   "postings": []
+  },
+  "spgi": {
+   "inRegion": 5,
+   "postings": []
+  },
+  "fti": {
+   "inRegion": 6,
+   "postings": []
+  },
+  "imco": {
+   "inRegion": 19,
+   "postings": []
+  },
+  "hl": {
+   "inRegion": 2,
+   "postings": [
+    {
+     "title": "Financial Analyst - Financial Restructuring, Hong Kong",
+     "path": "/job/Hong-Kong-China/Financial-Analyst---Financial-Restructuring--Hong-Kong_R3547",
+     "site": 1,
+     "locations": [
+      "Hong Kong, China"
+     ],
+     "postedAt": "2026-09-04",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "中英双语"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "brookfield": {
+   "inRegion": 60,
+   "postings": [
+    {
+     "title": "2027 Financial Analyst Opportunities",
+     "path": "/job/Toronto-Ontario/XMLNAME-2027-Financial-Analyst-Opportunities_R2053736",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-09",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "Excel / PPT"
+       ],
+       "entry": true
+      }
+     }
+    },
+    {
+     "title": "Financial Analyst",
+     "path": "/job/Toronto-Ontario/Financial-Analyst_R2053481",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-10-21",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "AI / 大模型",
+        "数据分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Senior Analyst, Finance",
+     "path": "/job/Toronto-Ontario/Senior-Analyst--Finance_R2053417",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-10-19",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 2,
+        "consulting": 0,
+        "management": 1
+       },
+       "hits": [
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Associate",
+     "path": "/job/Toronto-Ontario/Associate_R2053313-1",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-10-08",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "行业研究",
+        "数字化咨询",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Sr. Financial Analyst",
+     "path": "/job/Toronto-Ontario/Sr-Financial-Analyst_R2053813",
+     "locations": [
+      "Toronto, Ontario"
+     ],
+     "postedAt": "2026-11-16",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "ms_workday": {
+   "inRegion": 41,
+   "postings": [
+    {
+     "title": "Equity Research – Analyst/Associate, Greater China Technology Hardware (Hong Kong)",
+     "path": "/job/Hong-Kong-Hong-Kong/Equity-Research--Greater-China-Technology-Hardware--Analyst-Associate_JR042741",
+     "locations": [
+      "Hong Kong, Hong Kong"
+     ],
+     "postedAt": "2026-08-24",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "1+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "行业研究",
+        "中英双语"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Fixed Income Division - Analyst, Taiwan Institutional Sales (Hong Kong)",
+     "path": "/job/Hong-Kong-Hong-Kong/Fixed-Income-Division---Analyst--Taiwan-Institutional-Sales--Hong-Kong-_JR044975",
+     "locations": [
+      "Hong Kong, Hong Kong"
+     ],
+     "postedAt": "2026-09-30",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "中英双语"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Equity Research – Analyst, China Internet (Hong Kong)",
+     "path": "/job/Hong-Kong-Hong-Kong/Equity-Research---Analyst--China-Internet--Hong-Kong-_JR044450-1",
+     "locations": [
+      "Hong Kong, Hong Kong"
+     ],
+     "postedAt": "2026-09-22",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "1+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "行业研究",
+        "中英双语"
+       ],
+       "entry": true
+      }
+     }
+    },
+    {
+     "title": "Morgan Stanley Fund Services, Portfolio Analytics - Associate- Hong Kong",
+     "path": "/job/Hong-Kong-Hong-Kong/Morgan-Stanley-Fund-Services--Portfolio-Analytics---Associate--Hong-Kong_JR042286-1",
+     "locations": [
+      "Hong Kong, Hong Kong"
+     ],
+     "postedAt": "2026-10-15",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 1,
+        "consulting": 0,
+        "management": 1
+       },
+       "hits": []
+      }
+     }
+    }
+   ]
+  },
+  "bofa": {
+   "inRegion": 12,
+   "postings": [
+    {
+     "title": "Analyst/Associate, Treasury Product Associate (CashPro & FX) - Global Payments Solutions, Singapore / Hong Kong",
+     "path": "/job/Singapore/Analyst-Associate--Treasury-Product-Associate--CashPro---FX----Global-Payments-Solutions--Singapore_26039187-1",
+     "site": 1,
+     "locations": [
+      "Hong Kong"
+     ],
+     "postedAt": "2026-11-06",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 1,
+        "management": 2
+       },
+       "hits": [
+        "投行经验",
+        "产品 / 平台",
+        "金融科技"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "db": {
+   "inRegion": 14,
+   "postings": [
+    {
+     "title": "Structured Products and Derivatives Specialist, Associate",
+     "path": "/job/Hong-Kong-Intl-Commerce-Ctr/Structured-Products-and-Derivatives-Specialist--Associate_R0455518",
+     "locations": [
+      "Hong Kong, Intl Commerce Ctr"
+     ],
+     "postedAt": "2026-11-05",
+     "detail": {
+      "req": {
+       "minYears": 3,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "3+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "Python / SQL",
+        "Excel / PPT",
+        "Bloomberg / CapIQ",
+        "中英双语",
+        "金融 / 经济学位",
+        "健康医疗"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "mizuho": {
+   "inRegion": 1,
+   "postings": [
+    {
+     "title": "Mizuho | Greenhill – Investment Banking M&A Associate (Toronto)",
+     "path": "/job/Canada---Toronto/Mizuho---Greenhill---Investment-Banking-M-A-Associate--Toronto-_R7181",
+     "locations": [
+      "Canada - Toronto"
+     ],
+     "postedAt": "2026-07-13",
+     "detail": {
+      "req": {
+       "minYears": 3,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "3+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "MBA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数字化咨询"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "mufg": {
+   "inRegion": 12,
+   "postings": [
+    {
+     "title": "Associate, Credit Underwriting and Portfolio Management - Middle Market Canada",
+     "path": "/job/Toronto-ON/Associate--Credit-Underwriting-and-Portfolio-Management---Middle-Market-Canada_10079276-WD",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-09-22",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "MBA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "canaccord": {
+   "inRegion": 9,
+   "postings": [
+    {
+     "title": "Analyst, Market Risk",
+     "path": "/job/Toronto-ON/Analyst--Market-Risk_JR100655",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-18",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "FRM"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投行经验",
+        "行业研究",
+        "数字化咨询",
+        "Python / SQL",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Investment Banking Analyst",
+     "path": "/job/Toronto-ON/Investment-Banking-Analyst_JR100648",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-05",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "Excel / PPT",
+        "健康医疗"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Equity Research Associate – Metals & Mining",
+     "path": "/job/Toronto-ON/Equity-Research-Associate---Metals---Mining_JR100647",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-05",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "CPA",
+        "MBA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "行业研究",
+        "Excel / PPT",
+        "Bloomberg / CapIQ"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Investment Banking Associate - Mining",
+     "path": "/job/Toronto-ON/Investment-Banking-Associate---Mining_JR100636",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-10-21",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 0,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "行业研究",
+        "数字化咨询",
+        "Excel / PPT"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "desjardins": {
+   "inRegion": 4,
+   "postings": []
+  },
+  "capitalone": {
+   "inRegion": 46,
+   "postings": [
+    {
+     "title": "Associate, Financial Analyst",
+     "path": "/job/Toronto-ON/Associate--Financial-Analyst_R235475",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-08-05",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "AI / 大模型"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "statestreet": {
+   "inRegion": 26,
+   "postings": []
+  },
+  "invesco": {
+   "inRegion": 14,
+   "postings": [
+    {
+     "title": "Analyst, Portfolio Management (Real Estate) - 2-year Contract",
+     "path": "/job/Hong-Kong-Hong-Kong/Analyst--Portfolio-Management--Real-Estate-_R-15796",
+     "locations": [
+      "Hong Kong, Hong Kong"
+     ],
+     "postedAt": "2026-11-19",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 2
+       },
+       "hits": [
+        "估值建模",
+        "投行经验",
+        "投资分析",
+        "数字化咨询",
+        "数据分析",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "fidelity": {
+   "inRegion": 116,
+   "postings": [
+    {
+     "title": "Equity Research Analyst",
+     "path": "/job/Toronto-Office/Equity-Research-Associate---Analyst_J60801",
+     "locations": [
+      "Toronto Office"
+     ],
+     "postedAt": "2026-06-02",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "行业研究",
+        "AI / 大模型"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Portfolio Strategist",
+     "path": "/job/Toronto-Office/Portfolio-Strategist_J64248-1",
+     "locations": [
+      "Toronto Office"
+     ],
+     "postedAt": "2026-07-17",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": [
+        "CFA",
+        "MBA",
+        "CAIA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "行业研究",
+        "AI / 大模型",
+        "数据分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Managed Accounts Portfolio Services Group Analyst",
+     "path": "/job/Toronto-Office/Managed-Accounts-Portfolio-Services-Group-Analyst_J71584",
+     "locations": [
+      "Toronto Office"
+     ],
+     "postedAt": "2026-10-14",
+     "detail": {
+      "req": {
+       "minYears": 3,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "3+ years of experience preferred.",
+       "creds": [
+        "CFA"
+       ],
+       "credsSoft": [
+        "MBA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "AI / 大模型",
+        "Python / SQL",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Business Analyst - Fidelity Wealth",
+     "path": "/job/Toronto-Office/Business-Analyst---Fidelity-Wealth_J67784",
+     "locations": [
+      "Toronto Office"
+     ],
+     "postedAt": "2026-10-07",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "1+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "数字化咨询",
+        "AI / 大模型"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Business Analyst",
+     "path": "/job/Toronto-Office/Business-Analyst_J71635-1",
+     "locations": [
+      "Toronto Office",
+      "Mississauga Office"
+     ],
+     "postedAt": "2026-09-09",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": []
+      }
+     }
+    },
+    {
+     "title": "Financial Analyst Sr",
+     "path": "/job/Toronto-Office/Financial-Analyst-Sr_J72321",
+     "locations": [
+      "Toronto Office",
+      "Mississauga Office"
+     ],
+     "postedAt": "2026-10-29",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "2+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "CPA",
+        "CFA",
+        "MBA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "AI / 大模型",
+        "数据分析",
+        "Excel / PPT",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Wealth Associate (Toronto)",
+     "path": "/job/Toronto-Office/Wealth-Associate--Toronto-_J69351",
+     "locations": [
+      "Toronto Office"
+     ],
+     "postedAt": "2026-10-27",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "数字化咨询",
+        "Excel / PPT",
+        "中英双语"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "ci": {
+   "inRegion": 61,
+   "postings": [
+    {
+     "title": "Fixed Income Analyst - Sovereign Credit",
+     "path": "/job/Toronto-ON/Fixed-Income-Analyst---Sovereign-Credit_JR6088",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-08-21",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": [
+        "CFA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "数字化咨询",
+        "AI / 大模型",
+        "Python / SQL",
+        "金融 / 经济学位"
+       ]
+      }
+     }
+    },
+    {
+     "title": "IFM Associate",
+     "path": "/job/Toronto-ON/IFM-Associate_JR6563",
+     "locations": [
+      "Toronto, ON"
+     ],
+     "postedAt": "2026-11-02",
+     "detail": {
+      "req": {
+       "minYears": 1,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "1+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "数字化咨询",
+        "产品 / 平台",
+        "Excel / PPT"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "intact": {
+   "inRegion": 21,
+   "postings": [
+    {
+     "title": "Senior Financial Analyst",
+     "path": "/job/Montral-Quebec-CAN/IT-Business-Analyst-Senior_R154890-1",
+     "locations": [
+      "Toronto, Ontario, CAN"
+     ],
+     "postedAt": "2026-11-16",
+     "detail": {
+      "req": {
+       "minYears": 5,
+       "maxYears": null,
+       "yearsSoft": true,
+       "yearsText": "5+ years of experience preferred.",
+       "creds": [],
+       "credsSoft": [
+        "CPA"
+       ]
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 2,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": [
+        "估值建模",
+        "投资分析",
+        "数字化咨询",
+        "数据分析",
+        "Excel / PPT"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Specialist - Agentic AI & Automation in Risk Management",
+     "path": "/job/Montral-Quebec-CAN/Spcialiste---IA-Agentique---Automatisation-en-gestion-des-risques_R156069",
+     "locations": [
+      "Toronto, Ontario, CAN"
+     ],
+     "postedAt": "2026-11-11",
+     "detail": {
+      "req": {
+       "minYears": null,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": null,
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 2,
+        "finance": 2,
+        "consulting": 1,
+        "management": 1
+       },
+       "hits": [
+        "投资分析",
+        "AI / 大模型",
+        "Python / SQL",
+        "数据分析",
+        "产品 / 平台"
+       ]
+      }
+     }
+    },
+    {
+     "title": "Business Analyst II, OPL – Personal Lines",
+     "path": "/job/Toronto-Ontario-CAN/Analyste-d-affaires-II--OPL---Assurance-des-particuliers_R156367",
+     "locations": [
+      "Toronto, Ontario, CAN"
+     ],
+     "postedAt": "2026-11-06",
+     "detail": {
+      "req": {
+       "minYears": 2,
+       "maxYears": null,
+       "yearsSoft": false,
+       "yearsText": "2+ years of experience required.",
+       "creds": [],
+       "credsSoft": []
+      },
+      "sig": {
+       "dims": {
+        "ai": 1,
+        "finance": 1,
+        "consulting": 2,
+        "management": 1
+       },
+       "hits": []
+      }
+     }
+    }
+   ]
+  },
+  "mastercard": {
+   "inRegion": 32,
+   "postings": []
+  }
+ }
+}
