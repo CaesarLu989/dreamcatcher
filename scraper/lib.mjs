@@ -7,13 +7,13 @@ export const UA =
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Hosts that rate-limit by client address get a lane per host: requests to one host are spaced out, and a 429 pauses
-// that host (Retry-After if the server sends it) instead of knocking again at once. When a request has used all its
-// tries the host is closed for the rest of the run, and when the waiting adds up past the budget every laned host is:
+// that host (Retry-After if the server sends it) instead of knocking again at once. When a request has used its three
+// tries the host is closed for the rest of the run, and eight minutes after the first refusal every laned host is:
 // those sources fail fast and keep their previous postings (or the browser relay, see index.mjs), so stubborn hosts can
 // never eat the time budget of a scan. One host refusing no longer stops the others — on shared runner addresses it is
 // largely luck which tenant answers, and the lucky ones are worth having.
 const LANE_RULES = [{ re: /\.myworkdayjobs\.com$/i, gap: 650 }];
-const lanes = new Map(), laneBudget = { waited: 0, max: 360000 };
+const lanes = new Map(), laneClock = { first: 0, max: 8 * 60000 }; // hosts wait in parallel, so the limit is on the clock, not on the sum of waits
 const laneOf = (url) => {
   try {
     const h = new URL(url).hostname, rule = LANE_RULES.find((l) => l.re.test(h));
@@ -36,9 +36,9 @@ async function turn(lane) {
 /** fetch with timeout + retry. Throws on final failure. */
 export async function request(url, opts = {}, { retries = 2, timeoutMs = 30000 } = {}) {
   let lastErr;
-  const lane = laneOf(url), max = lane ? Math.max(retries, 3) : retries;
+  const lane = laneOf(url), max = retries;
   for (let attempt = 0; attempt <= max; attempt++) {
-    if (lane && (lane.closed || laneBudget.waited > laneBudget.max)) throw new Error(`HTTP 429 ${url} (this host kept rate-limiting earlier in the run; skipped until the next scan)`);
+    if (lane && (lane.closed || (laneClock.first && Date.now() - laneClock.first > laneClock.max))) throw new Error(`HTTP 429 ${url} (this host kept rate-limiting earlier in the run; skipped until the next scan)`);
     if (lane) await turn(lane);
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), timeoutMs);
@@ -50,9 +50,9 @@ export async function request(url, opts = {}, { retries = 2, timeoutMs = 30000 }
         const ra = Number(res.headers.get("retry-after"));
         const err = new Error(`HTTP ${res.status} ${url}${res.status === 429 && ra > 0 ? ` (retry-after ${ra}s)` : ""}`);
         if (lane && res.status === 429) {
-          const back = Math.min(30000, ra > 0 ? ra * 1000 : [5000, 15000, 30000][Math.min(attempt, 2)]);
+          const back = Math.min(20000, ra > 0 ? ra * 1000 : [3000, 9000, 20000][Math.min(attempt, 2)]);
           lane.until = Math.max(lane.until, Date.now() + back); // the next turn() on this host waits it out
-          laneBudget.waited += back;
+          if (!laneClock.first) laneClock.first = Date.now();
           if (attempt === max) lane.closed = true;
           err.back = 0;
         }
