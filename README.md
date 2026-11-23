@@ -79,12 +79,25 @@ GitHub's runners almost all the time, whatever the pacing. Two things follow:
 
 * *Lanes per host* (`lib.mjs`). Each Workday host is paced and backed off on its own; a host that keeps refusing is
   closed for the run, the others still get their chance. Which tenant answers a shared runner address is largely luck.
-* *Browser relay* (`data/relay.json`). Postings read through a real browser — a home connection is not rate-limited —
-  are kept in the repository. When the scanner's own read of a Workday firm fails, it keeps that firm's previous
-  postings and adds what the relay saw (with the requirements and résumé hits already parsed from the description),
-  and drops the ones the relay found closed. A relay older than three weeks is ignored. The Engine screen marks
-  these sources "browser read" and says which day the read was made; the firm tallies use the relay's count of
-  postings in range. The file is refreshed by reading the sites again in a browser — it does not update itself.
+* *Browser relay* (`data/relay.json`, written by `scraper/tools/relay.js`). A browser on a home connection is not
+  rate-limited, so the Workday firms are read there: the script runs in a tab on each tenant's own site, loads the
+  scanner's own modules from the published repository, lists the firm's postings, keeps Toronto and Hong Kong, runs
+  the same matcher and reads the descriptions the scanner would have read. When the scanner's own read of a Workday
+  firm fails, it uses that firm's relay entry instead — the whole listing when the relay read it completely, otherwise
+  the previous postings plus what the relay found. A reading older than three weeks is ignored. The Engine screen
+  marks these sources "browser read" with the day of the read.
+
+**Refreshing the relay** (a scheduled Claude task does this on weekdays; by hand it is the same five steps):
+
+1. In Chrome, signed in to GitHub as the repository owner, open a tab on the first tenant: `DC.plan()` (below) lists
+   them, e.g. `https://td.wd3.myworkdayjobs.com/robots.txt`.
+2. In that tab run, once per firm (the firm key is the one in `config.json`):
+   `(0, eval)(await (await fetch("https://caesarlu989.github.io/dreamcatcher/scraper/tools/relay.js", { cache: "no-cache" })).text()); await DC.read("td")`
+   It answers with one status line; the data stays in the tab (`window.name`) and follows it from tenant to tenant.
+3. After the last firm: `await DC.finish()` builds the file and opens GitHub's upload page for `data/`.
+4. On that page, hand the file to the upload form:
+   `const s = JSON.parse(window.name), dt = new DataTransfer(); dt.items.add(new File([s.file], "relay.json", { type: "application/json" })); const i = document.querySelector("input[type=file]"); i.files = dt.files; i.dispatchEvent(new Event("change", { bubbles: true })); window.name = ""; s.summary`
+5. Commit to `main`, then run the "DreamCatcher scan" workflow (or wait for the next scheduled scan).
 
 ## Sources (115 companies, 7 groups — the 101 below were verified in the live sites, Sep–Oct 2026)
 
@@ -176,6 +189,7 @@ scraper/adapters/*.mjs      one file per site; generic.mjs = Greenhouse/Lever/As
 data/jobs.json              everything the base filter kept (version 4)
 data/radar.json             what the page shows (version 6): roles, blocked (with the gate), funnel, sources
 data/relay.json             postings read through a browser for Workday firms that refuse GitHub's servers (see above)
+scraper/tools/relay.js      the script that reads them, run in a browser tab on the firm's own site
 data/details.json           cache of fetched job descriptions → parsed requirements / resolved locations
 data/scores.json            memory of Claude scores (so a posting is scored once)
 index.html                  the page, one self-contained file (built — edit the sources, not this)
