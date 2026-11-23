@@ -1,0 +1,47 @@
+// theme.js — the two themes of the Compass「晕」: Klein blue is the main colour, silver is the metal, gold and black are accents only.
+// `vars` become CSS custom properties on <html>; `c` are the colours the dial is drawn with.
+const THEMES0 = {
+  dark: { name: 'dark', tone: 'silver', moon: ACCENT.klein,
+    vars: { base: '#10141F', page: 'radial-gradient(1100px 780px at 76% 330px, rgba(64,100,190,.5) 0%, rgba(64,100,190,0) 62%), radial-gradient(900px 620px at 0% 0%, rgba(160,178,214,.2) 0%, rgba(160,178,214,0) 60%), radial-gradient(900px 700px at 0% 1500px, rgba(64,100,190,.22) 0%, rgba(64,100,190,0) 62%), radial-gradient(1000px 700px at 100% 2500px, rgba(120,140,190,.2) 0%, rgba(120,140,190,0) 62%), linear-gradient(180deg, #1C2437 0%, #161C2B 36%, #10141F 100%)',
+      nav: 'rgba(24,31,47,.72)', ink: '#EEF1F6', 'ink-2': '#BAC1CE', muted: '#8E97A7', faint: '#5F6878', line: 'rgba(206,216,232,.11)', 'line-2': 'rgba(206,216,232,.2)', 'line-3': 'rgba(206,216,232,.36)',
+      surface: 'linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022))', field: 'rgba(255,255,255,.045)', 'seg-on': 'rgba(255,255,255,.11)', 'card-shadow': 'inset 0 1px 0 rgba(255,255,255,.07), 0 18px 40px rgba(0,0,0,.28)',
+      accent: '#5B8CFF', 'accent-ink': '#A9C2FF', 'accent-soft': 'rgba(63,116,255,.2)', 'accent-line': 'rgba(91,140,255,.55)', ember: '#FF9A4D', 'ember-line': 'rgba(255,154,77,.55)',
+      'metal-text': 'linear-gradient(180deg, #FFFFFF 0%, #E9EDF3 34%, #A6AFBD 56%, #EEF1F6 64%, #C0C7D2 100%)', 'metal-line': 'linear-gradient(90deg, rgba(255,255,255,.75), rgba(160,172,190,.25) 45%, rgba(255,255,255,.55))',
+      btn: 'linear-gradient(180deg, #FFFFFF 0%, #DFE4EB 47%, #B7BFCB 53%, #EBEEF3 100%)', 'btn-ink': '#0B0E14', 'btn-shadow': 'inset 0 1px 0 rgba(255,255,255,.7), 0 10px 26px rgba(0,0,0,.38)', 'nav-on': 'linear-gradient(90deg, #AEB7C4, #FFFFFF)',
+      track: 'rgba(206,216,232,.13)', bar: 'linear-gradient(90deg, #C9D0DB, #5B8CFF)', 'r-sm': '4px', 'r-md': '6px', 'r-lg': '10px' },
+    c: { bezel: ['#FFFFFF', '#AEB7C4', '#F3F5F8', '#7E8898', '#E4E8EE', '#98A2B1'], tick: 'rgba(12,16,24,.62)', face: ['#22335A', '#131B31', '#0C111E'], faceEdge: 'rgba(0,0,0,.5)', grid: 'rgba(206,216,232,.2)', gridText: '#8E97A7',
+      sweep: '#7FA8FF', ink: '#EEF1F6', ink2: '#BAC1CE', muted: '#8E97A7', A: '#FFFFFF', B: ['#A9C2FF', '#4C7DFF'], C: 'rgba(91,140,255,.26)', Cs: '#6C96FF', D: '#7C8697', ring: 'rgba(238,241,246,.78)', fresh: '#A9C2FF', ember: '#FF9A4D',
+      hub: '#0C111E', glow: 'rgba(91,140,255,.5)', num: ['#FFFFFF', '#AEB7C4'], thread: ['#F6F8FA', '#8C96A5'], moon: { body: '#131A2B', edge: 'rgba(214,222,236,.32)', lit: ['#FFFFFF', '#9FA9B8'] }, pipe: ['#F2F5F9', '#5B8CFF', 'rgba(91,140,255,.45)', '#4A5364'] } },
+  light: { name: 'light', tone: 'steel', moon: ACCENT.klein,
+    vars: { base: '#FFFFFF', page: 'radial-gradient(1100px 780px at 76% 330px, rgba(196,208,230,.62) 0%, rgba(196,208,230,0) 62%), radial-gradient(900px 700px at 0% 1500px, rgba(206,216,234,.5) 0%, rgba(206,216,234,0) 62%), radial-gradient(1000px 700px at 100% 2500px, rgba(214,222,236,.55) 0%, rgba(214,222,236,0) 62%), linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 40%, #F4F6F9 100%)',
+      nav: 'rgba(255,255,255,.82)', ink: '#0C0F14', 'ink-2': '#434A57', muted: '#697280', faint: '#A2A9B5', line: 'rgba(12,16,24,.08)', 'line-2': 'rgba(12,16,24,.15)', 'line-3': 'rgba(12,16,24,.28)',
+      surface: 'linear-gradient(180deg, #FFFFFF, #FBFCFD)', field: '#FFFFFF', 'seg-on': '#ECEFF4', 'card-shadow': 'inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(16,24,40,.05), 0 16px 36px rgba(16,24,40,.07)',
+      accent: '#1F55F0', 'accent-ink': '#1747D0', 'accent-soft': 'rgba(31,85,240,.09)', 'accent-line': 'rgba(31,85,240,.42)', ember: '#B5480A', 'ember-line': 'rgba(181,72,10,.45)',
+      'metal-text': 'linear-gradient(180deg, #808998 0%, #2C313B 40%, #0E1116 56%, #5C6370 66%, #1A1E25 100%)', 'metal-line': 'linear-gradient(90deg, rgba(60,68,82,.55), rgba(60,68,82,.12) 45%, rgba(60,68,82,.4))',
+      btn: 'linear-gradient(180deg, #454C59 0%, #1E222A 48%, #0C0E12 54%, #2C313B 100%)', 'btn-ink': '#FFFFFF', 'btn-shadow': 'inset 0 1px 0 rgba(255,255,255,.22), 0 8px 20px rgba(16,24,40,.22)', 'nav-on': 'linear-gradient(90deg, #1F55F0, #6C96FF)',
+      track: 'rgba(12,16,24,.09)', bar: 'linear-gradient(90deg, #8C95A4, #1F55F0)', 'r-sm': '4px', 'r-md': '6px', 'r-lg': '10px' },
+    c: { bezel: ['#FFFFFF', '#B9C1CD', '#F7F8FA', '#8A94A3', '#EEF1F5', '#A6AFBC'], tick: 'rgba(20,26,36,.6)', face: ['#FFFFFF', '#F6F8FB', '#E6EAF1'], faceEdge: 'rgba(40,50,70,.22)', grid: 'rgba(12,16,24,.16)', gridText: '#697280',
+      sweep: '#1F55F0', ink: '#0C0F14', ink2: '#434A57', muted: '#697280', A: '#12151B', B: ['#5B8CFF', '#1F55F0'], C: 'rgba(31,85,240,.14)', Cs: '#1F55F0', D: '#9AA2AF', ring: 'rgba(28,33,42,.78)', fresh: '#1F55F0', ember: '#B5480A',
+      hub: '#FFFFFF', glow: 'rgba(31,85,240,.22)', num: ['#59606C', '#12151B'], thread: ['#8D96A4', '#2A2F38'], moon: { body: '#EEF1F5', edge: 'rgba(12,16,24,.22)', lit: ['#59616E', '#12151B'] }, pipe: ['#12151B', '#1F55F0', 'rgba(31,85,240,.4)', '#C5CBD5'] } },
+};
+const B0 = THEMES0;
+const DARK = {
+  vars: { ...B0.dark.vars, page: 'radial-gradient(560px 190px at 74% 150px, rgba(60,224,186,.06) 0%, rgba(60,224,186,0) 70%), ' + B0.dark.vars.page, ember: '#FF8468', 'ember-line': 'rgba(255,132,104,.55)', plate: 'linear-gradient(180deg, #1D2538, #141A29)',
+    'gold-text': 'linear-gradient(180deg, #FFF4CF 0%, #F2D283 30%, #B88A32 56%, #F4DB8E 66%, #C99C40 100%)', brush: 'repeating-linear-gradient(90deg, rgba(255,255,255,.016) 0 1px, rgba(255,255,255,0) 1px 3px)',
+    chamfer: 'linear-gradient(90deg, rgba(240,207,124,0), rgba(240,207,124,.7) 18%, #FFF8E0 50%, rgba(240,207,124,.7) 82%, rgba(240,207,124,0))', edge: 'linear-gradient(135deg, rgba(246,216,136,.98), rgba(206,216,232,.24) 15%, rgba(206,216,232,.13) 85%, rgba(246,216,136,.85))',
+    edge4: 'linear-gradient(135deg, rgba(246,216,136,.95), rgba(206,216,232,.22) 10%, rgba(206,216,232,.13) 90%, rgba(246,216,136,.8))', streak: 'rgba(255,255,255,.06)' },
+  c: { ...B0.dark.c, gold: ['#FFF4CF', '#F0CF7C', '#C99C40', '#8A6820', '#4F3A10'], silver: ['#FFFFFF', '#DCE1E8', '#A9B1BE', '#6F7886', '#2E333B'], blue: ['#E3ECFF', '#A9C2FF', '#5B8CFF', '#1F55F0', '#0A2FA8'],
+    facet: ['#090B11', '#7C8499'], matte: ['#1D2744', '#10172B', '#080B15'], faceEdge: 'rgba(0,0,0,.65)', sun: ['#56627F', '#1D2437', '#090C16'], sunBlue: ['#6490FF', '#2450E6', '#081F7A'],
+    hub: '#0C111E', shadow: 'rgba(0,0,0,.55)', halo: 'rgba(169,194,255,.6)', markF: ['#E3ECFF', '#3F74FF'], markO: ['#F2F4F7', '#8E97A5'], litF: ['#E3ECFF', '#5B8CFF'], litO: ['#FFFFFF', '#A3ACB9'], moonBody: '#0F1424', moonEdge: 'rgba(214,222,236,.34)', moonEdgeF: 'rgba(127,168,255,.8)', win: ['#0E1220', null],
+    dim: '#5F6878', ember: '#FF8468', fresh: '#EEF1F6', veil: ['rgba(60,224,186,.13)', 'rgba(59,167,255,.14)'], trace: ['#7FE0FF', '#3F74FF'], haloC: '#DCE4F2', sheen: 'rgba(255,255,255,.07)', ray: ['#DCE7FF', '#7FA8FF', '#3F74FF'], cor: ['#8FB2FF', '#3F74FF', '#1F55F0'], corOp: [.8, .36, .13],
+    moon: { body: '#131A2B', edge: 'rgba(169,194,255,.5)', lit: ['#CFE0FF', '#4C7DFF'] }, moonS: B0.dark.c.moon, lab: '#EEF1F6' } };
+const LIGHT = {
+  vars: { ...B0.light.vars, muted: '#626B79', plate: 'linear-gradient(180deg, #FFFFFF, #FAFBFC)', 'gold-text': 'linear-gradient(180deg, #A67C1E 0%, #7A570B 40%, #5A3F05 56%, #8A6410 66%, #6B4C08 100%)', brush: 'repeating-linear-gradient(90deg, rgba(12,16,24,.014) 0 1px, rgba(12,16,24,0) 1px 3px)',
+    chamfer: 'linear-gradient(90deg, rgba(184,137,42,0), rgba(184,137,42,.6) 18%, #E8CB7A 50%, rgba(184,137,42,.6) 82%, rgba(184,137,42,0))', edge: 'linear-gradient(135deg, rgba(184,137,42,.98), rgba(12,16,24,.16) 15%, rgba(12,16,24,.1) 85%, rgba(184,137,42,.85))',
+    edge4: 'linear-gradient(135deg, rgba(184,137,42,.95), rgba(12,16,24,.15) 10%, rgba(12,16,24,.1) 90%, rgba(184,137,42,.8))', streak: 'rgba(255,255,255,.75)' },
+  c: { ...B0.light.c, muted: '#626B79', gridText: '#626B79', gold: ['#FBEDC0', '#E3BE62', '#B8892A', '#8A6410', '#5F4306'], silver: ['#FFFFFF', '#E6E9EE', '#B4BCC8', '#7F8998', '#4A515D'], blue: ['#DCE7FF', '#7FA8FF', '#3F74FF', '#1F55F0', '#0A2FA8'],
+    facet: ['#98A1AF', '#FFFFFF'], matte: ['#FFFFFF', '#F6F8FB', '#E6EAF1'], faceEdge: 'rgba(40,50,70,.22)', sun: ['#FFFFFF', '#EEF1F6', '#D7DDE8'], sunBlue: ['#6490FF', '#2450E6', '#081F7A'],
+    hub: '#FFFFFF', shadow: 'rgba(30,40,70,.24)', halo: 'rgba(91,140,255,.5)', markF: ['#86ABFF', '#1741C6'], markO: ['#A6AFBC', '#3F4651'], litF: ['#6C96FF', '#1741C6'], litO: ['#8C95A4', '#2E343E'], moonBody: '#FFFFFF', moonEdge: 'rgba(12,16,24,.3)', moonEdgeF: 'rgba(31,85,240,.75)', win: ['#AEB6C2', '#FFFFFF'],
+    dim: '#A2A9B5', fresh: '#0C0F14', veil: ['rgba(40,190,160,.07)', 'rgba(59,150,240,.08)'], trace: ['#35B8E8', '#1F55F0'], haloC: '#8C95A4', sheen: 'rgba(120,130,150,.1)', ray: ['#1F55F0', '#3F74FF', '#7FA8FF'], cor: ['#5B8CFF', '#3F74FF', '#7FA8FF'], corOp: [.55, .26, .1],
+    moon: { body: '#EEF1F5', edge: 'rgba(31,85,240,.4)', lit: ['#6C96FF', '#1F55F0'] }, moonS: B0.light.c.moon, lab: '#0C0F14' } };
+const THEMES = Object.fromEntries(['dark', 'light'].map((name) => { const S = name === 'dark' ? DARK : LIGHT; return [name, { name, tone: name === 'dark' ? 'silver' : 'steel', moon: ACCENT.klein, vars: { ...S.vars, 'r-sm': '6px', 'r-md': '8px', 'r-lg': '12px' }, c: S.c }]; }));
