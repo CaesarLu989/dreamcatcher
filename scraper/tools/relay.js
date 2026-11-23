@@ -63,6 +63,7 @@
     if (!c || c.adapter !== "workday") throw new Error(`${key}: not a Workday source in config.json`);
     if (location.hostname !== hostOf(c)) throw new Error(`${key}: this tab is on ${location.hostname}; open https://${hostOf(c)}/robots.txt first`);
     const sites = c.sites || [c.site], all = c.queries || [""], near = all.filter((q) => !ELSEWHERE.test(q)), queries = near.length ? near : all;
+    const where = (j) => [j.location || "", ...(j.locations || [])].join(" · "), tail = (j) => j.id.slice(key.length + 1);
     const rows = new Map(); let listed = 0, short = false;
     for (const site of sites) for (const q of queries) {
       const api = `/wday/cxs/${c.tenant}/${site}/jobs`, body = (o) => ({ appliedFacets: c.facets || {}, limit: 20, offset: o, searchText: q });
@@ -72,11 +73,12 @@
       await pool(pages, 4, async (p) => { const n = add(await call(api, body(p * 20))); got += n; }); // (not `got += add(await …)`: the old value would be read before the wait)
       listed += got; if (got < Math.min(total, (c.maxPages || 10) * 20)) short = true;
     }
-    const where = (j) => [j.location || "", ...(j.locations || [])].join(" · "), tail = (j) => j.id.slice(key.length + 1);
-    let jobs = [...rows.values()].filter((j) => j.locationsUnknown || REGION.test(where(j)));
+    // "3 Locations" rows that an earlier reading already found to be somewhere else are not opened again
+    const mine = (state().firms[key] || {}), last = (prev && prev.firms[key]) || {}, away = new Set([...(last.elsewhere || []), ...(mine.elsewhere || [])]);
+    let jobs = [...rows.values()].filter((j) => (j.locationsUnknown ? !away.has(tail(j)) : REGION.test(where(j))));
     for (const j of jobs) { j.req = L.parseRequirements(j.title + "\n" + (j.snippet || "")); j.match = match(j); }
     // the same rule as the scanner: read a description when the cities are not in the listing, or the posting looks promising
-    const dc = { minScore: 52, ...(config.details || {}) }, now = new Date().toISOString(), old = { ...((prev && prev.firms[key] && prev.firms[key].details) || {}), ...((state().firms[key] || {}).details || {}) }, details = {}, need = []; // descriptions already read: last published relay, and earlier in this tab
+    const dc = { minScore: 52, ...(config.details || {}) }, now = new Date().toISOString(), old = { ...(last.details || {}), ...(mine.details || {}) }, details = {}, need = []; // descriptions already read: last published relay, and earlier in this tab
     for (const j of jobs) { if (!(j.locationsUnknown || (j.match.tier !== "dropped" && j.match.score >= dc.minScore))) continue; const d = old[tail(j)]; if (d && d.ok && d.v === 2) details[tail(j)] = d; else need.push(j); }
     let fresh = 0, failed = 0;
     await pool(need.slice(0, 160), 4, async (j) => {
@@ -87,13 +89,14 @@
       } catch (e) { failed++; }
     });
     for (const j of jobs) if (j.locationsUnknown) { const d = details[tail(j)]; if (d && d.locations) { j.locations = [...new Set(d.locations)]; j.location = j.locations.join(" · "); delete j.locationsUnknown; } }
-    const unresolved = jobs.filter((j) => j.locationsUnknown).length;
+    const unresolved = jobs.filter((j) => j.locationsUnknown).length, listedIds = new Set([...rows.values()].map(tail));
+    const elsewhere = [...new Set([...away, ...jobs.filter((j) => !j.locationsUnknown && !REGION.test(where(j))).map(tail)])].filter((id) => listedIds.has(id));
     jobs = jobs.filter((j) => !j.locationsUnknown && REGION.test(where(j)));
     const keep = new Set(jobs.map(tail)); for (const id of Object.keys(details)) if (!keep.has(id)) delete details[id];
     const before = ((prev && prev.firms[key] && prev.firms[key].postings) || []).length, suspicious = jobs.length === 0 && before >= 5;
-    const rec = { readAt: now, complete: !short && !suspicious, listed, inRegion: jobs.length, unresolved: unresolved || undefined,
+    const rec = { readAt: now, complete: !short && !suspicious, listed, inRegion: jobs.length, unresolved: unresolved || undefined, elsewhere: elsewhere.length ? elsewhere : undefined,
       postings: jobs.map((j) => ({ id: tail(j), title: j.title, path: j.wdPath, site: j.wdSite, locations: j.locations, postedAt: j.postedAt || undefined, snippet: j.snippet || undefined })), details };
-    const line = `${key}: ${listed} listed, ${jobs.length} in Toronto / Hong Kong (was ${before}), ${Object.keys(details).length} descriptions (${fresh} read now${failed ? `, ${failed} failed` : ""}${need.length > 160 ? `, ${need.length - 160} left for next time` : ""})${rec.complete ? "" : short ? " — listing cut short, NOT complete" : " — empty where there used to be postings, NOT trusted"}, ${((Date.now() - t0) / 1000).toFixed(1)} s`;
+    const line = `${key}: ${listed} listed, ${jobs.length} in Toronto / Hong Kong (was ${before}), ${Object.keys(details).length} descriptions (${fresh} read now${failed ? `, ${failed} failed` : ""}${need.length > 160 ? `, ${need.length - 160} left for next time` : ""}${elsewhere.length ? `, ${elsewhere.length} multi-city rows are elsewhere` : ""})${rec.complete ? "" : short ? " — listing cut short, NOT complete" : " — empty where there used to be postings, NOT trusted"}, ${((Date.now() - t0) / 1000).toFixed(1)} s`;
     const s = state(); s.firms[key] = rec; s.log.push(line); save(s);
     return line;
   }
