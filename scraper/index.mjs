@@ -135,7 +135,16 @@ async function main() {
         const f = path.join(String(args.fixtures), c.key + ".json");
         if (!fs.existsSync(f)) { log(`${c.key}: no fixture, skipped`); return; }
         jobs = loadFixture(f);
-      } else jobs = await fn(c);
+      } else {
+        // A Workday site that has refused every scan for two days is left alone while the browser reading of that firm
+        // is fresh (36 hours): asking it again every three hours gains nothing. Once the reading has aged it is asked
+        // again, and a site that answered within the last two days is always asked.
+        const Rf = relay && c.adapter === "workday" ? relay.firms[c.key] : null, was = (prev.sources || {})[c.key], WAIT = "not asked this scan (the browser reading is fresh); last answer: ";
+        const age = (t) => Date.now() - new Date(t || 0).getTime();
+        if (Rf && Rf.complete && was && was.ok === false && age(Rf.readAt || relay.readAt) < 36 * 3600000 && age(was.lastOkAt || was.fetchedAt) > 48 * 3600000)
+          throw new Error(WAIT + String(was.error || "refused").replace(WAIT, "").slice(0, 150));
+        jobs = await fn(c);
+      }
       // company-level location filter (rows with unknown locations are resolved later through fetchDetail)
       const before = jobs.length;
       const warnings = jobs.warnings || undefined; // adapters attach notes to the array; filter() below would drop them
