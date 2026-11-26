@@ -58,8 +58,9 @@ or Hong Kong desks: Bank of America, Deutsche Bank, Mizuho · Greenhill, MUFG, C
 Capital One Canada, State Street, Invesco, Fidelity Canada, CI Financial, Intact, Mastercard. Their endpoints were
 checked in a browser on 2026-11-17; they stay marked `"probation"` in `config.json` until a few scans from GitHub
 Actions confirm them, and the Engine screen shows each one's result. (Tried and left out because their career
-sites return nothing for Toronto: Raymond James, Northern Trust, Franklin Templeton, PSP Investments.) All Workday tenants now share one polite lane in `scraper/lib.mjs`
-(spaced requests, Retry-After aware back-off) because Workday started answering HTTP 429 to bursts.
+sites return nothing for Toronto: Raymond James, Northern Trust, Franklin Templeton, PSP Investments.) Each Workday
+host has its own paced lane in `scraper/lib.mjs` (spaced requests, Retry-After aware back-off) — see "Workday and
+GitHub's servers" below.
 
 **Fixed on 2026-11-22** (found while reading the banks' sites directly in a browser):
 
@@ -73,12 +74,23 @@ sites return nothing for Toronto: Raymond James, Northern Trust, Franklin Temple
 * *Blocked list.* Every stopped posting is counted; when there are more than 2,500 the page gets the most telling
   ones first (level, language, credential, status), then "no track", then the out-of-scope families.
 
-**Workday and GitHub's servers (2026-11-23).** The first scan with the fixed adapter showed the real state of things:
-every Workday tenant (the Canadian banks, the pension funds, Brookfield, most of the new firms) answers HTTP 429 to
-GitHub's runners almost all the time, whatever the pacing. Two things follow:
+**Workday and GitHub's servers.** GitHub Actions reads every other source by itself, every three hours. The 45
+Workday firms are different, and the scan history says since when (`git log -- data/jobs.json`):
+
+* Up to the morning of 16 November 2026 they answered GitHub's runners: 481 of 512 reads in the week before (94%).
+* Since that afternoon they answer HTTP 429 to most reads: 96 of 730 over the next 22 scans (13%). TD, RBC, Citi,
+  PwC, OMERS, Manulife, Sun Life and TMX have not answered once. Most of the others answer one scan in ten or twenty.
+  Only the tenants on wd10 / wd12 / wd108 (CPP Investments, HOOPP, FTI, Canaccord, Desjardins, Capital One) answer
+  about half the time or more.
+* It is not the pacing and not what is asked. On 23 November a scan also asked each refusing host for its career page
+  and its `robots.txt`: 37 of 38 refused those too. The limit is on the address the request comes from, and GitHub's
+  runners share theirs with everyone else's jobs. (`robots.txt` itself, read from a home connection, allows the career
+  site.) The scanner does not go looking for another address to ask from; it backs off and uses the reading below.
+
+What the scan does about it:
 
 * *Lanes per host* (`lib.mjs`). Each Workday host is paced and backed off on its own; a host that keeps refusing is
-  closed for the run, the others still get their chance. Which tenant answers a shared runner address is largely luck.
+  closed for the run, the others still get their chance.
 * *Browser relay* (`data/relay.json`, written by `scraper/tools/relay.js`). A browser on a home connection is not
   rate-limited, so the Workday firms are read there: the script runs in a tab on each tenant's own site, loads the
   scanner's own modules from the published repository, lists the firm's postings, keeps Toronto and Hong Kong, runs
@@ -86,8 +98,14 @@ GitHub's runners almost all the time, whatever the pacing. Two things follow:
   firm fails, it uses that firm's relay entry instead — the whole listing when the relay read it completely, otherwise
   the previous postings plus what the relay found. A reading older than three weeks is ignored. The Engine screen
   marks these sources "browser read" with the day of the read.
+* *No knocking while a reading is fresh* (`index.mjs`). A Workday site that has refused every scan for two days is not
+  asked at all while its browser reading is less than 36 hours old; the source's note then starts with "not asked
+  this scan". When the reading ages, or once the site has answered again, it is asked as before.
 
-**Refreshing the relay** (a scheduled Claude task does this on weekdays; by hand it is the same five steps):
+So the Workday firms are as fresh as the last browser reading, and everything else is as fresh as the last scan.
+
+**Refreshing the relay** (five steps in the owner's own Chrome; they can be done by hand or given to an assistant
+that drives that browser on a schedule):
 
 1. In Chrome, signed in to GitHub as the repository owner, open a tab on the first tenant: `DC.plan()` (below) lists
    them, e.g. `https://td.wd3.myworkdayjobs.com/robots.txt`.
